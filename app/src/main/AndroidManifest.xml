@@ -3,6 +3,7 @@
     package="com.example.psyhealthapp">
 
     <application
+        android:name=".HealthApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -10,7 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PsyHealthApp">
         <activity
-            android:name=".MainActivity"
+            android:configChanges="colorMode|density|uiMode|orientation|layoutDirection|screenLayout|screenSize|keyboardHidden|fontScale|locale|keyboard"
+            android:name=".HealthAppMainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
