@@ -39,4 +39,6 @@
     <string name="moving_object_reaction_test_tap_to_proceed">"Нажмите чтобы попробовать снова."</string>
     <string name="moving_object_reaction_test_stop_circle">Стоп.</string>
 
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

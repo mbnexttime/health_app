@@ -7,7 +7,6 @@ plugins {
 
 apply plugin: 'dagger.hilt.android.plugin'
 
-
 android {
     signingConfigs {
         release {
