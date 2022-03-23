@@ -34,15 +34,12 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
     packagingOptions {
-        exclude 'META-INF/DEPENDENCIES'
-        exclude 'META-INF/NOTICE'
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/gradle/incremental.annotation.processors'
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/NOTICE.txt'
+        resources {
+            excludes += ['META-INF/DEPENDENCIES', 'META-INF/NOTICE', 'META-INF/LICENSE', 'META-INF/gradle/incremental.annotation.processors', 'META-INF/LICENSE.txt', 'META-INF/NOTICE.txt']
+        }
     }
+
 }
 
 kapt {
@@ -61,7 +58,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
     implementation "androidx.activity:activity-ktx:1.4.0"
     // View binding helper.
-    implementation "com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.4.4"
+    implementation "com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.5.3"
     // RecyclerView adapter delegates.
 // https://github.com/sockeqwe/AdapterDelegates
     def adapterDelegatesVersion = '4.3.0'
