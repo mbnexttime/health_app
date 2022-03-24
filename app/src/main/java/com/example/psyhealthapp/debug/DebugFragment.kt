@@ -5,10 +5,10 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.example.psyhealthapp.R
 import com.example.psyhealthapp.core.FragmentHolder
+import com.example.psyhealthapp.user.testing.tappingtest.ui.TappingTestMainFragment
 
 class DebugFragment : Fragment(R.layout.debug_fragment) {
     /**
@@ -18,6 +18,9 @@ class DebugFragment : Fragment(R.layout.debug_fragment) {
         FragmentHolder {
             return@FragmentHolder BaseDebugFragment()
         },
+        FragmentHolder {
+            return@FragmentHolder TappingTestMainFragment()
+        }
     )
 
 

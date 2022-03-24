@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tapping_test_graph"
+    app:startDestination="@id/tappingTestInstruction">
+
+    <fragment
+        android:id="@+id/tappingTestInstruction"
+        android:name="com.example.psyhealthapp.user.testing.tappingtest.ui.TappingTestInstructionFragment"
+        android:label="InstructionFragment"
+        tools:layout="@layout/tapping_test_instruction_fragment">
+        <action
+            android:id="@+id/action_tappingTestInstruction_to_tappingTestChallenge"
+            app:destination="@id/tappingTestChallenge" />
+    </fragment>
+    <fragment
+        android:id="@+id/tappingTestChallenge"
+        android:name="com.example.psyhealthapp.user.testing.tappingtest.ui.TappingTestChallengeFragment"
+        android:label="ChallengeFragment"
+        tools:layout="@layout/tapping_test_challenge_fragment">
+        <action
+            android:id="@+id/action_tappingTestChallenge_to_tappingTestResult"
+            app:destination="@id/tappingTestResult" />
+    </fragment>
+    <fragment
+        android:id="@+id/tappingTestResult"
+        android:name="com.example.psyhealthapp.user.testing.tappingtest.ui.TappingTestResultFragment"
+        android:label="ResultFragment"
+        tools:layout="@layout/tapping_test_result_fragment" >
+        <action
+            android:id="@+id/action_tappingTestResult_to_tappingTestInstruction"
+            app:destination="@id/tappingTestInstruction" />
+    </fragment>
+</navigation>
