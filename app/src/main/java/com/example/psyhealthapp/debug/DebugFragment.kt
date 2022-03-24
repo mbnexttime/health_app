@@ -26,7 +26,7 @@ class DebugFragment : Fragment(R.layout.debug_fragment) {
             return@FragmentHolder BaseDebugFragment()
         },
         FragmentHolder {
-            return@FragmentHolder ProfileFragment()
+            return@FragmentHolder StatisticFragment()
         }
         FragmentHolder {
             return@FragmentHolder TestReactionInstructionFragment()
@@ -50,7 +50,6 @@ class DebugFragment : Fragment(R.layout.debug_fragment) {
             return@FragmentHolder MovingObjectReactionTestInstructionFragment()
         },
     )
-
 
     private var currentFragment: Fragment? = null
 

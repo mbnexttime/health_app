@@ -16,4 +16,6 @@
     <color name="profile_text">#FF000000</color>
 
     <color name="brand_green">#FF04B80B</color>
+    <color name="inactive_stat_page"> #F6F1F1 </color>
+    <color name="active_stat_page"> #EFBEBE </color>
 </resources>
