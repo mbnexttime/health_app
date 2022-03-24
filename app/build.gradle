@@ -9,6 +9,15 @@ apply plugin: 'dagger.hilt.android.plugin'
 
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('keystore.jks')
+            storePassword 'fakely'
+            keyAlias 'key'
+            keyPassword 'fakely'
+        }
+    }
+
     compileSdk 31
 
     defaultConfig {
@@ -19,6 +28,17 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            debuggable false
+            jniDebuggable false
+            signingConfig signingConfigs.release
+        }
     }
 
 
@@ -43,10 +63,11 @@ android {
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'
     }
+    buildToolsVersion '31.0.0'
 }
 
 kapt {
- correctErrorTypes true
+    correctErrorTypes true
 }
 
 dependencies {
@@ -67,10 +88,21 @@ dependencies {
     def adapterDelegatesVersion = '4.3.0'
     implementation "com.hannesdorfmann:adapterdelegates4-kotlin-dsl:$adapterDelegatesVersion"
     implementation "com.hannesdorfmann:adapterdelegates4-kotlin-dsl-viewbinding:$adapterDelegatesVersion"
-    // Navigation.
-    def navigationVersion = "2.5.0-alpha03"
-    implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
-    implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
+    def nav_version = "2.4.1"
+    // Kotlin
+
+    implementation("androidx.navigation:navigation-fragment:$nav_version")
+    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+
+    // Feature module Support
+    implementation("androidx.navigation:navigation-dynamic-features-fragment:$nav_version")
+
+    // Testing Navigation
+    androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
+
+    // Jetpack Compose Integration
+    implementation("androidx.navigation:navigation-compose:$nav_version")
     // Dependency injection.
     def hiltVersion = "2.38.1"
     implementation "com.google.dagger:hilt-android:$hiltVersion"
