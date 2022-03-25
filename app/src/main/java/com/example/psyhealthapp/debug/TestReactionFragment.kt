@@ -20,7 +20,8 @@ class TestReactionFragment : Fragment(R.layout.test_reaction_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        var counter = 0
+        var meanReactionTime: Long = 0
         viewBinding.reactionButton.setOnClickListener {
             when (_buttonState) {
                 ButtonState.Start -> {
@@ -42,15 +43,45 @@ class TestReactionFragment : Fragment(R.layout.test_reaction_fragment) {
                     reactionTime = System.currentTimeMillis() - reactionTime
                     viewBinding.reactionButton.text = "Your result $reactionTime ms. Press to start again."
                     _buttonState = ButtonState.Start
+                    counter++
+                    meanReactionTime += reactionTime
+                    if (counter == 10) {
+                        meanReactionTime /= counter
+                        viewBinding.reactionButton.setBackgroundColor(resources.getColor(R.color.purple_700))
+                        viewBinding.reactionButton.text =
+                            "Your result $meanReactionTime ms."
+                        _buttonState = ButtonState.End
+                    }
+                }
+                ButtonState.End -> {
+                    // TODO: реализовать переход, сохранение данных
                 }
             }
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        if(_buttonState == ButtonState.Wait) {
+            viewBinding.reactionButton.setBackgroundColor(resources.getColor(R.color.purple_700))
+            viewBinding.reactionButton.text = "Something happens! Try again."
+            _buttonState = ButtonState.Start
+            timer.cancel()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if(_buttonState == ButtonState.Wait) {
+            timer.cancel()
         }
     }
 
     enum class ButtonState {
         Start,
         Wait,
-        Click
+        Click,
+        End
     }
 
     private fun timer(millisRunning : Long, countDownInterval : Long) : CountDownTimer {
