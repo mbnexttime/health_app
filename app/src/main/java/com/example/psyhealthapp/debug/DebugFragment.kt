@@ -16,7 +16,7 @@ class DebugFragment : Fragment(R.layout.debug_fragment) {
      */
     private val fragments: ArrayList<FragmentHolder> = arrayListOf(
         FragmentHolder {
-            return@FragmentHolder BaseDebugFragment()
+            return@FragmentHolder TestReactionFragment()
         },
     )
 
