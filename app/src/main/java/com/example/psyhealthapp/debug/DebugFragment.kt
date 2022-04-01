@@ -10,6 +10,7 @@ import com.example.psyhealthapp.R
 import com.example.psyhealthapp.core.FragmentHolder
 import com.example.psyhealthapp.history.HistoryAddFragment
 import com.example.psyhealthapp.user.testing.tappingtest.ui.TappingTestMainFragment
+import com.example.psyhealthapp.profile.ProfileFragment
 
 class DebugFragment : Fragment(R.layout.debug_fragment) {
     /**
@@ -18,6 +19,9 @@ class DebugFragment : Fragment(R.layout.debug_fragment) {
     private val fragments: ArrayList<FragmentHolder> = arrayListOf(
         FragmentHolder {
             return@FragmentHolder BaseDebugFragment()
+        },
+        FragmentHolder {
+            return@FragmentHolder ProfileFragment()
         },
         FragmentHolder {
             return@FragmentHolder TappingTestMainFragment()
