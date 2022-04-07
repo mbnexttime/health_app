@@ -6,16 +6,24 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:padding="15dp"
-        />
+        android:layout_height="match_parent">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:padding="15dp"
-        android:layout_height="150dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-    </androidx.cardview.widget.CardView>
+            <com.example.psyhealthapp.user.statistics.tests.LastDaysActivity
+                android:layout_width="340dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginVertical="15dp"
+                app:cardBackgroundColor="@color/inactive_stat_page"
+                app:cardCornerRadius="28dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
 </LinearLayout>

@@ -1,26 +1,21 @@
-package com.example.psyhealthapp.debug
+package com.example.psyhealthapp.user.statistics.main
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.LinearLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.PagerAdapter
-import androidx.viewpager.widget.PagerTitleStrip
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.example.psyhealthapp.R
+import com.example.psyhealthapp.user.statistics.subpage.StatPageFragment
 
 class StatisticFragment : Fragment(R.layout.statistic_fragment) {
     private val navButtons = mutableListOf<Button>()
@@ -29,9 +24,9 @@ class StatisticFragment : Fragment(R.layout.statistic_fragment) {
         const val PAGE_COUNT = 3
     }
     private lateinit var pager : ViewPager
-    lateinit var pagerAdapter: PagerAdapter
+    private lateinit var pagerAdapter: PagerAdapter
 
-    fun initNavButtons(view : View) {
+    private fun initNavButtons(view : View) {
         navButtons.add(view.findViewById(R.id.button7))
         navButtons.add(view.findViewById(R.id.button8))
         navButtons.add(view.findViewById(R.id.button9))
@@ -48,10 +43,11 @@ class StatisticFragment : Fragment(R.layout.statistic_fragment) {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
         val view = inflater.inflate(R.layout.statistic_fragment, null)
         initNavButtons(view)
 
-        pagerAdapter = MyFragmentPagerAdapter(parentFragmentManager)
+        pagerAdapter = MyFragmentPagerAdapter(childFragmentManager)
         pager = view.findViewById<ViewPager>(R.id.pager)
 
         pager.adapter = pagerAdapter
@@ -59,11 +55,13 @@ class StatisticFragment : Fragment(R.layout.statistic_fragment) {
         pager.setOnPageChangeListener(object : OnPageChangeListener {
             var current_page = 0
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+
             override fun onPageSelected(position: Int) {
                 navButtons[current_page].setBackgroundColor(ResourcesCompat.getColor(resources, R.color.inactive_stat_page, null))
                 current_page = position
                 navButtons[current_page].setBackgroundColor(ResourcesCompat.getColor(resources, R.color.active_stat_page, null))
             }
+
             override fun onPageScrollStateChanged(state: Int) {}
         })
 

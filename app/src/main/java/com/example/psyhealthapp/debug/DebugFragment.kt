@@ -16,6 +16,7 @@ import com.example.psyhealthapp.tests.ComplexTestReactionFragment
 import com.example.psyhealthapp.tests.MovingObjectReactionTestFragment
 import com.example.psyhealthapp.tests.TestReactionFragment
 import com.example.psyhealthapp.tests.*
+import com.example.psyhealthapp.user.statistics.main.StatisticFragment
 
 class DebugFragment : Fragment(R.layout.debug_fragment) {
     /**

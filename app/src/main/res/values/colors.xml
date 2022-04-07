@@ -18,4 +18,14 @@
     <color name="brand_green">#FF04B80B</color>
     <color name="inactive_stat_page"> #F6F1F1 </color>
     <color name="active_stat_page"> #EFBEBE </color>
+    <color name="light_green"> #F6FFEB </color>
+    <color name="light_blue"> #DDF4FB </color>
+    <color name="light_beige"> #FBF7F7 </color>
+
+    <color name="bar_sample_color_1"> #D1786B </color>
+    <color name="bar_sample_color_2"> #EA8069 </color>
+    <color name="bar_sample_color_3"> #FFB7A0 </color>
+    <color name="bar_sample_color_4"> #A47060 </color>
+    <color name="bar_sample_color_5"> #EE5939 </color>
+
 </resources>
