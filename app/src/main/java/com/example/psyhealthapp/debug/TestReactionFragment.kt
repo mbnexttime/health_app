@@ -56,6 +56,7 @@ class TestReactionFragment : Fragment(R.layout.test_reaction_fragment) {
                 ButtonState.End -> {
                     // TODO: реализовать переход, сохранение данных
                 }
+
             }
         }
     }
