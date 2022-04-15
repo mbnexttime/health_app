@@ -1,17 +1,19 @@
 package com.example.psyhealthapp.db
 
+import android.app.Application
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
+import javax.inject.Singleton
 
-@ActivityScoped
+@Singleton
 class DBProvider @Inject constructor(
-    private val activity: AppCompatActivity,
+    private val application: Application,
 ) {
     private val sp: SharedPreferences by lazy {
-        activity.getSharedPreferences(TAG, MODE_PRIVATE)
+        application.getSharedPreferences(TAG, MODE_PRIVATE)
     }
 
     private val dbMap: HashMap<String, DB> = HashMap()

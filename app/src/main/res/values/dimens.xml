@@ -3,4 +3,5 @@
     <dimen name="debug_fragment_chooser_button_width">100dp</dimen>
     <dimen name="debug_fragment_chooser_button_text_size">12dp</dimen>
     <dimen name="bottom_navigation_view_height">56dp</dimen>
+    <dimen name="onboarding_data_view_left_margin">32dp</dimen>
 </resources>

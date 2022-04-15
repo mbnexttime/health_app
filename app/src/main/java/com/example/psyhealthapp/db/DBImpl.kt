@@ -15,7 +15,7 @@ internal class DBImpl(
 
     }
 
-    override fun <T> getParcelable(tag: String, cl: Class<T>): T? {
+    override fun <T : Parcelable> getParcelable(tag: String, cl: Class<T>): T? {
         val json = sp.getString(tag + spTag, null)
         return try {
             if (json != null)
@@ -24,5 +24,35 @@ internal class DBImpl(
         } catch (_: JsonSyntaxException) {
             null
         }
+    }
+
+    override fun putInt(tag: String, value: Int) {
+        sp.edit().putInt(tag + spTag, value).apply()
+    }
+
+    override fun getInt(tag: String): Int? {
+        if (!sp.contains(tag + spTag)) {
+            return null
+        }
+        return sp.getInt(tag + spTag, 0)
+    }
+
+    override fun putString(tag: String, value: String) {
+        sp.edit().putString(tag + spTag, value).apply()
+    }
+
+    override fun getString(tag: String): String? {
+        return sp.getString(tag + spTag, null)
+    }
+
+    override fun putBoolean(tag: String, value: Boolean) {
+        sp.edit().putBoolean(tag + spTag, value).apply()
+    }
+
+    override fun getBoolean(tag: String): Boolean? {
+        if (!sp.contains(tag + spTag)) {
+            return null
+        }
+        return sp.getBoolean(tag + spTag, false)
     }
 }

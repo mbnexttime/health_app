@@ -27,7 +27,7 @@ interface MainActivityModule {
             debugModeHandler: Provider<DebugModeHandler>,
             normalModeHandler: Provider<NormalModeHandler>,
         ): LaunchModeHandler {
-            return if (BuildConfig.DEBUG) {
+            return if (BuildConfig.BUILD_TYPE == "debug") {
                 debugModeHandler.get()
             } else {
                 normalModeHandler.get()

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/onboarding_root_graph"
+    app:startDestination="@id/onboarding_start">
+
+    <fragment
+        android:id="@+id/onboarding_start"
+        android:name="com.example.psyhealthapp.onboarding.OnboardingStartFragment">
+        <action
+            android:id="@+id/onboarding_start_to_onboarding_data"
+            app:destination="@id/onboarding_data"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/onboarding_data"
+        android:name="com.example.psyhealthapp.onboarding.OnboardingDataFragment" />
+</navigation>
