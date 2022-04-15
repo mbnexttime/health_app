@@ -19,7 +19,7 @@ class DebugFragment : Fragment(R.layout.debug_fragment) {
      */
     private val fragments: ArrayList<FragmentHolder> = arrayListOf(
         FragmentHolder {
-            return@FragmentHolder TestReactionFragment()
+            return@FragmentHolder ComplexTestReactionFragment()
         },
         FragmentHolder {
             return@FragmentHolder ProfileFragment()
