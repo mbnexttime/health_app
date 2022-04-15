@@ -2,6 +2,7 @@ package com.example.psyhealthapp.user.statistics.tests
 
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.cardview.widget.CardView
@@ -13,6 +14,8 @@ import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.github.mikephil.charting.formatter.ValueFormatter
+import com.google.android.material.color.ColorRoles
 
 class LastDaysActivity : CardView {
     private lateinit var chart: BarChart
@@ -44,18 +47,19 @@ class LastDaysActivity : CardView {
         setupView(context)
     }
 
-    override fun onDraw(canvas: Canvas?) {
-        super.onDraw(canvas)
-    }
-
     private fun setupChart() {
         chart = findViewById(R.id.chart)
         val entries = sampleData.mapIndexed { i, it -> BarEntry(i.toFloat(), it.toFloat()) }
-        println(entries)
 
         val dataSet = BarDataSet(entries, "last_days_activity")
         dataSet.colors = sampleColors
-        dataSet.setDrawValues(false)
+        dataSet.valueFormatter = object : ValueFormatter() {
+            override fun getBarLabel(barEntry: BarEntry?): String {
+                return barEntry?.y?.toInt().toString()
+            }
+        }
+        dataSet.valueTextSize = 10F;
+        dataSet.barBorderWidth = 1f;
 
         val xAxis = chart.xAxis
         xAxis.valueFormatter = IndexAxisValueFormatter(sampleDays)
@@ -64,6 +68,7 @@ class LastDaysActivity : CardView {
         xAxis.setDrawGridLines(false)
         xAxis.setDrawAxisLine(false)
         xAxis.position = XAxis.XAxisPosition.BOTTOM
+        xAxis.textColor = ContextCompat.getColor(context, R.color.stat_tests_lastdaysactivity_chart_label)
 
         chart.data = BarData(dataSet)
         chart.description.isEnabled = false
@@ -71,13 +76,14 @@ class LastDaysActivity : CardView {
         chart.axisLeft.isEnabled = false
         chart.setBackgroundColor(ContextCompat.getColor(context, R.color.light_beige))
         chart.legend.isEnabled = false
+        chart.setScaleEnabled(false)
 
         chart.invalidate()
     }
 
     private fun setupView(context: Context) {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        inflater.inflate(R.layout.lastdaysactivity, this)
+        inflater.inflate(R.layout.stat_tests_lastdaysactivity, this)
         setupChart()
     }
 }

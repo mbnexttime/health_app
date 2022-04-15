@@ -25,7 +25,13 @@
     <color name="bar_sample_color_1"> #D1786B </color>
     <color name="bar_sample_color_2"> #EA8069 </color>
     <color name="bar_sample_color_3"> #FFB7A0 </color>
-    <color name="bar_sample_color_4"> #A47060 </color>
-    <color name="bar_sample_color_5"> #EE5939 </color>
+    <color name="bar_sample_color_4"> #F4D5B7 </color>
+    <color name="bar_sample_color_5"> #F3BAAD </color>
 
+    <color name="stat_tests_lastdaysactivity_chart_label"> #7C5959 </color>
+
+    <color name="stat_tests_tapping_chart_linecolor_1"> #C56C3A </color>
+    <color name="stat_tests_tapping_background_chart">#FFF1EF</color>
+    <color name="stat_tests_tapping_chart_linecolor_2"> #FF7C44</color>
+    
 </resources>
