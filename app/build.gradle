@@ -9,6 +9,22 @@ apply plugin: 'dagger.hilt.android.plugin'
 
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('keystore.jks')
+            storePassword 'fakely'
+            keyAlias 'key'
+            keyPassword 'fakely'
+        }
+    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+
+
     compileSdk 31
 
     defaultConfig {
@@ -19,6 +35,17 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            debuggable false
+            jniDebuggable false
+            signingConfig signingConfigs.release
+        }
     }
 
 
@@ -39,11 +66,12 @@ android {
             excludes += ['META-INF/DEPENDENCIES', 'META-INF/NOTICE', 'META-INF/LICENSE', 'META-INF/gradle/incremental.annotation.processors', 'META-INF/LICENSE.txt', 'META-INF/NOTICE.txt']
         }
     }
+    buildToolsVersion '31.0.0'
 
 }
 
 kapt {
- correctErrorTypes true
+    correctErrorTypes true
 }
 
 dependencies {
@@ -51,6 +79,20 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.5.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+    implementation 'androidx.test.ext:junit-ktx:1.1.3'
+    implementation 'com.google.ar:core:1.30.0'
+    // Required -- JUnit 4 framework
+    testImplementation "junit:junit:4.13.2"
+    // Optional -- Robolectric environment
+    testImplementation "androidx.test:core:1.4.0"
+    // Optional -- Mockito framework
+    testImplementation "org.mockito:mockito-core:3.12.4"
+    // Optional -- mockito-kotlin
+    testImplementation "org.mockito.kotlin:mockito-kotlin:3.2.0"
+    androidTestImplementation "androidx.test:runner:1.4.0"
+    androidTestImplementation "androidx.test:rules:1.4.0"
+    testImplementation 'org.robolectric:robolectric:4.7.3'
+    debugImplementation 'androidx.fragment:fragment-testing:1.4.1'
     def lifecycleVersion = "2.4.0-alpha03"
     //noinspection GradleDependency
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
@@ -64,17 +106,39 @@ dependencies {
     def adapterDelegatesVersion = '4.3.0'
     implementation "com.hannesdorfmann:adapterdelegates4-kotlin-dsl:$adapterDelegatesVersion"
     implementation "com.hannesdorfmann:adapterdelegates4-kotlin-dsl-viewbinding:$adapterDelegatesVersion"
-    // Navigation.
-    def navigationVersion = "2.5.0-alpha03"
-    implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
-    implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
+    def nav_version = "2.4.1"
+    // Kotlin
+
+    implementation("androidx.navigation:navigation-fragment:$nav_version")
+    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+
+    // Feature module Support
+    implementation("androidx.navigation:navigation-dynamic-features-fragment:$nav_version")
+
+    // Testing Navigation
+    androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
+
+    // Jetpack Compose Integration
+    implementation("androidx.navigation:navigation-compose:$nav_version")
     // Dependency injection.
-    def hiltVersion = "2.38.1"
+    def hiltVersion = "2.41"
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     kapt "com.google.dagger:hilt-compiler:$hiltVersion"
     implementation "androidx.hilt:hilt-navigation-fragment:1.0.0"
 
+    // For Robolectric tests.
+    testImplementation("com.google.dagger:hilt-android-testing:2.41")
+    // ...with Kotlin.
+    kaptTest("com.google.dagger:hilt-android-compiler:2.41")
+    // ...with Java.
+    testAnnotationProcessor("com.google.dagger:hilt-android-compiler:2.41")
+
     def fragment_version = "1.4.1"
     // Kotlin
     implementation("androidx.fragment:fragment-ktx:$fragment_version")
+
+    def gson_version = "2.8.7"
+
+    implementation("com.google.code.gson:gson:$gson_version")
 }

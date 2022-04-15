@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">PsyHealthApp</string>
+    <string name="onboarding_welcome_string">Привет!\nПеред тем как начать, нам нужно кое-что узнать о тебе</string>
+    <string name="onboarding_continue_text">Продолжить</string>
+    <string name="onboarding_data_title">Расскажи нам о себе</string>
+    <string name="onboarding_data_name_title">Имя</string>
+    <string name="onboarding_data_age_title">Возраст (лет)</string>
+    <string name="onboarding_data_email_title">Электронная почта</string>
+    <string name="onboarding_data_email_disclaimer">Мы не используем email для спама</string>
+    <string name="onboarding_data_error_toast">Проверьте данные</string>
 </resources>
