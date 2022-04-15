@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,6 +35,7 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
     private lateinit var btnEdit: Button
 
     private lateinit var fieldNameEdit: EditText
+    private lateinit var fieldAgeEdit: EditText
     private lateinit var fieldSexEdit: RadioGroup
     private lateinit var sexMan: RadioButton
     private lateinit var sexWoman: RadioButton
@@ -78,7 +80,12 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
                 fieldNameEdit.setText(currentName)
                 llBackName.addView(fieldNameEdit, lParams)
 
+                val currentAge = fieldAge.text.toString()
                 llBackAge.removeView(fieldAge)
+                fieldAgeEdit = EditText(activity)
+                fieldAgeEdit.setText(currentAge)
+                fieldAgeEdit.inputType = InputType.TYPE_CLASS_NUMBER
+                llBackAge.addView(fieldAgeEdit, lParams)
 
                 val currentSex = fieldSex.text.toString()
                 llBackSex.removeView(fieldSex)
@@ -90,11 +97,11 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
                 fieldSexEdit.orientation = LinearLayout.HORIZONTAL
                 fieldSexEdit.addView(sexMan)
                 fieldSexEdit.addView(sexWoman)
-                llBackSex.addView(fieldSexEdit, lParams)
                 when (currentSex) {
                     "мужской" -> sexMan.isChecked = true
                     "женский" -> sexWoman.isChecked = true
                 }
+                llBackSex.addView(fieldSexEdit, lParams)
 
             }
             btnSave -> {
@@ -104,6 +111,11 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
                 llBackName.removeView(fieldNameEdit)
                 fieldName.text = savingName
                 llBackName.addView(fieldName, lParams)
+
+                val savingAge = fieldAgeEdit.text.toString()
+                llBackAge.removeView(fieldAgeEdit)
+                fieldAge.text = savingAge
+                llBackAge.addView(fieldAge, lParams)
 
                 val savingSex = when (fieldSexEdit.checkedRadioButtonId) {
                     sexMan.id -> "мужской"
@@ -133,3 +145,4 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
     }
 
 }
+
