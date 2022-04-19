@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -15,20 +14,28 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <com.example.psyhealthapp.user.statistics.tests.LastDaysActivity
-                android:layout_width="340dp"
+            <com.example.psyhealthapp.user.statistics.tests.Summary
+                android:layout_width="@dimen/stat_cardWidth"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginVertical="10dp"
-                app:cardCornerRadius="13dp"
+                android:layout_marginTop="@dimen/stat_marginVertical"
+                app:cardCornerRadius="@dimen/stat_cardCornerRadius"
+                />
+
+            <com.example.psyhealthapp.user.statistics.tests.LastDaysActivity
+                android:layout_width="@dimen/stat_cardWidth"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/stat_marginVertical"
+                app:cardCornerRadius="@dimen/stat_cardCornerRadius"
                 />
 
             <com.example.psyhealthapp.user.statistics.tests.Tapping
-                android:layout_width="340dp"
+                android:layout_width="@dimen/stat_cardWidth"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginVertical="10dp"
-                app:cardCornerRadius="13dp"
+                android:layout_marginVertical="@dimen/stat_marginVertical"
+                app:cardCornerRadius="@dimen/stat_cardCornerRadius"
                 />
 
         </LinearLayout>

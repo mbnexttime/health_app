@@ -1,14 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/textView2"
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
-        android:text="суммарно"
-        android:textSize="20sp" />
+        android:layout_alignStart="@id/stat_tests_summary_content"
+        android:layout_alignTop="@+id/stat_tests_summary_content"
+        android:layout_alignEnd="@id/stat_tests_summary_content"
+        android:layout_alignBottom="@id/stat_tests_summary_content"
+        android:background="@drawable/stat_tests_summary"
+        android:scaleType="fitXY" />
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/stat_tests_summary_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/cardName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/oswald"
+                android:text="@string/summary"
+                android:textColor="@color/black"
+                android:textSize="@dimen/stat_cardName_textSize" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cardName"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/neuton"
+                android:text="@string/over_all_attempts" />
+        </RelativeLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/stat_marginVertical"
+            app:cardBackgroundColor="@color/stat_cardBackground">
+
+        <com.github.mikephil.charting.charts.RadarChart
+            android:id="@+id/chart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/stat_marginVertical"
+            android:minHeight="@dimen/stat_minChartHeight"
+            />
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+</RelativeLayout>

@@ -14,17 +14,4 @@ class StatPageFragment : Fragment(R.layout.statpage_fragment) {
             return StatPageFragment()
         }
     }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
-    @SuppressLint("InflateParams")
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.statpage_fragment, null)
-        return view
-    }
 }

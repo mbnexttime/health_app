@@ -42,46 +42,61 @@ class Tapping : CardView {
     private fun setupChart() {
         chart = findViewById(R.id.chart)
 
-        fun getDataSet(ds: List<Pair<Float, Float>>, col : Int, setName : String) : LineDataSet {
+        fun getDataSet(ds: List<Pair<Float, Float>>, col: Int, setName: String): LineDataSet {
             val dataSet = LineDataSet(ds.map { i -> Entry(i.first, i.second) }, setName)
             dataSet.lineWidth = 2F
             dataSet.setDrawCircles(false)
             dataSet.setDrawValues(false)
             dataSet.color = col
+            dataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
             return dataSet
         }
 
-        val entries = sampleDataRightHand.map { i -> Entry(i.first, i.second) }
-
         val chartData = LineData()
 
-        val ds1 = getDataSet(sampleDataRightHand, ContextCompat.getColor(context, R.color.stat_tests_tapping_chart_linecolor_1), "right_hand_set")
-        val ds2 = getDataSet(sampleDataLeftHand, ContextCompat.getColor(context, R.color.stat_tests_tapping_chart_linecolor_2), "left_hand_set")
+        val ds1 = getDataSet(
+            sampleDataRightHand,
+            ContextCompat.getColor(context, R.color.stat_tests_tapping_chart_lineColor_1),
+            "right_hand_set"
+        )
+        val ds2 = getDataSet(
+            sampleDataLeftHand,
+            ContextCompat.getColor(context, R.color.stat_tests_tapping_chart_lineColor_2),
+            "left_hand_set"
+        )
         chartData.addDataSet(ds1)
         chartData.addDataSet(ds2)
 
-        chart.axisLeft.addLimitLine(LimitLine(sampleMid))
-        chart.axisLeft.setDrawGridLines(false)
-        chart.axisLeft.setDrawLabels(false)
-        chart.axisLeft.axisMinimum = 0F
-        chart.axisLeft.axisMaximum = 50F
+        val axisLeft = chart.axisLeft
+        axisLeft.addLimitLine(LimitLine(sampleMid))
+        axisLeft.setDrawGridLines(false)
+        axisLeft.setDrawLabels(false)
+        axisLeft.axisMinimum = 0F
+        axisLeft.axisMaximum = 50F
+        axisLeft.axisLineWidth = 1F
+        axisLeft.axisLineColor =
+            ContextCompat.getColor(context, R.color.stat_tests_tapping_chart_lineColor_3)
 
-        chart.xAxis.setDrawLabels(false)
-        chart.xAxis.setDrawGridLines(false)
-        chart.xAxis.position = XAxis.XAxisPosition.BOTTOM_INSIDE
+        val xAxis = chart.xAxis
+        xAxis.setDrawLabels(false)
+        xAxis.setDrawGridLines(false)
+        xAxis.position = XAxis.XAxisPosition.BOTTOM_INSIDE
+        xAxis.axisLineWidth = 1F
+        xAxis.axisLineColor = axisLeft.axisLineColor
 
         chart.data = chartData
         chart.description.isEnabled = false
         chart.axisRight.isEnabled = false
-        chart.setBackgroundColor(ContextCompat.getColor(context, R.color.light_beige))
+        chart.setBackgroundColor(ContextCompat.getColor(context, R.color.stat_cardBackground))
         chart.legend.isEnabled = false
         chart.setScaleEnabled(false)
+        chart.animateX(250)
 
         chart.invalidate()
     }
 
     private fun setupView(context: Context) {
-        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val inflater = LayoutInflater.from(context)
         inflater.inflate(R.layout.stat_tests_tapping, this)
         setupChart()
     }

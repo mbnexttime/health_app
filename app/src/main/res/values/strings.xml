@@ -42,6 +42,19 @@
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="statistic_header">Статистика</string>
-    <string name="тесты_за_последние_дни">тесты за последние дни</string>
+    <string name="passed_tests"> пройденные тесты </string>
+    <string name="in_recent_days"> за последние дни </string>
+    <string name="reaction_test"> реакционный тест </string>
+    <string name="summary"> суммарно </string>
+    <string name="over_all_attempts"> по всем прохождениям </string>
+    <string name="tapping_test"> тест «дятел» </string>
+    <string name="last_result"> последний результат </string>
+    <string name="type_of_nervous_system"> тип нервной системы: </string>
+    <string name="medium"> &#160;средний </string>
+
+    <string name="tests"> тесты </string>
+    <string name="relax"> расслабление </string>
+    <string name="training"> тренировка </string>
+
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

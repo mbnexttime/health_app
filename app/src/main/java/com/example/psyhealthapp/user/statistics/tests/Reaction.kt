@@ -25,7 +25,7 @@ class Reaction : CardView {
     }
 
     private fun setupView(context: Context) {
-        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val inflater = LayoutInflater.from(context)
         inflater.inflate(R.layout.stat_tests_reaction, this)
     }
 }

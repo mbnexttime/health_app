@@ -24,11 +24,11 @@ class LastDaysActivity : CardView {
     private val sampleDays = listOf("пн", "вт", "ср", "чт", "пт")
 
     private val sampleColors = listOf(
-        ContextCompat.getColor(context, R.color.bar_sample_color_1),
-        ContextCompat.getColor(context, R.color.bar_sample_color_2),
-        ContextCompat.getColor(context, R.color.bar_sample_color_3),
-        ContextCompat.getColor(context, R.color.bar_sample_color_4),
-        ContextCompat.getColor(context, R.color.bar_sample_color_5)
+        ContextCompat.getColor(context, R.color.stat_tests_lastDaysActivity_barColor_1),
+        ContextCompat.getColor(context, R.color.stat_tests_lastDaysActivity_barColor_2),
+        ContextCompat.getColor(context, R.color.stat_tests_lastDaysActivity_barColor_4),
+        ContextCompat.getColor(context, R.color.stat_tests_lastDaysActivity_barColor_4),
+        ContextCompat.getColor(context, R.color.stat_tests_lastDaysActivity_barColor_3)
     )
 
     constructor(context: Context) : super(context) {
@@ -68,21 +68,23 @@ class LastDaysActivity : CardView {
         xAxis.setDrawGridLines(false)
         xAxis.setDrawAxisLine(false)
         xAxis.position = XAxis.XAxisPosition.BOTTOM
-        xAxis.textColor = ContextCompat.getColor(context, R.color.stat_tests_lastdaysactivity_chart_label)
+        xAxis.textColor =
+            ContextCompat.getColor(context, R.color.stat_tests_tapping_chart_lineColor_3)
 
         chart.data = BarData(dataSet)
         chart.description.isEnabled = false
         chart.axisRight.isEnabled = false
         chart.axisLeft.isEnabled = false
-        chart.setBackgroundColor(ContextCompat.getColor(context, R.color.light_beige))
+        chart.setBackgroundColor(ContextCompat.getColor(context, R.color.stat_cardBackground))
         chart.legend.isEnabled = false
         chart.setScaleEnabled(false)
+        chart.animateY(250)
 
         chart.invalidate()
     }
 
     private fun setupView(context: Context) {
-        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val inflater = LayoutInflater.from(context)
         inflater.inflate(R.layout.stat_tests_lastdaysactivity, this)
         setupChart()
     }

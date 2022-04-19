@@ -7,6 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="stat_inactivePageButton"> #F6F1F1 </color>
+    <color name="stat_activePageButton"> #EFBEBE </color>
+    <color name="stat_cardBackground"> #FBF7F7 </color>
     <color name="dark_blue">#00008b</color>
     <color name="light_grey">#eeeeee</color>
     <color name="dark_grey">#c0c0c0</color>
@@ -22,16 +26,22 @@
     <color name="light_blue"> #DDF4FB </color>
     <color name="light_beige"> #FBF7F7 </color>
 
-    <color name="bar_sample_color_1"> #D1786B </color>
-    <color name="bar_sample_color_2"> #EA8069 </color>
-    <color name="bar_sample_color_3"> #FFB7A0 </color>
-    <color name="bar_sample_color_4"> #F4D5B7 </color>
-    <color name="bar_sample_color_5"> #F3BAAD </color>
+    <color name="stat_tests_lastDaysActivity_barColor_1"> #D1786B </color>
+    <color name="stat_tests_lastDaysActivity_barColor_2"> #EA8069 </color>
+    <color name="stat_tests_lastDaysActivity_barColor_3"> #FFB7A0 </color>
+    <color name="stat_tests_lastDaysActivity_barColor_4"> #F4D5B7 </color>
+    <color name="stat_tests_lastDaysActivity_barColor_5"> #F3BAAD </color>
 
-    <color name="stat_tests_lastdaysactivity_chart_label"> #7C5959 </color>
+    <color name="stat_tests_lastDaysActivity_chart_label"> #7C5959 </color>
 
-    <color name="stat_tests_tapping_chart_linecolor_1"> #C56C3A </color>
-    <color name="stat_tests_tapping_background_chart">#FFF1EF</color>
-    <color name="stat_tests_tapping_chart_linecolor_2"> #FF7C44</color>
+    <color name="stat_tests_tapping_chart_lineColor_1"> #C56C3A </color>
+    <color name="stat_tests_tapping_chart_lineColor_2"> #FF7C44</color>
+    <color name="stat_tests_tapping_chart_lineColor_3"> #8B4F08 </color>
+
+    <color name="stat_tests_tapping_chartBackground">#FFF1EF</color>
+    <color name="stat_tests_tapping_textColor_1"> #CC4C4C </color>
+    <color name="stat_tests_tapping_textColor_2"> #460B0B </color>
+
+    <color name="stat_tests_summary_chartBackground"> #FFE5E5 </color>
     
 </resources>

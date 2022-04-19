@@ -9,4 +9,14 @@
         app:fontWeight="400"
         app:font="@font/oswald"
         />
+
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/neuton"
+        app:fontStyle="normal"
+        app:fontWeight="400"
+        app:font="@font/neuton"
+        />
+
 </font-family>

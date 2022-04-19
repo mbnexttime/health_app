@@ -23,19 +23,32 @@ class StatisticFragment : Fragment(R.layout.statistic_fragment) {
     companion object {
         const val PAGE_COUNT = 3
     }
-    private lateinit var pager : ViewPager
+
+    private lateinit var pager: ViewPager
     private lateinit var pagerAdapter: PagerAdapter
 
-    private fun initNavButtons(view : View) {
-        navButtons.add(view.findViewById(R.id.button7))
-        navButtons.add(view.findViewById(R.id.button8))
-        navButtons.add(view.findViewById(R.id.button9))
+    private fun initNavButtons(view: View) {
+        navButtons.add(view.findViewById(R.id.test_button))
+        navButtons.add(view.findViewById(R.id.relax_button))
+        navButtons.add(view.findViewById(R.id.train_button))
         navButtons.map {
-            it.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.inactive_stat_page, null))
+            it.setBackgroundColor(
+                ResourcesCompat.getColor(
+                    resources,
+                    R.color.stat_inactivePageButton,
+                    null
+                )
+            )
             it.isEnabled = false
             it.setTextColor(Color.BLACK)
         }
-        navButtons[0].setBackgroundColor(ResourcesCompat.getColor(resources, R.color.active_stat_page, null))
+        navButtons[0].setBackgroundColor(
+            ResourcesCompat.getColor(
+                resources,
+                R.color.stat_activePageButton,
+                null
+            )
+        )
     }
 
     @SuppressLint("InflateParams")
@@ -45,30 +58,46 @@ class StatisticFragment : Fragment(R.layout.statistic_fragment) {
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         val view = inflater.inflate(R.layout.statistic_fragment, null)
+
         initNavButtons(view)
 
-        pagerAdapter = MyFragmentPagerAdapter(childFragmentManager)
         pager = view.findViewById<ViewPager>(R.id.pager)
-
-        pager.adapter = pagerAdapter
+        pager.adapter = StatisticPageAdapter(childFragmentManager)
 
         pager.setOnPageChangeListener(object : OnPageChangeListener {
             var current_page = 0
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) = Unit
+
+            override fun onPageScrollStateChanged(state: Int) = Unit
 
             override fun onPageSelected(position: Int) {
-                navButtons[current_page].setBackgroundColor(ResourcesCompat.getColor(resources, R.color.inactive_stat_page, null))
+                navButtons[current_page].setBackgroundColor(
+                    ResourcesCompat.getColor(
+                        resources,
+                        R.color.stat_inactivePageButton,
+                        null
+                    )
+                )
                 current_page = position
-                navButtons[current_page].setBackgroundColor(ResourcesCompat.getColor(resources, R.color.active_stat_page, null))
+                navButtons[current_page].setBackgroundColor(
+                    ResourcesCompat.getColor(
+                        resources,
+                        R.color.stat_activePageButton,
+                        null
+                    )
+                )
             }
-
-            override fun onPageScrollStateChanged(state: Int) {}
         })
+
 
         return view
     }
 
-    class MyFragmentPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+    class StatisticPageAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
         override fun getCount(): Int {
             return PAGE_COUNT
         }
@@ -76,9 +105,5 @@ class StatisticFragment : Fragment(R.layout.statistic_fragment) {
         override fun getItem(position: Int): Fragment {
             return StatPageFragment.newInstance()
         }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
     }
 }
