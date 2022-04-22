@@ -3,7 +3,7 @@
     android:id="@+id/llBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/palette01_4"
+    android:background="@color/profile_background"
     android:orientation="vertical">
 
     <LinearLayout
@@ -25,7 +25,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:background="@drawable/profile_image_style"
+                android:background="@drawable/profile_image"
                 android:layout_gravity="center">
             </ImageView>
 
@@ -46,8 +46,83 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="2"
+            android:gravity="center"
             android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/llBackName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:text="Имя: "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </TextView>
+                <TextView
+                    android:id="@+id/fieldName"
+                    android:text="-"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llBackAge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:text="Возраст: "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </TextView>
+                <TextView
+                    android:id="@+id/fieldAge"
+                    android:text="-"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llBackSex"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:text="Пол: "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </TextView>
+                <TextView
+                    android:id="@+id/fieldSex"
+                    android:text="-"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </TextView>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Сохранить">
+            </Button>
+
         </LinearLayout>
     </LinearLayout>
 
+    <Button
+        android:id="@+id/btnEdit"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Редактировать информацию">
+    </Button>
 </LinearLayout>
+

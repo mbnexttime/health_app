@@ -14,6 +14,7 @@
     <color name="palette01_4">#1F4E5F</color>
     <color name="palette01_5">#FFE2E2</color>
     <color name="palette01_6">#FFC4D0</color>
+    <color name="profile_background">#FFC4D0</color>
 
     <color name="dark_blue">#00008b</color>
     <color name="light_grey">#eeeeee</color>
