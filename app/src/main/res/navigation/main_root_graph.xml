@@ -5,10 +5,37 @@
     app:startDestination="@id/main_root">
     <fragment
         android:id="@+id/main_root"
-        android:name="com.example.psyhealthapp.core.MainRoot" >
+        android:name="com.example.psyhealthapp.core.MainRoot">
         <action
             android:id="@+id/action_main_root_to_tapping_test_graph"
             app:destination="@id/tapping_test_graph" />
     </fragment>
+
+
+    <action
+        android:id="@+id/navigation_to_history_add"
+        app:destination="@id/history_add"
+        app:enterAnim="@anim/slide_in"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/slide_out" />
+
+    <fragment
+        android:id="@+id/history_add"
+        android:name="com.example.psyhealthapp.history.HistoryAddFragment">
+        <action
+            android:id="@+id/navigation_to_history_show"
+            app:destination="@id/history_show"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out"
+            app:popUpTo="@id/main_root" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/history_show"
+        android:name="com.example.psyhealthapp.history.HistoryShowFragment" />
+
     <include app:graph="@navigation/tapping_test_graph" />
 </navigation>

@@ -8,4 +8,12 @@
     <string name="onboarding_data_email_title">Электронная почта</string>
     <string name="onboarding_data_email_disclaimer">Мы не используем email для спама</string>
     <string name="onboarding_data_error_toast">Проверьте данные</string>
+    <string name="history_add_title">Расскажите нам, как вы себя чувствуете в последнее время</string>
+    <string name="history_add_disclaimer">Затем вы сможете проследить, как изменялось ваше самочувствие с течением времени</string>
+    <string name="history_add_hint">Несколько предложений или просто пару слов</string>
+    <string name="history_add_cancel_disclaimer">Мы сохраним черновик</string>
+    <string name="history_add_continue_text">Сохранить</string>
+    <string name="history_add_cancel_text">Назад</string>
+    <string name="history_add_error_text">Текст не может быть пустым</string>
+    <string name="history_show_add_button_text">Добавить</string>
 </resources>

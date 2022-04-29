@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.example.psyhealthapp.R
 import com.example.psyhealthapp.core.FragmentHolder
 import com.example.psyhealthapp.user.testing.tappingtest.ui.TappingTestMainFragment
+import com.example.psyhealthapp.history.HistoryAddFragment
 
 class DebugFragment : Fragment(R.layout.debug_fragment) {
     /**
@@ -20,7 +21,10 @@ class DebugFragment : Fragment(R.layout.debug_fragment) {
         },
         FragmentHolder {
             return@FragmentHolder TappingTestMainFragment()
-        }
+        },
+        FragmentHolder {
+            return@FragmentHolder HistoryAddFragment()
+        },
     )
 
 

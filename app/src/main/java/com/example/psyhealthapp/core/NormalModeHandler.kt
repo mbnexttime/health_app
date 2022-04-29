@@ -15,7 +15,7 @@ import javax.inject.Provider
 class NormalModeHandler @Inject constructor(
     private val activity: AppCompatActivity,
     private val navController: Provider<NavController>,
-    private val onboardingController: Provider<OnboardingHandler>
+    private val onboardingController: Provider<OnboardingHandler>,
 ) : LaunchModeHandler {
     override fun onActivityCreate() {
         if (onboardingController.get().needShowOnboadring()) {

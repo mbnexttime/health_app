@@ -25,7 +25,7 @@ class DBProvider @Inject constructor(
     private fun getOrCreateAndPut(tag: String): DB {
         val localDB = dbMap[tag]
         return if (localDB == null) {
-            val createdDB = DBImpl(sp, tag)
+            val createdDB = DBImpl(sp, tag, application, TAG)
             dbMap[tag] = createdDB
             createdDB
         } else {

@@ -2,6 +2,7 @@ package com.example.psyhealthapp.db
 
 import android.os.Parcelable
 
+
 interface DB {
     fun putParcelable(tag: String, parcel: Parcelable)
 
@@ -18,4 +19,10 @@ interface DB {
     fun putBoolean(tag: String, value: Boolean)
 
     fun getBoolean(tag: String): Boolean?
+    
+    fun putParcelableAsync(tag: String, parcel: Parcelable)
+    
+    fun putParcelablesAsync(data: List<Pair<String, Parcelable>>)
+    
+    fun putStringsAsync(data: List<Pair<String, String>>)
 }

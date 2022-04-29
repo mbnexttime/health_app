@@ -130,7 +130,7 @@
         android:layout_height="56dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
-        android:background="@drawable/onboarding_continue_button_background"
+        android:background="@drawable/continue_button_background"
         android:gravity="center"
         android:text="@string/onboarding_continue_text"
         android:textSize="20dp"
