@@ -22,7 +22,7 @@ class TappingTestInstructionFragment : Fragment(R.layout.tapping_test_instructio
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewBinding.button.setOnClickListener {
+        viewBinding.challengeButton.setOnClickListener {
             viewModel.notifyNextClicked()
         }
     }

@@ -22,8 +22,14 @@ class TappingTestResultFragment : Fragment(R.layout.tapping_test_result_fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewBinding.resultText.text = viewModel.getResultText()
+
         viewBinding.endButton.setOnClickListener {
-            viewModel.notifyGoNextClicked()
+            viewModel.notifyChallengeEnd()
+        }
+
+        viewBinding.repeatButton.setOnClickListener {
+            viewModel.notifyRepeatButtonClicked()
         }
     }
 }

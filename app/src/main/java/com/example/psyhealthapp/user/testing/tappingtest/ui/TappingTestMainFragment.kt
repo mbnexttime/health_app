@@ -47,6 +47,8 @@ class TappingTestMainFragment : Fragment(R.layout.tapping_test_main_fragment) {
                             TappingTestState.Result ->
                                 mainFragmentContainer.findNavController()
                                     .navigate(R.id.tappingTestResult)
+                            TappingTestState.End -> mainFragmentContainer.findNavController()
+                                .navigateUp()
                         }
                     }
                 }
