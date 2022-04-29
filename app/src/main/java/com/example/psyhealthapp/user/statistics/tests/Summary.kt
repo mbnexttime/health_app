@@ -60,6 +60,7 @@ class Summary : CardView {
         chart.yAxis.axisMinimum = 0F
         chart.yAxis.axisMaximum = 80F
 
+        chart.setTouchEnabled(false)
         chart.data = RadarData(set)
         chart.description.isEnabled = false
         chart.setBackgroundColor(ContextCompat.getColor(context, R.color.stat_cardBackground))

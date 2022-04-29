@@ -1,13 +1,12 @@
 package com.example.psyhealthapp.user.statistics.tests
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import com.example.psyhealthapp.R
+import com.example.psyhealthapp.user.statistics.util.RoundedVerticalBarChartRenderer
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
@@ -15,7 +14,6 @@ import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
-import com.google.android.material.color.ColorRoles
 
 class LastDaysActivity : CardView {
     private lateinit var chart: BarChart
@@ -61,6 +59,10 @@ class LastDaysActivity : CardView {
         dataSet.valueTextSize = 10F;
         dataSet.barBorderWidth = 1f;
 
+        val renderer = RoundedVerticalBarChartRenderer(chart, chart.animator, chart.viewPortHandler)
+        renderer.setRightRadius(50f)
+        renderer.setLeftRadius(50f)
+
         val xAxis = chart.xAxis
         xAxis.valueFormatter = IndexAxisValueFormatter(sampleDays)
         xAxis.granularity = 1f
@@ -71,6 +73,8 @@ class LastDaysActivity : CardView {
         xAxis.textColor =
             ContextCompat.getColor(context, R.color.stat_tests_tapping_chart_lineColor_3)
 
+        chart.renderer = renderer
+        chart.setTouchEnabled(false)
         chart.data = BarData(dataSet)
         chart.description.isEnabled = false
         chart.axisRight.isEnabled = false

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -18,52 +19,116 @@
         android:id="@+id/stat_tests_lastDaysActivity_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/cardName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:fontFamily="@font/oswald"
-                android:text="@string/passed_tests"
-                android:textColor="@color/black"
-                android:textSize="@dimen/stat_cardName_textSize" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/cardName"
-                android:layout_centerHorizontal="true"
-                android:fontFamily="@font/neuton"
-                android:text="@string/in_recent_days" />
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/cardName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/oswald"
+            android:text="@string/passed_tests"
+            android:textColor="@color/black"
+            android:textSize="@dimen/stat_cardName_textSize"
+            app:drawableRightCompat="@drawable/ic_baseline_check_circle_outline_24" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/stat_marginVertical"
             android:layout_marginHorizontal="@dimen/stat_marginHorizontal"
+            android:layout_marginVertical="@dimen/stat_marginVertical"
             app:cardBackgroundColor="@color/stat_cardBackground"
-            >
+            app:cardCornerRadius="@dimen/stat_cardCornerRadius">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-            <com.github.mikephil.charting.charts.BarChart
-                android:id="@+id/chart"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/stat_marginHorizontal"
-                android:layout_marginTop="@dimen/stat_marginVertical"
-                android:minHeight="@dimen/stat_minChartHeight" />
-            </LinearLayout>
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginVertical="@dimen/stat_marginVertical"
+                    android:fontFamily="@font/neuton"
+                    android:gravity="center"
+                    android:text="@string/in_recent_days" />
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/stat_marginHorizontal"
+                    android:layout_marginTop="@dimen/stat_marginVertical"
+                    android:minHeight="@dimen/stat_minChartHeight" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="7dp"
+            android:layout_marginBottom="@dimen/stat_marginVertical"
+            app:cardBackgroundColor="@color/stat_cardBackground"
+            app:cardCornerRadius="@dimen/stat_cardCornerRadius">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginVertical="@dimen/stat_marginVertical"
+                    android:fontFamily="@font/neuton"
+                    android:text="@string/over_all_attempts" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/in_total"
+                        android:textColor="@color/stat_tests_tapping_textColor_2"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" 42"
+                        android:textColor="@color/stat_tests_tapping_textColor_1"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/stat_marginVertical"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/on_average"
+                        android:textColor="@color/stat_tests_tapping_textColor_2"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" 4"
+                        android:textColor="@color/stat_tests_tapping_textColor_1"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
         </androidx.cardview.widget.CardView>
     </LinearLayout>
 

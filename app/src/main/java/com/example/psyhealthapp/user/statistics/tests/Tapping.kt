@@ -77,6 +77,13 @@ class Tapping : CardView {
         axisLeft.axisLineColor =
             ContextCompat.getColor(context, R.color.stat_tests_tapping_chart_lineColor_3)
 
+        val axisRight = chart.axisRight
+        axisRight.axisMinimum = 0F
+        axisRight.axisMaximum = 50F
+        axisRight.axisLineWidth = 1F
+        axisRight.axisLineColor =
+            ContextCompat.getColor(context, R.color.stat_tests_tapping_chart_lineColor_3)
+
         val xAxis = chart.xAxis
         xAxis.setDrawLabels(false)
         xAxis.setDrawGridLines(false)
@@ -84,9 +91,9 @@ class Tapping : CardView {
         xAxis.axisLineWidth = 1F
         xAxis.axisLineColor = axisLeft.axisLineColor
 
+        chart.setTouchEnabled(false)
         chart.data = chartData
         chart.description.isEnabled = false
-        chart.axisRight.isEnabled = false
         chart.setBackgroundColor(ContextCompat.getColor(context, R.color.stat_cardBackground))
         chart.legend.isEnabled = false
         chart.setScaleEnabled(false)

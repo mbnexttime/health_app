@@ -32,27 +32,30 @@
                 android:fontFamily="@font/oswald"
                 android:text="@string/tapping_test"
                 android:textColor="@color/black"
-                android:textSize="@dimen/stat_cardName_textSize" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/cardName"
-                android:layout_centerHorizontal="true"
-                android:fontFamily="@font/neuton"
-                android:text="@string/last_result" />
+                android:textSize="@dimen/stat_cardName_textSize"
+                app:drawableRightCompat="@drawable/ic_icons_woodpecker" />
         </RelativeLayout>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/stat_marginVertical"
-            app:cardBackgroundColor="@color/stat_cardBackground">
+            app:cardBackgroundColor="@color/stat_cardBackground"
+            app:cardCornerRadius="@dimen/stat_cardCornerRadius"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
+                <TextView
+                    android:layout_marginTop="@dimen/stat_marginVertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/neuton"
+                    android:text="@string/last_result" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"

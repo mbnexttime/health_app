@@ -12,31 +12,35 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <com.example.psyhealthapp.user.statistics.tests.Summary
                 android:layout_width="@dimen/stat_cardWidth"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/stat_marginVertical"
-                app:cardCornerRadius="@dimen/stat_cardCornerRadius"
-                />
-
-            <com.example.psyhealthapp.user.statistics.tests.LastDaysActivity
-                android:layout_width="@dimen/stat_cardWidth"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/stat_marginVertical"
-                app:cardCornerRadius="@dimen/stat_cardCornerRadius"
-                />
+                android:layout_marginVertical="@dimen/stat_cardMarginVertical"
+                app:cardCornerRadius="@dimen/stat_cardCornerRadius" />
 
             <com.example.psyhealthapp.user.statistics.tests.Tapping
                 android:layout_width="@dimen/stat_cardWidth"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginVertical="@dimen/stat_marginVertical"
-                app:cardCornerRadius="@dimen/stat_cardCornerRadius"
-                />
+                android:layout_marginVertical="@dimen/stat_cardMarginVertical"
+                app:cardCornerRadius="@dimen/stat_cardCornerRadius" />
+
+            <com.example.psyhealthapp.user.statistics.tests.Reaction
+                android:layout_width="@dimen/stat_cardWidth"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginVertical="@dimen/stat_cardMarginVertical"
+                app:cardCornerRadius="@dimen/stat_cardCornerRadius" />
+
+            <com.example.psyhealthapp.user.statistics.tests.LastDaysActivity
+                android:layout_width="@dimen/stat_cardWidth"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginVertical="@dimen/stat_cardMarginVertical"
+                app:cardCornerRadius="@dimen/stat_cardCornerRadius" />
 
         </LinearLayout>
     </ScrollView>

@@ -15,7 +15,9 @@ import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.example.psyhealthapp.R
-import com.example.psyhealthapp.user.statistics.subpage.StatPageFragment
+import com.example.psyhealthapp.user.statistics.subpage.StatPageRelaxFragment
+import com.example.psyhealthapp.user.statistics.subpage.StatPageTestFragment
+import com.example.psyhealthapp.user.statistics.subpage.StatPageTrainingFragment
 
 class StatisticFragment : Fragment(R.layout.statistic_fragment) {
     private val navButtons = mutableListOf<Button>()
@@ -103,7 +105,11 @@ class StatisticFragment : Fragment(R.layout.statistic_fragment) {
         }
 
         override fun getItem(position: Int): Fragment {
-            return StatPageFragment.newInstance()
+            return when(position) {
+                0 -> StatPageTestFragment()
+                1 -> StatPageRelaxFragment()
+                else -> StatPageTrainingFragment()
+            }
         }
     }
 }
