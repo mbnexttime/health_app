@@ -1,9 +1,7 @@
 package com.example.psyhealthapp.user.testing.tappingtest.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -20,7 +18,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class TappingTestMainFragment : Fragment() {
+class TappingTestMainFragment : Fragment(R.layout.tapping_test_main_fragment) {
 
     companion object {
         fun newInstance() = TappingTestMainFragment()
@@ -28,13 +26,6 @@ class TappingTestMainFragment : Fragment() {
 
     private val viewModel: TappingTestMainViewModel by viewModels()
     private val viewBinding by viewBinding(TappingTestMainFragmentBinding::bind)
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.tapping_test_main_fragment, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -63,8 +54,5 @@ class TappingTestMainFragment : Fragment() {
         }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-    }
 
 }
