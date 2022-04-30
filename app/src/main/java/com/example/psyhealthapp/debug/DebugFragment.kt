@@ -33,6 +33,9 @@ class DebugFragment : Fragment(R.layout.debug_fragment) {
         FragmentHolder {
             return@FragmentHolder SettingsFragment();
         },
+        FragmentHolder {
+            return@FragmentHolder MovingObjectReactionTestFragment()
+        },
     )
 
 
