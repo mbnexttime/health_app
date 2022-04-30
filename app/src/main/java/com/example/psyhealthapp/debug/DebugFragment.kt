@@ -18,6 +18,9 @@ class DebugFragment : Fragment(R.layout.debug_fragment) {
         FragmentHolder {
             return@FragmentHolder ComplexTestReactionFragment()
         },
+        FragmentHolder {
+            return@FragmentHolder MovingObjectReactionTestFragment()
+        },
     )
 
 
