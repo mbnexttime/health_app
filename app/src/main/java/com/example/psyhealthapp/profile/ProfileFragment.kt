@@ -1,6 +1,7 @@
 package com.example.psyhealthapp.profile
 
 import android.app.Activity
+import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
@@ -10,6 +11,10 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import com.example.psyhealthapp.R
+import com.example.psyhealthapp.db.DB
+import com.example.psyhealthapp.db.DBProvider
+import com.example.psyhealthapp.db.DBProvider_Factory
+import javax.inject.Inject
 
 
 class ProfileFragment : Fragment(R.layout.profile_fragment) {
@@ -37,6 +42,11 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
     private lateinit var btnStatistic: ImageButton
     private lateinit var btnSettings: ImageButton
 
+    @Inject
+    lateinit var dbProvider: DBProvider
+    private val tagName = "name"
+    private val tagAge = "age"
+    private val tagSex = "sex"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         imageProfile = view.findViewById(R.id.imageProfile)
@@ -50,6 +60,7 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
         fieldName = view.findViewById(R.id.fieldName)
         fieldAge = view.findViewById(R.id.fieldAge)
         fieldSex = view.findViewById(R.id.fieldSex)
+        //initInfo()
         btnSave = view.findViewById(R.id.btnSave)
         btnSave.setOnClickListener(clickListener)
         btnSave.visibility = View.GONE
@@ -60,9 +71,11 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
         btnStatistic.setOnClickListener(clickListener)
         btnSettings = view.findViewById(R.id.btnSettings)
         btnSettings.setOnClickListener(clickListener)
-
-
     }
+
+//    fun initInfo() {
+//        fieldName.text = dbProvider.ge.getString(tagName) ?: "!!!"
+//    }
 
     private val wrapContent = LinearLayout.LayoutParams.WRAP_CONTENT
     private val lParams = LinearLayout.LayoutParams(wrapContent, wrapContent)
@@ -76,7 +89,7 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
                 btnEdit.isClickable = false
                 btnSave.visibility = View.VISIBLE
 
-                val currentName = fieldName.text.toString()
+                val currentName = fieldName.text.toString()//db.getString(tagName) ?: "!!!"
                 llBackName.removeView(fieldName)
                 fieldNameEdit = EditText(activity)
                 fieldNameEdit.setText(currentName)
@@ -112,6 +125,7 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
 
                 val savingName = fieldNameEdit.text.toString()
                 llBackName.removeView(fieldNameEdit)
+                //db.putString(tagName, savingName)
                 fieldName.text = savingName
                 llBackName.addView(fieldName, lParams)
 
