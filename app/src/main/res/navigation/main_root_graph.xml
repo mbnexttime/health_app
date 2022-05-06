@@ -2,16 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_root_graph"
-    app:startDestination="@id/main_root">
-    <fragment
-        android:id="@+id/main_root"
-        android:name="com.example.psyhealthapp.core.MainRoot">
-        <action
-            android:id="@+id/action_main_root_to_tapping_test_graph"
-            app:destination="@id/tapping_test_graph" />
-    </fragment>
-
-
+    app:startDestination="@+id/tapping_test_graph">
+    
     <action
         android:id="@+id/navigation_to_history_add"
         app:destination="@id/history_add"
