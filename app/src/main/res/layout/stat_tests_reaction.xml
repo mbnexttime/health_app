@@ -1,137 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@id/stat_tests_reaction_content"
-        android:layout_alignTop="@+id/stat_tests_reaction_content"
-        android:layout_alignEnd="@id/stat_tests_reaction_content"
-        android:layout_alignBottom="@id/stat_tests_reaction_content"
-        android:background="@drawable/stat_tests_summary"
-        android:scaleType="fitXY" />
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/stat_marginVertical"
+    app:cardBackgroundColor="@color/stat_cardBackground"
+    app:cardCornerRadius="@dimen/stat_cardCornerRadius">
 
     <LinearLayout
-        android:id="@+id/stat_tests_reaction_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginVertical="@dimen/stat_marginVertical"
+            android:fontFamily="@font/neuton"
+            android:text="@string/recent_attempts" />
 
-            <TextView
-                android:id="@+id/cardName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:fontFamily="@font/oswald"
-                android:text="@string/reaction_test"
-                android:textColor="@color/black"
-                android:textSize="@dimen/stat_cardName_textSize"
-                app:drawableRightCompat="@drawable/ic_baseline_area_chart_24" />
-        </RelativeLayout>
-
-        <androidx.cardview.widget.CardView
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/chart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/stat_marginVertical"
-            app:cardBackgroundColor="@color/stat_cardBackground"
-            app:cardCornerRadius="@dimen/stat_cardCornerRadius">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginVertical="@dimen/stat_marginVertical"
-                    android:fontFamily="@font/neuton"
-                    android:text="@string/recent_attempts" />
-
-                <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/chart"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/stat_marginVertical"
-                    android:minHeight="@dimen/stat_minChartHeight" />
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="7dp"
-            android:layout_marginBottom="@dimen/stat_marginVertical"
-            app:cardBackgroundColor="@color/stat_cardBackground"
-            app:cardCornerRadius="@dimen/stat_cardCornerRadius">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginVertical="@dimen/stat_marginVertical"
-                    android:fontFamily="@font/neuton"
-                    android:text="@string/over_all_attempts" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/on_average"
-                        android:textColor="@color/stat_tests_tapping_textColor_2"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=" 313"
-                        android:textColor="@color/stat_tests_tapping_textColor_1"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/stat_marginVertical"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/min"
-                        android:textColor="@color/stat_tests_tapping_textColor_2"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=" 296"
-                        android:textColor="@color/stat_tests_tapping_textColor_1"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+            android:layout_marginTop="@dimen/stat_marginVertical"
+            android:minHeight="@dimen/stat_minChartHeight" />
 
     </LinearLayout>
-</RelativeLayout>
+
+</androidx.cardview.widget.CardView>

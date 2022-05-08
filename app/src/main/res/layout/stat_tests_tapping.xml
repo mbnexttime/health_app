@@ -1,95 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@id/stat_tests_tapping_content"
-        android:layout_alignTop="@+id/stat_tests_tapping_content"
-        android:layout_alignEnd="@id/stat_tests_tapping_content"
-        android:layout_alignBottom="@id/stat_tests_tapping_content"
-        android:background="@drawable/stat_tests_tapping_background"
-        android:scaleType="fitXY" />
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/stat_marginVertical"
+    app:cardBackgroundColor="@color/stat_cardBackground"
+    app:cardCornerRadius="@dimen/stat_cardCornerRadius">
 
     <LinearLayout
-        android:id="@+id/stat_tests_tapping_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/stat_marginVertical"
+            android:fontFamily="@font/neuton"
+            android:text="@string/last_result" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/stat_marginVertical"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/cardName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:fontFamily="@font/oswald"
-                android:text="@string/tapping_test"
-                android:textColor="@color/black"
-                android:textSize="@dimen/stat_cardName_textSize"
-                app:drawableRightCompat="@drawable/ic_icons_woodpecker" />
-        </RelativeLayout>
+                android:layout_gravity="center"
+                android:text="@string/type_of_nervous_system"
+                android:textColor="@color/stat_tests_tapping_textColor_2"
+                android:textStyle="bold" />
 
-        <androidx.cardview.widget.CardView
+            <TextView
+                android:id="@+id/type_of_nervous_system"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/medium"
+                android:textColor="@color/stat_tests_tapping_textColor_1"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/chart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/stat_marginVertical"
-            app:cardBackgroundColor="@color/stat_cardBackground"
-            app:cardCornerRadius="@dimen/stat_cardCornerRadius"
-            >
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_marginTop="@dimen/stat_marginVertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/neuton"
-                    android:text="@string/last_result" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/stat_marginVertical"
-                    >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/type_of_nervous_system"
-                    android:textStyle="bold"
-                    android:textColor="@color/stat_tests_tapping_textColor_2"/>
-                <TextView
-                    android:id="@+id/type_of_nervous_system"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/medium"
-                    android:textStyle="bold"
-                    android:textColor="@color/stat_tests_tapping_textColor_1"
-                    />
-                </LinearLayout>
-
-                <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/chart"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/stat_marginVertical"
-                    android:minHeight="@dimen/stat_minChartHeight" />
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
+            android:layout_marginTop="@dimen/stat_marginVertical"
+            android:minHeight="@dimen/stat_minChartHeight" />
     </LinearLayout>
-</RelativeLayout>
+
+</androidx.cardview.widget.CardView>
+

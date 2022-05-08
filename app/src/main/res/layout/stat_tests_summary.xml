@@ -1,55 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@id/stat_tests_summary_content"
-        android:layout_alignTop="@+id/stat_tests_summary_content"
-        android:layout_alignEnd="@id/stat_tests_summary_content"
-        android:layout_alignBottom="@id/stat_tests_summary_content"
-        android:background="@drawable/stat_tests_summary"
-        android:scaleType="fitXY" />
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/stat_marginVertical"
+    app:cardBackgroundColor="@color/stat_cardBackground"
+    app:cardCornerRadius="@dimen/stat_cardCornerRadius">
 
     <LinearLayout
-        android:id="@+id/stat_tests_summary_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/cardName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:fontFamily="@font/oswald"
-                android:text="@string/summary"
-                android:textColor="@color/black"
-                android:textSize="@dimen/stat_cardName_textSize"
-                app:drawableRightCompat="@drawable/ic_baseline_balance_24" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/cardName"
-                android:layout_centerHorizontal="true"
-                android:fontFamily="@font/neuton"
-                android:text="@string/over_all_attempts" />
-        </RelativeLayout>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/stat_marginVertical"
-            app:cardBackgroundColor="@color/stat_cardBackground"
-            app:cardCornerRadius="@dimen/stat_cardCornerRadius">
 
         <com.github.mikephil.charting.charts.RadarChart
             android:id="@+id/chart"
@@ -57,9 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/stat_marginVertical"
             android:minHeight="@dimen/stat_minChartHeight"
-            />
-
-        </androidx.cardview.widget.CardView>
-
+            tools:ignore="MissingConstraints" />
     </LinearLayout>
-</RelativeLayout>
+
+</androidx.cardview.widget.CardView>

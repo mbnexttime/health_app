@@ -2,10 +2,15 @@ package com.example.psyhealthapp.user.statistics.tests
 
 import android.content.Context
 import android.graphics.Color
+import android.os.Bundle
+import android.os.Parcel
+import android.os.Parcelable
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.example.psyhealthapp.R
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.LineChart
@@ -15,96 +20,153 @@ import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 
-class Tapping : CardView {
+class TappingResult(
+    val timeMoments: List<Float>, val leftHandValues: List<Float>,
+    val rightHandValues: List<Float>
+) : Parcelable {
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeFloatArray(timeMoments.toFloatArray())
+        parcel.writeFloatArray(leftHandValues.toFloatArray())
+        parcel.writeFloatArray(rightHandValues.toFloatArray())
+    }
+
+    companion object CREATOR : Parcelable.Creator<TappingResult> {
+        override fun createFromParcel(parcel: Parcel): TappingResult {
+            val timeMoments = parcel.createFloatArray()!!.toList()
+            val leftHandValues = parcel.createFloatArray()!!.toList()
+            val rightHandValues = parcel.createFloatArray()!!.toList()
+            return TappingResult(timeMoments, leftHandValues, rightHandValues)
+        }
+
+        override fun newArray(size: Int): Array<TappingResult?> {
+            return arrayOfNulls(size)
+        }
+    }
+}
+
+class Tapping : Fragment(R.layout.stat_tests_tapping) {
     private lateinit var chart: LineChart
-    private val sampleDataRightHand =
-        listOf(Pair(5F, 37F), Pair(10F, 30F), Pair(15F, 28F), Pair(20F, 29F), Pair(25F, 27F))
-    private val sampleDataLeftHand =
-        listOf(Pair(5F, 40F), Pair(10F, 29F), Pair(15F, 35F), Pair(20F, 24F), Pair(25F, 27F))
-    private val sampleMid = 30.6F
 
-    constructor(context: Context) : super(context) {
-        setupView(context)
+    companion object {
+        enum class ChartConstants(val value: Float) {
+            LINE_WIDTH(2F),
+            AXIS_MINIMUM(0F),
+            AXIS_MAXIMUM(50F)
+        }
+
+        fun newInstance(
+            tappingResult: TappingResult
+        ): Tapping {
+            val arguments = Bundle()
+            val tapping = Tapping()
+            arguments.putParcelable("testResult", tappingResult)
+            tapping.arguments = arguments
+            return tapping
+        }
     }
 
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        setupView(context)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        chart = view.findViewById(R.id.chart)
+
+        arguments?.let {
+            val result = it.getParcelable<TappingResult>("testResult")
+            result?.let {
+                setupChart(result)
+            }
+        }
     }
 
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr
+    private fun setupChart(
+        result: TappingResult
     ) {
-        setupView(context)
-    }
 
-    private fun setupChart() {
-        chart = findViewById(R.id.chart)
-
-        fun getDataSet(ds: List<Pair<Float, Float>>, col: Int, setName: String): LineDataSet {
-            val dataSet = LineDataSet(ds.map { i -> Entry(i.first, i.second) }, setName)
-            dataSet.lineWidth = 2F
-            dataSet.setDrawCircles(false)
-            dataSet.setDrawValues(false)
-            dataSet.color = col
-            dataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
+        fun getDataSet(
+            timeMoments: List<Float>,
+            values: List<Float>,
+            col: Int,
+            setName: String
+        ): LineDataSet {
+            val dataSet =
+                LineDataSet(timeMoments.mapIndexed { it, i -> Entry(i, values[it]) }, setName)
+            dataSet.apply {
+                lineWidth = ChartConstants.LINE_WIDTH.value
+                setDrawCircles(false)
+                setDrawValues(false)
+                color = col
+                mode = LineDataSet.Mode.CUBIC_BEZIER
+            }
             return dataSet
         }
 
         val chartData = LineData()
 
         val ds1 = getDataSet(
-            sampleDataRightHand,
-            ContextCompat.getColor(context, R.color.stat_tests_tapping_chart_lineColor_1),
+            result.timeMoments,
+            result.rightHandValues,
+            ContextCompat.getColor(
+                requireActivity(), R.color.stat_tests_tapping_chart_lineColor_1
+            ),
             "right_hand_set"
         )
         val ds2 = getDataSet(
-            sampleDataLeftHand,
-            ContextCompat.getColor(context, R.color.stat_tests_tapping_chart_lineColor_2),
+            result.timeMoments,
+            result.leftHandValues,
+            ContextCompat.getColor(
+                requireActivity(), R.color.stat_tests_tapping_chart_lineColor_2
+            ),
             "left_hand_set"
         )
+
         chartData.addDataSet(ds1)
         chartData.addDataSet(ds2)
 
-        val axisLeft = chart.axisLeft
-        axisLeft.addLimitLine(LimitLine(sampleMid))
-        axisLeft.setDrawGridLines(false)
-        axisLeft.setDrawLabels(false)
-        axisLeft.axisMinimum = 0F
-        axisLeft.axisMaximum = 50F
-        axisLeft.axisLineWidth = 1F
-        axisLeft.axisLineColor =
-            ContextCompat.getColor(context, R.color.stat_tests_tapping_chart_lineColor_3)
+        chart.axisLeft.apply {
+            setDrawGridLines(false)
+            setDrawLabels(false)
+            axisMinimum = ChartConstants.AXIS_MINIMUM.value
+            axisMaximum = ChartConstants.AXIS_MAXIMUM.value
+            axisLineWidth = 1F
+            axisLineColor =
+                ContextCompat.getColor(
+                    requireActivity(),
+                    R.color.stat_tests_tapping_chart_lineColor_3
+                )
+        }
 
-        val axisRight = chart.axisRight
-        axisRight.axisMinimum = 0F
-        axisRight.axisMaximum = 50F
-        axisRight.axisLineWidth = 1F
-        axisRight.axisLineColor =
-            ContextCompat.getColor(context, R.color.stat_tests_tapping_chart_lineColor_3)
+        chart.axisRight.apply {
+            axisMinimum = 0F
+            axisMaximum = 50F
+            axisLineWidth = 1F
+            axisLineColor =
+                ContextCompat.getColor(
+                    requireActivity(),
+                    R.color.stat_tests_tapping_chart_lineColor_3
+                )
+        }
 
-        val xAxis = chart.xAxis
-        xAxis.setDrawLabels(false)
-        xAxis.setDrawGridLines(false)
-        xAxis.position = XAxis.XAxisPosition.BOTTOM_INSIDE
-        xAxis.axisLineWidth = 1F
-        xAxis.axisLineColor = axisLeft.axisLineColor
+        chart.xAxis.apply {
+            setDrawLabels(false)
+            setDrawGridLines(false)
+            position = XAxis.XAxisPosition.BOTTOM_INSIDE
+            axisLineWidth = 1F
+            axisLineColor = chart.axisLeft.axisLineColor
+        }
 
-        chart.setTouchEnabled(false)
-        chart.data = chartData
-        chart.description.isEnabled = false
-        chart.setBackgroundColor(ContextCompat.getColor(context, R.color.stat_cardBackground))
-        chart.legend.isEnabled = false
-        chart.setScaleEnabled(false)
-        chart.animateX(250)
-
-        chart.invalidate()
-    }
-
-    private fun setupView(context: Context) {
-        val inflater = LayoutInflater.from(context)
-        inflater.inflate(R.layout.stat_tests_tapping, this)
-        setupChart()
+        chart.apply {
+            setTouchEnabled(false)
+            data = chartData
+            description.isEnabled = false
+            setBackgroundColor(ContextCompat.getColor(context, R.color.stat_cardBackground))
+            legend.isEnabled = false
+            setScaleEnabled(false)
+            animateX(250)
+            invalidate()
+        }
     }
 }

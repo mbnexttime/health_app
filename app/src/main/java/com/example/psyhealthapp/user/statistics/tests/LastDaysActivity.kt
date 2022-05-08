@@ -1,10 +1,11 @@
 package com.example.psyhealthapp.user.statistics.tests
 
-import android.content.Context
-import android.util.AttributeSet
-import android.view.LayoutInflater
-import androidx.cardview.widget.CardView
+import android.os.Bundle
+import android.os.Parcel
+import android.os.Parcelable
+import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.example.psyhealthapp.R
 import com.example.psyhealthapp.user.statistics.util.RoundedVerticalBarChartRenderer
 import com.github.mikephil.charting.charts.BarChart
@@ -15,81 +16,140 @@ import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 
-class LastDaysActivity : CardView {
+class LastDaysStat(
+    val days: List<String>,
+    val counts: List<Int>
+) : Parcelable {
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeStringList(days)
+        parcel.writeIntArray(counts.toIntArray())
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<LastDaysStat> {
+        override fun createFromParcel(parcel: Parcel): LastDaysStat {
+            return LastDaysStat(
+                parcel.createStringArray()!!.toList(),
+                parcel.createIntArray()!!.toList()
+            )
+        }
+
+        override fun newArray(size: Int): Array<LastDaysStat?> {
+            return arrayOfNulls(size)
+        }
+    }
+
+}
+
+class LastDaysActivity : Fragment(R.layout.stat_tests_lastdaysactivity) {
     private lateinit var chart: BarChart
 
-    private val sampleData = listOf(2, 3, 1, 5, 4)
-    private val sampleDays = listOf("пн", "вт", "ср", "чт", "пт")
+    companion object {
+        enum class ChartConstants(val value: Float) {
+            CHART_BAR_RADIUS(50F),
+        }
 
-    private val sampleColors = listOf(
-        ContextCompat.getColor(context, R.color.stat_tests_lastDaysActivity_barColor_1),
-        ContextCompat.getColor(context, R.color.stat_tests_lastDaysActivity_barColor_2),
-        ContextCompat.getColor(context, R.color.stat_tests_lastDaysActivity_barColor_4),
-        ContextCompat.getColor(context, R.color.stat_tests_lastDaysActivity_barColor_4),
-        ContextCompat.getColor(context, R.color.stat_tests_lastDaysActivity_barColor_3)
-    )
-
-    constructor(context: Context) : super(context) {
-        setupView(context)
+        fun newInstance(lastDaysStat: LastDaysStat): LastDaysActivity {
+            val arguments = Bundle()
+            val lastDaysActivity = LastDaysActivity()
+            arguments.putParcelable("lastDaysStat", lastDaysStat)
+            lastDaysActivity.arguments = arguments
+            return lastDaysActivity
+        }
     }
 
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        setupView(context)
-    }
-
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr
-    ) {
-        setupView(context)
-    }
-
-    private fun setupChart() {
-        chart = findViewById(R.id.chart)
-        val entries = sampleData.mapIndexed { i, it -> BarEntry(i.toFloat(), it.toFloat()) }
-
-        val dataSet = BarDataSet(entries, "last_days_activity")
-        dataSet.colors = sampleColors
-        dataSet.valueFormatter = object : ValueFormatter() {
-            override fun getBarLabel(barEntry: BarEntry?): String {
-                return barEntry?.y?.toInt().toString()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        chart = view.findViewById(R.id.chart)
+        arguments?.let {
+            val lastDaysStat = it.getParcelable<LastDaysStat>("lastDaysStat")
+            lastDaysStat?.let {
+                setupChart(lastDaysStat)
             }
         }
-        dataSet.valueTextSize = 10F;
-        dataSet.barBorderWidth = 1f;
-
-        val renderer = RoundedVerticalBarChartRenderer(chart, chart.animator, chart.viewPortHandler)
-        renderer.setRightRadius(50f)
-        renderer.setLeftRadius(50f)
-
-        val xAxis = chart.xAxis
-        xAxis.valueFormatter = IndexAxisValueFormatter(sampleDays)
-        xAxis.granularity = 1f
-        xAxis.isGranularityEnabled = true
-        xAxis.setDrawGridLines(false)
-        xAxis.setDrawAxisLine(false)
-        xAxis.position = XAxis.XAxisPosition.BOTTOM
-        xAxis.textColor =
-            ContextCompat.getColor(context, R.color.stat_tests_tapping_chart_lineColor_3)
-
-        chart.renderer = renderer
-        chart.setTouchEnabled(false)
-        chart.data = BarData(dataSet)
-        chart.description.isEnabled = false
-        chart.axisRight.isEnabled = false
-        chart.axisLeft.isEnabled = false
-        chart.setBackgroundColor(ContextCompat.getColor(context, R.color.stat_cardBackground))
-        chart.legend.isEnabled = false
-        chart.setScaleEnabled(false)
-        chart.animateY(250)
-
-        chart.invalidate()
     }
 
-    private fun setupView(context: Context) {
-        val inflater = LayoutInflater.from(context)
-        inflater.inflate(R.layout.stat_tests_lastdaysactivity, this)
-        setupChart()
+    private fun setupChart(lastDaysStat: LastDaysStat) {
+        val entries =
+            lastDaysStat.counts.mapIndexed { i, it -> BarEntry(i.toFloat(), it.toFloat()) }
+
+        val dataSet = BarDataSet(entries, "last_days_activity")
+
+        dataSet.apply {
+            colors = listOf(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.stat_tests_lastDaysActivity_barColor_1
+                ),
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.stat_tests_lastDaysActivity_barColor_2
+                ),
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.stat_tests_lastDaysActivity_barColor_4
+                ),
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.stat_tests_lastDaysActivity_barColor_4
+                ),
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.stat_tests_lastDaysActivity_barColor_3
+                )
+            )
+
+            valueFormatter = object : ValueFormatter() {
+                override fun getBarLabel(barEntry: BarEntry?): String {
+                    return barEntry?.y?.toInt().toString()
+                }
+            }
+
+            valueTextSize = 10F;
+            barBorderWidth = 1f;
+        }
+
+        val roundedVerticalBarChartRenderer =
+            RoundedVerticalBarChartRenderer(chart, chart.animator, chart.viewPortHandler)
+        roundedVerticalBarChartRenderer.apply {
+            setRightRadius(50F)
+            setLeftRadius(50F)
+        }
+
+        chart.xAxis.apply {
+            valueFormatter = IndexAxisValueFormatter(lastDaysStat.days)
+            granularity = 1f
+            isGranularityEnabled = true
+            setDrawGridLines(false)
+            setDrawAxisLine(false)
+            position = XAxis.XAxisPosition.BOTTOM
+            textColor =
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.stat_tests_tapping_chart_lineColor_3
+                )
+        }
+
+        chart.apply {
+            renderer = roundedVerticalBarChartRenderer
+            setTouchEnabled(false)
+            data = BarData(dataSet)
+            description.isEnabled = false
+            axisRight.isEnabled = false
+            axisLeft.isEnabled = false
+            setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.stat_cardBackground
+                )
+            )
+            legend.isEnabled = false
+            setScaleEnabled(false)
+            animateY(250)
+            invalidate()
+        }
     }
 }

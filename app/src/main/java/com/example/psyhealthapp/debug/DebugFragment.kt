@@ -28,7 +28,7 @@ class DebugFragment : Fragment(R.layout.debug_fragment) {
         },
         FragmentHolder {
             return@FragmentHolder StatisticFragment()
-        }
+        },
         FragmentHolder {
             return@FragmentHolder TestReactionInstructionFragment()
         },

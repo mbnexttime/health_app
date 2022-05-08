@@ -43,7 +43,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="statistic_header">Статистика</string>
     <string name="passed_tests"> ПРОЙДЕННЫЕ ТЕСТЫ </string>
-    <string name="in_recent_days"> за последние дни: </string>
+    <string name="in_recent_days"> график за последние дни: </string>
     <string name="reaction_test"> РЕАКЦИОННЫЙ ТЕСТ </string>
     <string name="summary"> СУММАРНО </string>
     <string name="over_all_attempts"> по всем прохождениям: </string>
@@ -58,7 +58,7 @@
     <string name="training"> тренировка </string>
     <string name="on_average"> в среднем: </string>
     <string name="min"> минимум: </string>
-    <string name="in_total"> всего: </string>
+    <string name="in_total"> за все время: </string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

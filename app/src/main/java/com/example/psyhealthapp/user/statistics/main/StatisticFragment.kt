@@ -95,7 +95,6 @@ class StatisticFragment : Fragment(R.layout.statistic_fragment) {
             }
         })
 
-
         return view
     }
 
@@ -105,7 +104,7 @@ class StatisticFragment : Fragment(R.layout.statistic_fragment) {
         }
 
         override fun getItem(position: Int): Fragment {
-            return when(position) {
+            return when (position) {
                 0 -> StatPageTestFragment()
                 1 -> StatPageRelaxFragment()
                 else -> StatPageTrainingFragment()

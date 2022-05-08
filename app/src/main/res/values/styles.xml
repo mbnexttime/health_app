@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="stat_cards">
+        <item name="android:layout_width">@dimen/stat_cardWidth</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginVertical">@dimen/stat_cardMarginVertical</item>
+        <item name="cardCornerRadius">@dimen/stat_cardCornerRadius</item>
+    </style>
+
+    <style name="stat_cards_title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="fontFamily">@font/oswald</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/stat_cardName_textSize</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+</resources>

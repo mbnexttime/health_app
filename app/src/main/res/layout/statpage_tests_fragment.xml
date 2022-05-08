@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -14,33 +15,100 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.example.psyhealthapp.user.statistics.tests.Summary
-                android:layout_width="@dimen/stat_cardWidth"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginVertical="@dimen/stat_cardMarginVertical"
-                app:cardCornerRadius="@dimen/stat_cardCornerRadius" />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/summary_card"
+                style="@style/stat_cards">
 
-            <com.example.psyhealthapp.user.statistics.tests.Tapping
-                android:layout_width="@dimen/stat_cardWidth"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginVertical="@dimen/stat_cardMarginVertical"
-                app:cardCornerRadius="@dimen/stat_cardCornerRadius" />
+                <LinearLayout
+                    android:id="@+id/stat_tests_summary_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-            <com.example.psyhealthapp.user.statistics.tests.Reaction
-                android:layout_width="@dimen/stat_cardWidth"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginVertical="@dimen/stat_cardMarginVertical"
-                app:cardCornerRadius="@dimen/stat_cardCornerRadius" />
+                    <TextView
+                        android:id="@+id/summary_card_title"
+                        style="@style/stat_cards_title"
+                        android:text="@string/summary"
+                        app:drawableRightCompat="@drawable/ic_baseline_balance_24" />
 
-            <com.example.psyhealthapp.user.statistics.tests.LastDaysActivity
-                android:layout_width="@dimen/stat_cardWidth"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginVertical="@dimen/stat_cardMarginVertical"
-                app:cardCornerRadius="@dimen/stat_cardCornerRadius" />
+                    <androidx.fragment.app.FragmentContainerView
+                        android:id="@+id/summary_content"
+                        android:name="com.example.psyhealthapp.user.statistics.tests.Summary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/tapping_card"
+                style="@style/stat_cards">
+
+                <LinearLayout
+                    android:id="@+id/stat_tests_tapping_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tapping_card_title"
+                        style="@style/stat_cards_title"
+                        android:text="@string/tapping_test"
+                        app:drawableRightCompat="@drawable/ic_icons_woodpecker" />
+
+                    <androidx.fragment.app.FragmentContainerView
+                        android:id="@+id/tapping_content"
+                        android:name="com.example.psyhealthapp.user.statistics.tests.Tapping"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/reaction_card"
+                style="@style/stat_cards">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/stat_cards_title"
+                        android:text="@string/reaction_test"
+                        app:drawableRightCompat="@drawable/ic_baseline_area_chart_24" />
+
+                    <androidx.fragment.app.FragmentContainerView
+                        android:id="@+id/reaction_content"
+                        android:name="com.example.psyhealthapp.user.statistics.tests.Reaction"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/last_days_activity_card"
+                style="@style/stat_cards">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/stat_cards_title"
+                        android:text="@string/passed_tests"
+                        app:drawableRightCompat="@drawable/ic_baseline_check_circle_outline_24" />
+
+                    <androidx.fragment.app.FragmentContainerView
+                        android:id="@+id/last_days_activity_content"
+                        android:name="com.example.psyhealthapp.user.statistics.tests.LastDaysActivity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
     </ScrollView>
