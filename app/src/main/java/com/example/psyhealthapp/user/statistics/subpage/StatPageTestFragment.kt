@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.psyhealthapp.R
 import com.example.psyhealthapp.user.statistics.tests.*
+import com.example.psyhealthapp.user.testing.results.ReactionTestResult
+import com.example.psyhealthapp.user.testing.results.TappingTestResult
 
 private val summaryTestValues = listOf(
     Pair("мышление", 90F),
@@ -19,13 +21,12 @@ private val summaryTestValues = listOf(
     Pair("регуляция", 67F)
 )
 
-private val tappingSampleResult = TappingResult(
+private val tappingSampleResult = TappingTestResult(
     listOf(5F, 10F, 15F, 20F, 25F),
     listOf(37F, 30F, 28F, 29F, 27F),
-    listOf(40F, 29F, 35F, 24F, 27F)
 )
 
-private val reactionSampleResults = ReactionResult(
+private val reactionSampleResults = ReactionTestResult(
     listOf("29.04", "вчера", "вчера", "сегодня", "сегодня"),
     listOf(405F, 458F, 300F, 357F, 380F)
 )

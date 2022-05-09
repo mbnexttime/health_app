@@ -13,33 +13,11 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.example.psyhealthapp.R
+import com.example.psyhealthapp.user.testing.results.ReactionTestResult
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-
-class ReactionResult(val days: List<String>, val values: List<Float>) : Parcelable {
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeStringList(days)
-        parcel.writeFloatArray(values.toFloatArray())
-    }
-
-    companion object CREATOR : Parcelable.Creator<ReactionResult> {
-        override fun createFromParcel(parcel: Parcel): ReactionResult {
-            val days = parcel.createStringArray()!!.toList()
-            val values = parcel.createFloatArray()!!.toList()
-            return ReactionResult(days, values)
-        }
-
-        override fun newArray(size: Int): Array<ReactionResult?> {
-            return arrayOfNulls(size)
-        }
-    }
-}
 
 class Reaction : Fragment(R.layout.stat_tests_reaction) {
     private lateinit var chart: LineChart
@@ -50,7 +28,7 @@ class Reaction : Fragment(R.layout.stat_tests_reaction) {
             DASHED_LINE_LENGTH(10F)
         }
 
-        fun newInstance(reactionResult: ReactionResult): Reaction {
+        fun newInstance(reactionResult: ReactionTestResult): Reaction {
             val arguments = Bundle()
             val reaction = Reaction()
             arguments.putParcelable("testResult", reactionResult)
@@ -63,14 +41,14 @@ class Reaction : Fragment(R.layout.stat_tests_reaction) {
         super.onViewCreated(view, savedInstanceState)
         chart = view.findViewById(R.id.chart)
         arguments?.let {
-            val testResult = it.getParcelable<ReactionResult>("testResult")
+            val testResult = it.getParcelable<ReactionTestResult>("testResult")
             testResult?.let {
                 setupChart(testResult)
             }
         }
     }
 
-    private fun setupChart(testResult: ReactionResult) {
+    private fun setupChart(testResult: ReactionTestResult) {
         val dataSet =
             LineDataSet(
                 testResult.values.mapIndexed { it, i -> Entry(it.toFloat(), i) },

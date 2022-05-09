@@ -38,7 +38,8 @@ interface MainActivityModule {
         fun provideNavController(
             activity: AppCompatActivity,
         ): NavController {
-            val host = activity.supportFragmentManager.findFragmentById(R.id.main_root) as NavHostFragment
+            val host =
+                activity.supportFragmentManager.findFragmentById(R.id.main_root) as NavHostFragment
             return host.navController
         }
     }
