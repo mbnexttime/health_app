@@ -31,7 +31,7 @@ class LastDaysActivity : Fragment(R.layout.stat_tests_lastdaysactivity) {
     companion object {
         enum class ChartConstants(val value: Float) {
             CHART_BAR_RADIUS(50F),
-            POINTS_AT_SCREEN(10F)
+            POINTS_AT_SCREEN(6F)
         }
 
         fun newInstance(lastDaysStat: ResultsByDay): LastDaysActivity {
@@ -113,6 +113,7 @@ class LastDaysActivity : Fragment(R.layout.stat_tests_lastdaysactivity) {
 
         val roundedVerticalBarChartRenderer =
             RoundedVerticalBarChartRenderer(chart, chart.animator, chart.viewPortHandler)
+
         roundedVerticalBarChartRenderer.apply {
             setRightRadius(50F)
             setLeftRadius(50F)
@@ -149,6 +150,14 @@ class LastDaysActivity : Fragment(R.layout.stat_tests_lastdaysactivity) {
 
             renderer = roundedVerticalBarChartRenderer
             data = BarData(dataSet)
+
+            data.apply {
+                if (lastDaysStat.data.size < ChartConstants.POINTS_AT_SCREEN.value) {
+                    data.barWidth =
+                        0.3F * lastDaysStat.data.size / ChartConstants.POINTS_AT_SCREEN.value
+                }
+            }
+
             description.isEnabled = false
             axisRight.isEnabled = false
             axisLeft.isEnabled = false

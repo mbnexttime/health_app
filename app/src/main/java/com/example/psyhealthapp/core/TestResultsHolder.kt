@@ -29,7 +29,8 @@ class TestResultsHolder @Inject constructor(
         private val pendingList: MutableList<T>,
         private var resultList: MutableList<T>?,
         val db: DB,
-        val getServer: (String) -> MutableList<T>?
+        val getServer: (String) -> MutableList<T>?,
+        val Cons: (MutableList<T>) -> TestResultList
     ) : ViewModel() {
         private var counter = INVALID_COUNTER
         private var initialized = false
@@ -39,7 +40,6 @@ class TestResultsHolder @Inject constructor(
         }
 
         fun putTestResult(result: T) {
-            resultList?.add(result)
             if (!initialized) {
                 pendingList.add(result)
                 return
@@ -55,8 +55,8 @@ class TestResultsHolder @Inject constructor(
                 viewModelScope.launch {
                     db.putStringsAsync(
                         listOf(
-                            Pair(REACTION_TAG + localCounter, Gson().toJson(it)),
-                            Pair(REACTION_COUNTER_TAG, localCounter.toString())
+                            Pair(TEST_TAG + localCounter, Gson().toJson(Cons(it))),
+                            Pair(COUNTER_TAG, localCounter.toString())
                         )
                     )
                 }
@@ -93,20 +93,28 @@ class TestResultsHolder @Inject constructor(
         REACTION_COUNTER_TAG,
         mutableListOf<ReactionTestResult>(),
         null,
-        db
-    ) { it ->
-        db.getParcelable(it, ReactionTestResultList::class.java)?.results
-    }
+        db,
+        {
+            db.getParcelable(it, ReactionTestResultList::class.java)?.results
+        },
+        {
+            ReactionTestResultList(it)
+        }
+    )
 
     private val tappingTestResultsKeeper = Keeper<TappingTestResult>(
         TAPPING_TAG,
         TAPPING_COUNTER_TAG,
         mutableListOf<TappingTestResult>(),
         null,
-        db
-    ) { it ->
-        db.getParcelable(it, TappingTestResultList::class.java)?.results
-    }
+        db,
+        {
+            db.getParcelable(it, TappingTestResultList::class.java)?.results
+        },
+        {
+            TappingTestResultList(it)
+        }
+    )
 
     fun initialize() {
         reactionTestResultsKeeper.initialize()

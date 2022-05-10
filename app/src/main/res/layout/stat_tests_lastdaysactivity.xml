@@ -24,7 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/in_total"
-                android:textColor="@color/stat_tests_tapping_textColor_2"
+                android:textColor="@color/black"
                 android:textStyle="bold" />
 
             <TextView

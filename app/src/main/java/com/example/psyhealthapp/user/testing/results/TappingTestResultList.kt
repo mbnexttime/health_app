@@ -3,7 +3,8 @@ package com.example.psyhealthapp.user.testing.results
 import android.os.Parcel
 import android.os.Parcelable
 
-class TappingTestResultList(val results: MutableList<TappingTestResult>) : Parcelable {
+class TappingTestResultList(val results: MutableList<TappingTestResult>) : Parcelable,
+    TestResultList {
     constructor() : this(mutableListOf<TappingTestResult>()) {}
 
     fun putResult(result: TappingTestResult) {

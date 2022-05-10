@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/type_of_nervous_system"
-                android:textColor="@color/stat_tests_tapping_textColor_2"
+                android:textColor="@color/black"
                 android:textStyle="bold" />
 
             <TextView
