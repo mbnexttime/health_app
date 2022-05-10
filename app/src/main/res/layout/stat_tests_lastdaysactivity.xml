@@ -4,11 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/stat_marginHorizontal"
-    android:layout_marginVertical="@dimen/stat_marginVertical"
     app:cardBackgroundColor="@color/stat_cardBackground"
     app:cardCornerRadius="@dimen/stat_cardCornerRadius">
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,9 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/stat_marginHorizontal"
             android:layout_marginTop="@dimen/stat_marginVertical"
-            android:gravity="start"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
@@ -32,9 +28,9 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tests_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" 42"
                 android:textColor="@color/stat_tests_tapping_textColor_1"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -44,7 +40,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/stat_marginHorizontal"
-            android:layout_marginTop="@dimen/stat_marginVertical"
+            android:layout_marginVertical="@dimen/stat_marginVertical"
+            android:layout_marginBottom="10dp"
             android:minHeight="@dimen/stat_minChartHeight">
 
         </com.github.mikephil.charting.charts.BarChart>

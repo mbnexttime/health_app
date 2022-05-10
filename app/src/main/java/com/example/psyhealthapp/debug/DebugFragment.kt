@@ -17,9 +17,9 @@ import com.example.psyhealthapp.tests.MovingObjectReactionTestFragment
 import com.example.psyhealthapp.tests.TestReactionFragment
 import com.example.psyhealthapp.tests.*
 import com.example.psyhealthapp.debug.entries.DebugAddEntriesToDBFragment
-import com.example.psyhealthapp.user.statistics.main.StatisticFragment
 import com.example.psyhealthapp.user.testing.tappingtest.ui.TappingTestMainFragment
 import com.example.psyhealthapp.history.HistoryAddFragment
+import com.example.psyhealthapp.user.statistics.main.StatPageTestFragment
 
 class DebugFragment : Fragment(R.layout.debug_fragment) {
     /**
@@ -30,7 +30,7 @@ class DebugFragment : Fragment(R.layout.debug_fragment) {
             return@FragmentHolder BaseDebugFragment()
         },
         FragmentHolder {
-            return@FragmentHolder StatisticFragment()
+            return@FragmentHolder StatPageTestFragment()
         },
         FragmentHolder {
             return@FragmentHolder TestReactionInstructionFragment()

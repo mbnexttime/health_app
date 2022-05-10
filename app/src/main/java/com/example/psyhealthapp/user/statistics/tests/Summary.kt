@@ -81,7 +81,6 @@ class Summary : Fragment(R.layout.stat_tests_summary) {
         }
 
         chart.apply {
-            setTouchEnabled(false)
             setData(RadarData(set))
             description.isEnabled = false
             setBackgroundColor(ContextCompat.getColor(context, R.color.stat_cardBackground))

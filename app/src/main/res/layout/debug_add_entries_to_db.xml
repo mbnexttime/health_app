@@ -19,12 +19,20 @@
         android:text="Добавить запись про таппинг тест" />
 
     <EditText
-        android:id="@+id/editTextTextReactionTest"
+        android:id="@+id/editTextTextReactionTestResult"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Дата Результат" />
+        android:text="450" />
+
+    <EditText
+        android:id="@+id/editTextTextReactionTestDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="2022 06 11" />
 
     <Button
         android:id="@+id/add_entry_about_reaction_test"

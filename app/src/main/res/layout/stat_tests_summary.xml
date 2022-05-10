@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/stat_marginVertical"
     app:cardBackgroundColor="@color/stat_cardBackground"
     app:cardCornerRadius="@dimen/stat_cardCornerRadius">
 
@@ -17,7 +16,6 @@
             android:id="@+id/chart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/stat_marginVertical"
             android:minHeight="@dimen/stat_minChartHeight"
             tools:ignore="MissingConstraints" />
     </LinearLayout>

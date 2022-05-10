@@ -16,13 +16,13 @@ import javax.inject.Inject
 class HistoryAddFragment : Fragment(R.layout.history_add_view) {
     @Inject
     lateinit var model: HistoryModel
-    
+
     @Inject
     lateinit var navigator: NavController
 
     private lateinit var binding: HistoryAddViewBinding
-    
-    private val modelListener = object: HistoryModel.HistoriesUpdateListeners {
+
+    private val modelListener = object : HistoryModel.HistoriesUpdateListeners {
         override fun onHistoriesUpdate(historyList: HistoryList) = Unit
 
         override fun onDraftUpdate(draft: String) {
@@ -35,7 +35,7 @@ class HistoryAddFragment : Fragment(R.layout.history_add_view) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = HistoryAddViewBinding.bind(view)
-        
+
         binding.historyAddContinueButton.setOnClickListener {
             val text = binding.historyAddEditText.editableText.toString()
             if (text.isEmpty()) {
@@ -46,15 +46,15 @@ class HistoryAddFragment : Fragment(R.layout.history_add_view) {
             model.putDraft("")
             navigator.navigate(R.id.navigation_to_history_show)
         }
-        
-        binding.historyAddEditText.addTextChangedListener { 
+
+        binding.historyAddEditText.addTextChangedListener {
             model.putDraft(it.toString())
         }
-        
-        binding.historyAddCancelButton.setOnClickListener { 
+
+        binding.historyAddCancelButton.setOnClickListener {
             navigator.popBackStack()
         }
-        
+
         model.addListenerAndNotify(modelListener)
     }
 

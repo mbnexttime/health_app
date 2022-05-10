@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/stat_graph"
+    app:startDestination="@id/statistic">
+
+    <action
+        android:id="@+id/navigation_to_stat"
+        app:destination="@id/statistic"
+        app:enterAnim="@anim/slide_in"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/slide_out" />
+
+    <fragment
+        android:id="@+id/statistic"
+        android:name="com.example.psyhealthapp.user.statistics.main.StatisticFragment"
+        android:label="StatisticFragment"
+        tools:layout="@layout/statistic_fragment">
+    </fragment>
+
+    <include app:graph="@navigation/tapping_test_graph" />
+</navigation>

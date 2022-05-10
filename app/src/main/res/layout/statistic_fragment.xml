@@ -1,82 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#E5DADD"
-    >
+    android:background="@color/stat_background"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/stat_header_height"
+        android:layout_gravity="center"
+        android:text="@string/statistic_header"
+        android:textColor="@color/black"
+        android:textSize="@dimen/stat_header_textSize" />
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginHorizontal="10dp"
-        >
+        android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/stat_header_height"
-            android:text="@string/statistic_header"
-            android:textSize="@dimen/stat_header_textSize"
-            android:textColor="@color/black"
-            android:layout_gravity="center"
-            >
-        </TextView>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/test_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tests"
-                android:textAlignment="center"
-                android:textSize="@dimen/stat_navButtons_textSize"
-                app:cornerRadius="@dimen/stat_navButtons_cornerRadius"
-                android:layout_weight="1"
-                />
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/summary_card"
+                style="@style/stat_cards"
+                app:strokeColor="@color/black"
+                app:strokeWidth="1dp"
+                >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                <LinearLayout
+                    android:id="@+id/stat_tests_summary_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-            <Button
-                android:id="@+id/relax_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/relax"
-                app:cornerRadius="@dimen/stat_navButtons_cornerRadius"
-                android:textSize="@dimen/stat_navButtons_textSize"
-                android:layout_weight="1"
-                />
+                    <TextView
+                        android:id="@+id/summary_card_title"
+                        style="@style/stat_cards_title"
+                        android:text="@string/summary"
+                        app:drawableRightCompat="@drawable/ic_baseline_balance_24" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                    <androidx.fragment.app.FragmentContainerView
+                        android:id="@+id/summary_content"
+                        android:name="com.example.psyhealthapp.user.statistics.tests.Summary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-            <Button
-                android:id="@+id/train_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/training"
-                app:cornerRadius="@dimen/stat_navButtons_cornerRadius"
-                android:textSize="@dimen/stat_navButtons_textSize"
-                android:layout_weight="1"
-                />
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/tapping_card"
+                style="@style/stat_cards"
+                app:strokeColor="@color/black"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:id="@+id/stat_tests_tapping_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tapping_card_title"
+                        style="@style/stat_cards_title"
+                        android:text="@string/tapping_test"
+                        app:drawableRightCompat="@drawable/ic_icons_woodpecker" />
+
+                    <androidx.fragment.app.FragmentContainerView
+                        android:id="@+id/tapping_content"
+                        android:name="com.example.psyhealthapp.user.statistics.tests.Tapping"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/reaction_card"
+                style="@style/stat_cards"
+                app:strokeColor="@color/black"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/stat_cards_title"
+                        android:text="@string/reaction_test"
+                        app:drawableRightCompat="@drawable/ic_baseline_area_chart_24" />
+
+                    <androidx.fragment.app.FragmentContainerView
+                        android:id="@+id/reaction_content"
+                        android:name="com.example.psyhealthapp.user.statistics.tests.Reaction"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/last_days_activity_card"
+                style="@style/stat_cards"
+                app:strokeColor="@color/black"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/stat_cards_title"
+                        android:text="@string/passed_tests"
+                        app:drawableRightCompat="@drawable/ic_baseline_check_circle_outline_24" />
+
+                    <androidx.fragment.app.FragmentContainerView
+                        android:id="@+id/last_days_activity_content"
+                        android:name="com.example.psyhealthapp.user.statistics.tests.LastDaysActivity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
-
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/pager"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-    </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

@@ -1,114 +1,118 @@
 package com.example.psyhealthapp.user.statistics.main
 
-import android.annotation.SuppressLint
-import android.graphics.Color
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
-import androidx.viewpager.widget.PagerAdapter
-import androidx.viewpager.widget.ViewPager
-import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.example.psyhealthapp.R
-import com.example.psyhealthapp.user.statistics.subpage.StatPageRelaxFragment
-import com.example.psyhealthapp.user.statistics.subpage.StatPageTestFragment
-import com.example.psyhealthapp.user.statistics.subpage.StatPageTrainingFragment
+import com.example.psyhealthapp.core.TestResultsHolder
+import com.example.psyhealthapp.user.statistics.tests.*
+import com.example.psyhealthapp.user.testing.results.TappingTestResult
+import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
+import javax.inject.Inject
 
-class StatisticFragment : Fragment(R.layout.statistic_fragment) {
-    private val navButtons = mutableListOf<Button>()
+private val summaryTestValues = listOf(
+    Pair("мышление", 90F),
+    Pair("контроль", 81F),
+    Pair("реакция", 75F),
+    Pair("стабильность", 66F),
+    Pair("воля", 52F),
+    Pair("внимание", 37F),
+    Pair("регуляция", 67F)
+)
 
-    companion object {
-        const val PAGE_COUNT = 3
-    }
+private val tappingSampleResult = TappingTestResult(
+    Date(),
+    listOf(
+        3.361F,
+        3.597F,
+        3.659F,
+        3.719F,
+        3.792F,
+        3.886F,
+        3.983F,
+        4.052F,
+        4.123F,
+        4.184F,
+        4.243F,
+        4.309F,
+        4.38F,
+        4.476F,
+        4.54F,
+        4.609F,
+        4.709F,
+        4.782F,
+        4.854F,
+        4.928F,
+        4.998F,
+        5.073F,
+        5.154F,
+        5.247F,
+        5.323F,
+        5.421F,
+        5.506F,
+        5.614F,
+        5.723F,
+        5.789F,
+        5.884F,
+        5.958F,
+        6.02F,
+        6.088F,
+        6.186F,
+        6.254F,
+        6.313F,
+        6.376F,
+        6.476F,
+        6.537F,
+        6.596F,
+        6.696F,
+        6.797F,
+        6.875F,
+        6.936F,
+        7F,
+        7.06F,
+        7.159F,
+        7.25F,
+        7.316F,
+        7.399F,
+        7.458F,
+        7.516F,
+        7.613F,
+        7.713F,
+        7.81F,
+        7.913F,
+        8.014F,
+        8.093F,
+        8.198F
+    ),
+    listOf(3F, 7F, 10F, 13F, 45F),
+)
 
-    private lateinit var pager: ViewPager
-    private lateinit var pagerAdapter: PagerAdapter
+@AndroidEntryPoint
+class StatPageTestFragment : Fragment(R.layout.statistic_fragment) {
+    @Inject
+    lateinit var resultsHolder: TestResultsHolder
 
-    private fun initNavButtons(view: View) {
-        navButtons.add(view.findViewById(R.id.test_button))
-        navButtons.add(view.findViewById(R.id.relax_button))
-        navButtons.add(view.findViewById(R.id.train_button))
-        navButtons.map {
-            it.setBackgroundColor(
-                ResourcesCompat.getColor(
-                    resources,
-                    R.color.stat_inactivePageButton,
-                    null
-                )
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val resultsByDays = resultsHolder.getResultsCountByDays()
+
+        childFragmentManager.beginTransaction().apply {
+            replace(R.id.summary_content, Summary.newInstance(summaryTestValues))
+            replace(
+                R.id.tapping_content,
+                Tapping.newInstance(resultsHolder.getLastTappingTestResult())
             )
-            it.isEnabled = false
-            it.setTextColor(Color.BLACK)
-        }
-        navButtons[0].setBackgroundColor(
-            ResourcesCompat.getColor(
-                resources,
-                R.color.stat_activePageButton,
-                null
+            replace(
+                R.id.reaction_content,
+                Reaction.newInstance(resultsHolder.getReactionTestResults())
             )
-        )
+            replace(
+                R.id.last_days_activity_content,
+                LastDaysActivity.newInstance(resultsHolder.getResultsCountByDays())
+            )
+        }.commit()
     }
 
-    @SuppressLint("InflateParams")
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        super.onCreateView(inflater, container, savedInstanceState)
-        val view = inflater.inflate(R.layout.statistic_fragment, null)
-
-        initNavButtons(view)
-
-        pager = view.findViewById<ViewPager>(R.id.pager)
-        pager.adapter = StatisticPageAdapter(childFragmentManager)
-
-        pager.setOnPageChangeListener(object : OnPageChangeListener {
-            var current_page = 0
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) = Unit
-
-            override fun onPageScrollStateChanged(state: Int) = Unit
-
-            override fun onPageSelected(position: Int) {
-                navButtons[current_page].setBackgroundColor(
-                    ResourcesCompat.getColor(
-                        resources,
-                        R.color.stat_inactivePageButton,
-                        null
-                    )
-                )
-                current_page = position
-                navButtons[current_page].setBackgroundColor(
-                    ResourcesCompat.getColor(
-                        resources,
-                        R.color.stat_activePageButton,
-                        null
-                    )
-                )
-            }
-        })
-
-        return view
-    }
-
-    class StatisticPageAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
-        override fun getCount(): Int {
-            return PAGE_COUNT
-        }
-
-        override fun getItem(position: Int): Fragment {
-            return when (position) {
-                0 -> StatPageTestFragment()
-                1 -> StatPageRelaxFragment()
-                else -> StatPageTrainingFragment()
-            }
-        }
-    }
 }

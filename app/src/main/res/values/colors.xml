@@ -15,7 +15,6 @@
 
     <color name="stat_inactivePageButton"> #F6F1F1 </color>
     <color name="stat_activePageButton"> #EFBEBE </color>
-    <color name="stat_cardBackground"> #FBF7F7 </color>
     <color name="dark_blue">#00008b</color>
     <color name="light_grey">#eeeeee</color>
     <color name="dark_grey">#c0c0c0</color>
@@ -30,6 +29,7 @@
     <color name="light_green"> #F6FFEB </color>
     <color name="light_blue"> #DDF4FB </color>
     <color name="light_beige"> #FBF7F7 </color>
+    <color name="stat_cardBackground"> #FFFFFF </color>
 
     <color name="stat_tests_lastDaysActivity_barColor_1"> #D1786B </color>
     <color name="stat_tests_lastDaysActivity_barColor_2"> #EA8069 </color>
@@ -48,5 +48,7 @@
     <color name="stat_tests_tapping_textColor_2"> #460B0B </color>
 
     <color name="stat_tests_summary_chartBackground"> #FFE5E5 </color>
+    <color name="stat_background"> #FFE5E5 </color>
+    <color name="stat_cards_stroke"> #8B4F08 </color>
     
 </resources>

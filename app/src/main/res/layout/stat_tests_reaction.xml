@@ -3,22 +3,58 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/stat_marginVertical"
-    app:cardBackgroundColor="@color/stat_cardBackground"
-    app:cardCornerRadius="@dimen/stat_cardCornerRadius">
+    app:cardBackgroundColor="@color/stat_cardBackground">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginVertical="@dimen/stat_marginVertical"
-            android:fontFamily="@font/neuton"
-            android:text="@string/recent_attempts" />
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="@dimen/stat_marginVertical"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/min"
+                android:textColor="@color/stat_tests_tapping_textColor_2"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/best_reaction_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/stat_tests_tapping_textColor_1"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="@dimen/stat_marginVertical"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/on_average"
+                android:textColor="@color/stat_tests_tapping_textColor_2"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/average_reaction_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/stat_tests_tapping_textColor_1"
+                android:textStyle="bold" />
+        </LinearLayout>
 
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/chart"
