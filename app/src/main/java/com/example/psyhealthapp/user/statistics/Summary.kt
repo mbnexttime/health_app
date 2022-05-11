@@ -1,4 +1,4 @@
-package com.example.psyhealthapp.user.statistics.tests
+package com.example.psyhealthapp.user.statistics
 
 import android.os.Bundle
 import android.view.View
@@ -12,15 +12,13 @@ import com.github.mikephil.charting.data.RadarDataSet
 import com.github.mikephil.charting.data.RadarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 
-class Summary : Fragment(R.layout.stat_tests_summary) {
+class Summary : Fragment(R.layout.stat_summary) {
     private lateinit var chart: RadarChart
 
     companion object {
-        enum class ChartConstants(val value: Float) {
-            AXIS_MAXIMUM(80F),
-            AXIS_MINIMUM(0F),
-            FORM_LINE_WIDTH(10F)
-        }
+        const val YAXIS_MAXIMUM = 80F
+        const val YAXIS_MINIMUM = 0F
+        const val FORM_LINE_WIDTH = 10F
 
         fun newInstance(values: List<Pair<String, Float>>): Summary {
             val arguments = Bundle()
@@ -53,26 +51,24 @@ class Summary : Fragment(R.layout.stat_tests_summary) {
                 requireActivity(),
                 R.color.stat_tests_tapping_chart_lineColor_1
             )
-            fillColor =
-                ContextCompat.getColor(
-                    requireActivity(),
-                    R.color.stat_tests_tapping_chart_lineColor_2
-                )
-            formLineWidth = ChartConstants.FORM_LINE_WIDTH.value
+            fillColor = ContextCompat.getColor(
+                requireActivity(),
+                R.color.stat_tests_tapping_chart_lineColor_2
+            )
+            formLineWidth = FORM_LINE_WIDTH
             setDrawValues(false)
-            highlightCircleFillColor =
-                ContextCompat.getColor(
-                    requireActivity(),
-                    R.color.stat_tests_tapping_chart_lineColor_2
-                )
+            highlightCircleFillColor = ContextCompat.getColor(
+                requireActivity(),
+                R.color.stat_tests_tapping_chart_lineColor_2
+            )
             setDrawFilled(true)
         }
 
         chart.yAxis.apply {
             setDrawLabels(false)
             setDrawAxisLine(false)
-            this.axisMaximum = ChartConstants.AXIS_MAXIMUM.value
-            this.axisMinimum = ChartConstants.AXIS_MINIMUM.value
+            axisMaximum = YAXIS_MAXIMUM
+            axisMinimum = YAXIS_MINIMUM
         }
 
         chart.xAxis.apply {
@@ -82,13 +78,24 @@ class Summary : Fragment(R.layout.stat_tests_summary) {
 
         chart.apply {
             setData(RadarData(set))
+            setBackgroundColor(
+                ContextCompat.getColor(
+                    requireActivity(),
+                    R.color.stat_cardBackground
+                )
+            )
+            webColor = ContextCompat.getColor(
+                requireActivity(),
+                R.color.stat_tests_tapping_chart_lineColor_3
+            )
+            webColorInner = ContextCompat.getColor(
+                requireActivity(),
+                R.color.stat_tests_tapping_chart_lineColor_2
+            )
+
             description.isEnabled = false
-            setBackgroundColor(ContextCompat.getColor(context, R.color.stat_cardBackground))
             legend.isEnabled = false
-            webColor =
-                ContextCompat.getColor(context, R.color.stat_tests_tapping_chart_lineColor_3)
-            webColorInner =
-                ContextCompat.getColor(context, R.color.stat_tests_tapping_chart_lineColor_2)
+
             animateX(250)
             invalidate()
         }

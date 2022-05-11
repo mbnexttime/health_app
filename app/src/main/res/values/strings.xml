@@ -47,7 +47,7 @@
     <string name="reaction_test"> РЕАКЦИОННЫЙ ТЕСТ </string>
     <string name="summary"> СУММАРНО </string>
     <string name="over_all_attempts"> по всем прохождениям: </string>
-    <string name="tapping_test"> ТАППИНГ ТЕСТ </string>
+    <string name="tapping_test"> ТЕППИНГ ТЕСТ </string>
     <string name="last_result"> последний результат: </string>
     <string name="type_of_nervous_system"> тип нервной системы: </string>
     <string name="medium"> &#160;средний </string>
@@ -57,8 +57,11 @@
     <string name="relax"> расслабление </string>
     <string name="training"> тренировка </string>
     <string name="on_average"> в среднем: </string>
-    <string name="min"> самый быстрый </string>
+    <string name="min"> лучший:  </string>
     <string name="in_total"> за все время: </string>
+    <string name="up_this_week"> на этой неделе: </string>
+    <string name="asymmetry_ratio"> коэффициент асимметрии: </string>
+    <string name="nervous_system_power"> сила нервной системы: </string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

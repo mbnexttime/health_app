@@ -1,25 +1,15 @@
-package com.example.psyhealthapp.user.statistics.tests
+package com.example.psyhealthapp.user.statistics
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.graphics.Canvas
 import android.os.Bundle
-import android.os.Parcel
-import android.os.Parcelable
-import android.util.AttributeSet
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.example.psyhealthapp.R
-import com.example.psyhealthapp.user.statistics.util.Calcus
-import com.example.psyhealthapp.user.testing.results.ReactionTestResult
 import com.example.psyhealthapp.user.testing.results.ReactionTestResultList
 import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
@@ -29,19 +19,20 @@ import java.lang.Float.max
 import java.text.SimpleDateFormat
 import kotlin.math.roundToInt
 
-class Reaction : Fragment(R.layout.stat_tests_reaction) {
+class Reaction : Fragment(R.layout.stat_reaction) {
     private lateinit var chart: LineChart
 
     @SuppressLint("SimpleDateFormat")
     private val dateFmt = SimpleDateFormat("dd.MM")
 
     companion object {
-        enum class ChartConstants(val value: Float) {
-            VALUE_TEXT_SIZE(14F),
-            DASHED_LINE_LENGTH(10F),
-            X_AXIS_PERCENT(5F),
-            POINTS_AT_SCREEN(5F)
-        }
+        private const val VALUE_TEXT_SIZE = 14F
+        private const val DASHED_LINE_LENGTH = 10F
+        private const val XAXIS_PERCENT = 5F
+        private const val POINTS_AT_SCREEN = 5F
+        private const val DATA_SET_LINE_WIDTH = 2F
+        private const val XAXIS_GRANULARITY = 1F
+        private const val YAXIS_SCALE_COEF = 1.5F
 
         fun newInstance(reactionResult: ReactionTestResultList): Reaction {
             val arguments = Bundle()
@@ -84,42 +75,37 @@ class Reaction : Fragment(R.layout.stat_tests_reaction) {
             )
 
         dataSet.apply {
-            lineWidth = 2F
-            setDrawCircles(false)
-            setDrawValues(true)
+            lineWidth = DATA_SET_LINE_WIDTH
             mode = LineDataSet.Mode.CUBIC_BEZIER
             valueTextSize = valueTextSize
-            color =
-                ContextCompat.getColor(
-                    requireContext(),
-                    R.color.stat_tests_lastDaysActivity_barColor_3
-                )
-            setDrawFilled(true)
-            fillColor =
-                ContextCompat.getColor(requireContext(), R.color.stat_tests_tapping_textColor_1)
-            valueTextColor =
-                ContextCompat.getColor(
-                    requireContext(),
-                    R.color.stat_tests_tapping_chart_lineColor_3
-                )
-            valueTypeface = ResourcesCompat.getFont(requireContext(), R.font.oswald)
-            enableDashedLine(
-                ChartConstants.DASHED_LINE_LENGTH.value,
-                ChartConstants.DASHED_LINE_LENGTH.value,
-                ChartConstants.DASHED_LINE_LENGTH.value
+            color = ContextCompat.getColor(
+                requireContext(),
+                R.color.stat_tests_lastDaysActivity_barColor_3
             )
+            fillColor = ContextCompat.getColor(
+                requireContext(), R.color.stat_tests_tapping_textColor_1
+            )
+            valueTextColor = ContextCompat.getColor(
+                requireContext(),
+                R.color.stat_tests_tapping_chart_lineColor_3
+            )
+            valueTypeface = ResourcesCompat.getFont(requireContext(), R.font.oswald)
+            enableDashedLine(DASHED_LINE_LENGTH, DASHED_LINE_LENGTH, DASHED_LINE_LENGTH)
+            setDrawFilled(true)
+            setDrawCircles(false)
+            setDrawValues(true)
         }
 
         chart.xAxis.apply {
-            granularity = 1F
+            granularity = XAXIS_GRANULARITY
             valueFormatter =
                 IndexAxisValueFormatter(testResultList.results.map { dateFmt.format(it.date) })
             setDrawGridLines(false)
         }
 
         chart.axisLeft.apply {
-            axisMinimum = 100F
-            axisMaximum = 900F
+            axisMaximum =
+                testResultList.results.maxByOrNull { it.result }!!.result * YAXIS_SCALE_COEF
             setDrawGridLines(false)
             setDrawLabels(false)
         }
@@ -127,20 +113,22 @@ class Reaction : Fragment(R.layout.stat_tests_reaction) {
         chart.apply {
             setScaleMinima(
                 max(
-                    ChartConstants.POINTS_AT_SCREEN.value,
+                    POINTS_AT_SCREEN,
                     testResultList.results.size.toFloat()
-                ) / ChartConstants.POINTS_AT_SCREEN.value, 1f
+                ) / POINTS_AT_SCREEN, 1f
             )
             centerViewTo(
                 max(
                     0F,
-                    testResultList.results.size - ChartConstants.POINTS_AT_SCREEN.value
+                    testResultList.results.size - POINTS_AT_SCREEN
                 ), 0F, YAxis.AxisDependency.LEFT
             )
-            description.isEnabled = false
             data = LineData(dataSet)
+
             axisRight.isEnabled = false
             legend.isEnabled = false
+            description.isEnabled = false
+
             animateY(250)
             invalidate()
         }

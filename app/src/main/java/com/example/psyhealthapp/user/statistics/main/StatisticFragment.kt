@@ -5,7 +5,10 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.psyhealthapp.R
 import com.example.psyhealthapp.core.TestResultsHolder
-import com.example.psyhealthapp.user.statistics.tests.*
+import com.example.psyhealthapp.user.statistics.LastDaysActivity
+import com.example.psyhealthapp.user.statistics.Reaction
+import com.example.psyhealthapp.user.statistics.Summary
+import com.example.psyhealthapp.user.statistics.tapping.TappingMainFragment
 import com.example.psyhealthapp.user.testing.results.TappingTestResult
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -102,7 +105,7 @@ class StatPageTestFragment : Fragment(R.layout.statistic_fragment) {
             replace(R.id.summary_content, Summary.newInstance(summaryTestValues))
             replace(
                 R.id.tapping_content,
-                Tapping.newInstance(resultsHolder.getLastTappingTestResult())
+                TappingMainFragment.newInstance(resultsHolder.getLastTappingTestResult())
             )
             replace(
                 R.id.reaction_content,

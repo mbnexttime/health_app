@@ -1,4 +1,4 @@
-package com.example.psyhealthapp.user.statistics.util
+package com.example.psyhealthapp.util
 
 import android.graphics.Canvas
 import android.graphics.RectF

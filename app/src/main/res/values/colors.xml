@@ -43,6 +43,8 @@
     <color name="stat_tests_tapping_chart_lineColor_2"> #FF7C44</color>
     <color name="stat_tests_tapping_chart_lineColor_3"> #8B4F08 </color>
 
+    <color name="stat_tab_selected"> #EA8069  </color>
+
     <color name="stat_tests_tapping_chartBackground">#FFF1EF</color>
     <color name="stat_tests_tapping_textColor_1"> #CC4C4C </color>
     <color name="stat_tests_tapping_textColor_2"> #460B0B </color>
