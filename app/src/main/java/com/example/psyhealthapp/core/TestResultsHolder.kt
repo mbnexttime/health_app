@@ -121,6 +121,18 @@ class TestResultsHolder @Inject constructor(
         }
     )
 
+    private val movingReactionTestResultKeeper = Keeper<ReactionTestResult>(
+        MOVING_TAG,
+        MOVING_COUNTER_TAG,
+        db,
+        {
+            db.getParcelable(it, ReactionTestResultList::class.java, gson)?.results
+        },
+        {
+            ReactionTestResultList(it)
+        }
+    )
+
     private val tappingTestResultsKeeper = Keeper<TappingTestResult>(
         TAPPING_TAG,
         TAPPING_COUNTER_TAG,
@@ -134,9 +146,18 @@ class TestResultsHolder @Inject constructor(
     )
 
     fun initialize() {
+        movingReactionTestResultKeeper.initialize()
         reactionTestResultsKeeper.initialize()
         complexReactionTestResultsKeeper.initialize()
         tappingTestResultsKeeper.initialize()
+    }
+
+    fun putMovingReactionTestResult(result: ReactionTestResult) {
+        movingReactionTestResultKeeper.putTestResult(result)
+    }
+
+    fun getMovingReactionTestResults(): ReactionTestResultList {
+        return ReactionTestResultList(movingReactionTestResultKeeper.getTestResults())
     }
 
     fun putReactionTestResult(result: ReactionTestResult) {
@@ -167,6 +188,7 @@ class TestResultsHolder @Inject constructor(
         val resultsByDay = tappingTestResultsKeeper.getResultsByDay().clone()
         resultsByDay.mergeWith(reactionTestResultsKeeper.getResultsByDay())
         resultsByDay.mergeWith(complexReactionTestResultsKeeper.getResultsByDay())
+        resultsByDay.mergeWith(movingReactionTestResultKeeper.getResultsByDay())
 
         return resultsByDay
     }
@@ -182,6 +204,9 @@ class TestResultsHolder @Inject constructor(
 
         private const val TAPPING_TAG = "tapping"
         private const val TAPPING_COUNTER_TAG = "tapping_counter"
+
+        private const val MOVING_TAG = "moving"
+        private const val MOVING_COUNTER_TAG = "moving_counter"
 
         private const val INVALID_COUNTER = 0
         private val handler = Handler(Looper.getMainLooper())

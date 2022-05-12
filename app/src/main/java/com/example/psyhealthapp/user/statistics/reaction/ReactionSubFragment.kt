@@ -159,7 +159,6 @@ class ReactionSubFragment : Fragment(R.layout.stat_reaction_subfragment) {
             axisRight.isEnabled = false
             legend.isEnabled = false
             description.isEnabled = false
-            setScaleEnabled(false)
 
             animateY(250)
             invalidate()

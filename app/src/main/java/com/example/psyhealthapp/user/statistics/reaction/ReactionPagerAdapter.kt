@@ -12,7 +12,7 @@ class ReactionPagerAdapter(
     private val reactionResultList: ReactionTestResultList,
     private val complexReactionTestResultList: ReactionTestResultList
 ) : FragmentStatePagerAdapter(fragmentManager) {
-    private val pages = listOf("простая", "сложная")
+    private val pages = listOf("простая", "сложная", "движ")
 
     override fun getCount(): Int {
         return pages.size
@@ -26,11 +26,15 @@ class ReactionPagerAdapter(
             ) else ReactionSubFragment.newInstance(
                 reactionResultList
             )
-            else -> if (complexReactionTestResultList.results.isEmpty()) EmptyContentFragment.newInstance(
+            1 -> if (complexReactionTestResultList.results.isEmpty()) EmptyContentFragment.newInstance(
                 R.string.reaction_placeholder_text,
                 R.drawable.ic_smile2
             ) else ReactionSubFragment.newInstance(
                 complexReactionTestResultList
+            )
+            else -> EmptyContentFragment.newInstance(
+                R.string.reaction_placeholder_text,
+                R.drawable.ic_smile2
             )
         }
     }
