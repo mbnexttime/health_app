@@ -2,16 +2,16 @@ package com.example.psyhealthapp.core
 
 import android.os.Handler
 import android.os.Looper
-import android.view.View
+import android.os.Parcelable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.psyhealthapp.db.DB
 import com.example.psyhealthapp.db.DBProvider
 import com.example.psyhealthapp.user.testing.results.*
-import com.google.gson.Gson
+import com.example.psyhealthapp.util.LocalDateAdapter
+import com.google.gson.*
 import kotlinx.coroutines.launch
-import java.util.*
+import java.time.LocalDate
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -23,23 +23,29 @@ class TestResultsHolder @Inject constructor(
         dbProvider.getDB(DB_TAG)
     }
 
-    class Keeper<T>(
+    class Keeper<T : TestResult>(
         private val TEST_TAG: String,
         private val COUNTER_TAG: String,
-        private val pendingList: MutableList<T>,
-        private var resultList: MutableList<T>?,
         val db: DB,
         val getServer: (String) -> MutableList<T>?,
-        val Cons: (MutableList<T>) -> TestResultList
+        val Cons: (MutableList<T>) -> Parcelable
     ) : ViewModel() {
         private var counter = INVALID_COUNTER
         private var initialized = false
+        private val pendingList = mutableListOf<T>()
+        private var resultList: MutableList<T>? = null
+        private val resultsByDay = ResultsByDay(sortedMapOf())
+
+        fun getResultsByDay(): ResultsByDay {
+            return resultsByDay
+        }
 
         fun getTestResults(): MutableList<T> {
             return resultList ?: pendingList
         }
 
         fun putTestResult(result: T) {
+            resultsByDay.addResult(result.date)
             if (!initialized) {
                 pendingList.add(result)
                 return
@@ -48,14 +54,14 @@ class TestResultsHolder @Inject constructor(
             saveTestResultsToDB()
         }
 
-        fun saveTestResultsToDB() {
+        private fun saveTestResultsToDB() {
             resultList?.let {
                 counter++
                 val localCounter = counter
                 viewModelScope.launch {
                     db.putStringsAsync(
                         listOf(
-                            Pair(TEST_TAG + localCounter, Gson().toJson(Cons(it))),
+                            Pair(TEST_TAG + localCounter, gson.toJson(Cons(it))),
                             Pair(COUNTER_TAG, localCounter.toString())
                         )
                     )
@@ -81,6 +87,9 @@ class TestResultsHolder @Inject constructor(
                     } else {
                         pendingList
                     }
+                    server?.forEach {
+                        resultsByDay.addResult(it.date)
+                    }
                     saveTestResultsToDB()
                     initialized = true
                 }
@@ -91,11 +100,21 @@ class TestResultsHolder @Inject constructor(
     private val reactionTestResultsKeeper = Keeper<ReactionTestResult>(
         REACTION_TAG,
         REACTION_COUNTER_TAG,
-        mutableListOf<ReactionTestResult>(),
-        null,
         db,
         {
-            db.getParcelable(it, ReactionTestResultList::class.java)?.results
+            db.getParcelable(it, ReactionTestResultList::class.java, gson)?.results
+        },
+        {
+            ReactionTestResultList(it)
+        }
+    )
+
+    private val complexReactionTestResultsKeeper = Keeper<ReactionTestResult>(
+        COMPLEX_REACTION_TAG,
+        COMPLEX_REACTION_COUNTER_TAG,
+        db,
+        {
+            db.getParcelable(it, ReactionTestResultList::class.java, gson)?.results
         },
         {
             ReactionTestResultList(it)
@@ -105,8 +124,6 @@ class TestResultsHolder @Inject constructor(
     private val tappingTestResultsKeeper = Keeper<TappingTestResult>(
         TAPPING_TAG,
         TAPPING_COUNTER_TAG,
-        mutableListOf<TappingTestResult>(),
-        null,
         db,
         {
             db.getParcelable(it, TappingTestResultList::class.java)?.results
@@ -118,6 +135,7 @@ class TestResultsHolder @Inject constructor(
 
     fun initialize() {
         reactionTestResultsKeeper.initialize()
+        complexReactionTestResultsKeeper.initialize()
         tappingTestResultsKeeper.initialize()
     }
 
@@ -129,6 +147,14 @@ class TestResultsHolder @Inject constructor(
         return ReactionTestResultList(reactionTestResultsKeeper.getTestResults())
     }
 
+    fun putComplexReactionTestResult(result: ReactionTestResult) {
+        complexReactionTestResultsKeeper.putTestResult(result)
+    }
+
+    fun getComplexReactionTestResults(): ReactionTestResultList {
+        return ReactionTestResultList(complexReactionTestResultsKeeper.getTestResults())
+    }
+
     fun putTappingTestResult(result: TappingTestResult) {
         tappingTestResultsKeeper.putTestResult(result)
     }
@@ -138,21 +164,29 @@ class TestResultsHolder @Inject constructor(
     }
 
     fun getResultsCountByDays(): ResultsByDay {
-        val ret = mutableMapOf<Date, Int>()
-        getReactionTestResults().results.forEach {
-            val testDay = Date(it.date.year, it.date.month, it.date.date)
-            ret[testDay] = ret.getOrDefault(testDay, 0) + 1
-        }
-        return ResultsByDay(ret)
+        val resultsByDay = tappingTestResultsKeeper.getResultsByDay().clone()
+        resultsByDay.mergeWith(reactionTestResultsKeeper.getResultsByDay())
+        resultsByDay.mergeWith(complexReactionTestResultsKeeper.getResultsByDay())
+
+        return resultsByDay
     }
 
     companion object {
         private const val DB_TAG = "testingResults"
+
         private const val REACTION_TAG = "reaction"
         private const val REACTION_COUNTER_TAG = "reaction_counter"
+
+        private const val COMPLEX_REACTION_TAG = "complex_reaction"
+        private const val COMPLEX_REACTION_COUNTER_TAG = "complex_reaction_counter"
+
         private const val TAPPING_TAG = "tapping"
         private const val TAPPING_COUNTER_TAG = "tapping_counter"
+
         private const val INVALID_COUNTER = 0
         private val handler = Handler(Looper.getMainLooper())
+        private val gson = GsonBuilder().setPrettyPrinting()
+            .registerTypeAdapter(LocalDate::class.java, LocalDateAdapter())
+            .create()
     }
 }

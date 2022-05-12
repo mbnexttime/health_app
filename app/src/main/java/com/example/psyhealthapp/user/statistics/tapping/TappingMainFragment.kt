@@ -6,42 +6,34 @@ import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.psyhealthapp.R
+import com.example.psyhealthapp.databinding.StatTappingBinding
 import com.example.psyhealthapp.util.DynamicHeightViewPager
 import com.example.psyhealthapp.user.testing.results.TappingTestResult
-import java.text.DecimalFormat
-import java.text.Format
+import by.kirich1409.viewbindingdelegate.viewBinding
 
 class TappingMainFragment : Fragment(R.layout.stat_tapping) {
-    private lateinit var tappingPager: DynamicHeightViewPager
+    private val viewBinding by viewBinding(StatTappingBinding::bind)
     private lateinit var tappingCollectionPagerAdapter: TappingPagerAdapter
-
-    private lateinit var asymmetryTextView: TextView
-    private lateinit var nervousSystemPowerTextView: TextView
-    private lateinit var nervousSystemTypeTextView: TextView
 
     @SuppressLint("SetTextI18n")
     private fun setupTextViews(results: TappingTestResult.ClearlyResults) {
-        asymmetryTextView.text = String.format(fmt, results.asymmetry)
-        nervousSystemPowerTextView.text = "${String.format(fmt, results.nervousSystemPowerRatio)}%"
-        nervousSystemTypeTextView.text = results.nervousSystemType
+        viewBinding.asymmetryRatio.text = String.format(fmt, results.asymmetry)
+        viewBinding.nervousSystemPower.text =
+            "${String.format(fmt, results.nervousSystemPowerRatio)}%"
+        viewBinding.typeOfNervousSystem.text = results.nervousSystemType
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        tappingPager = view.findViewById(R.id.tapping_pager)
-        asymmetryTextView = view.findViewById(R.id.asymmetry_ratio)
-        nervousSystemPowerTextView = view.findViewById(R.id.nervous_system_power)
-        nervousSystemTypeTextView = view.findViewById(R.id.type_of_nervous_system)
-
         arguments?.let {
-            val result = it.getParcelable<TappingTestResult>("testResult")
+            val result = it.getParcelable<TappingTestResult>(TEST_RESULT)
             result?.let {
                 tappingCollectionPagerAdapter = TappingPagerAdapter(
                     childFragmentManager,
                     result
                 )
-                tappingPager.adapter = tappingCollectionPagerAdapter
+                viewBinding.tappingPager.adapter = tappingCollectionPagerAdapter
                 setupTextViews(result.getClearlyResult())
             }
         }
@@ -49,13 +41,14 @@ class TappingMainFragment : Fragment(R.layout.stat_tapping) {
 
     companion object {
         private const val fmt = "%.2f"
+        private const val TEST_RESULT = "testResult"
 
         fun newInstance(
             tappingResult: TappingTestResult?
         ): TappingMainFragment {
             val arguments = Bundle()
             val tapping = TappingMainFragment()
-            arguments.putParcelable("testResult", tappingResult)
+            arguments.putParcelable(TEST_RESULT, tappingResult)
             tapping.arguments = arguments
             return tapping
         }

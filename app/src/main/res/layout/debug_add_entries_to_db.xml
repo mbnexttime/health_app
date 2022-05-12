@@ -40,4 +40,26 @@
         android:layout_height="wrap_content"
         android:text="Добавить запись про реакционный тест" />
 
+    <EditText
+        android:id="@+id/editTextComplexTextReactionTestResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="450" />
+
+    <EditText
+        android:id="@+id/editTextComplexTextReactionTestDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="2022 06 11" />
+
+    <Button
+        android:id="@+id/add_entry_about_complex_reaction_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Добавить запись про комплексный реакционный тест" />
+
 </LinearLayout>

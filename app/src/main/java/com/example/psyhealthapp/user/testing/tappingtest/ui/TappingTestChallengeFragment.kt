@@ -85,5 +85,4 @@ class TappingTestChallengeFragment : Fragment(R.layout.tapping_test_challenge_fr
             }
         }
     }
-
 }

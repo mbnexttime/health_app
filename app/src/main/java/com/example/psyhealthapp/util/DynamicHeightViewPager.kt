@@ -2,6 +2,7 @@ package com.example.psyhealthapp.util
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.MotionEvent
 import android.view.View
 import androidx.viewpager.widget.ViewPager
 
@@ -11,6 +12,12 @@ class DynamicHeightViewPager @JvmOverloads constructor(
 ) : ViewPager(context, attrs) {
     companion object {
         const val TAB_LAYOUT_HEIGHT = 150
+    }
+
+    var swipeable = true
+
+    override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
+        return if (swipeable) super.onInterceptTouchEvent(ev) else false
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {

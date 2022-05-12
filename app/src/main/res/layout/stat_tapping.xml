@@ -14,10 +14,11 @@
         <com.example.psyhealthapp.util.DynamicHeightViewPager
             android:id="@+id/tapping_pager"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+
+            >
 
             <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:tabIndicatorColor="@color/black"
@@ -29,8 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginHorizontal="@dimen/stat_marginHorizontal"
-            android:layout_marginBottom="@dimen/stat_marginVertical"
-            >
+            android:layout_marginBottom="14dp">
 
             <TableRow>
 
@@ -38,8 +38,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/type_of_nervous_system"
-                    android:textColor="@color/black"
-                    />
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/type_of_nervous_system"
@@ -54,10 +53,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/asymmetry_ratio"
-                    android:textColor="@color/black"
                     android:layout_marginEnd="5dp"
-                    />
+                    android:text="@string/asymmetry_ratio"
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/asymmetry_ratio"

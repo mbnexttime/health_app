@@ -20,11 +20,11 @@ internal class DBImpl(
         sp.edit().putString(tag + spTag, json).apply()
     }
 
-    override fun <T : Parcelable> getParcelable(tag: String, cl: Class<T>): T? {
+    override fun <T : Parcelable> getParcelable(tag: String, cl: Class<T>, gson: Gson): T? {
         val json = sp.getString(tag + spTag, null)
         return try {
             if (json != null)
-                Gson().fromJson(json, cl)
+                gson.fromJson(json, cl)
             else null
         } catch (_: JsonSyntaxException) {
             null
@@ -73,12 +73,13 @@ internal class DBImpl(
         val inputData = Data.Builder()
             .putString(ParcelableWriter.WORKER_COUNT, data.size.toString())
             .putString(ParcelableWriter.WORKER_DB_TAG, trueSpTag)
-        data.withIndex().forEach { 
+        data.withIndex().forEach {
             inputData.putString(ParcelableWriter.WORKER_TAG + it.index, it.value.first + spTag)
             inputData.putString(ParcelableWriter.WORKER_DATA + it.index, it.value.second)
         }
 
-        val request = OneTimeWorkRequestBuilder<ParcelableWriter>().setInputData(inputData.build()).build()
+        val request =
+            OneTimeWorkRequestBuilder<ParcelableWriter>().setInputData(inputData.build()).build()
         WorkManager.getInstance(appContext).enqueue(request)
     }
 }

@@ -19,18 +19,18 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 import java.lang.Float.max
 import java.lang.Float.min
-import java.text.SimpleDateFormat
 import java.time.LocalDate
-import java.time.Period
-import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
+import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.psyhealthapp.databinding.StatLastdaysactivityBinding
+import kotlin.math.roundToInt
 
 class LastDaysActivity : Fragment(R.layout.stat_lastdaysactivity) {
-    private lateinit var chart: BarChart
-
-    @SuppressLint("SimpleDateFormat")
-    private val dateFmt = SimpleDateFormat("dd.MM")
+    private val viewBinding by viewBinding(StatLastdaysactivityBinding::bind)
 
     companion object {
+        val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd MMMM")
         private const val CHART_BAR_RADIUS = 50F
         private const val POINTS_AT_SCREEN = 5F
         private const val DATA_SET_VALUE_TEXT_SIZE = 10F
@@ -51,18 +51,12 @@ class LastDaysActivity : Fragment(R.layout.stat_lastdaysactivity) {
 
     @SuppressLint("SetTextI18n")
     fun setTestsNumber(view: View, resultsByDay: ResultsByDay) {
-        val totalNumberTextView = view.findViewById<TextView>(R.id.tests_number_total)
-        totalNumberTextView.text = " ${resultsByDay.data.values.sum()}"
+        viewBinding.testsNumberTotal.text = " ${resultsByDay.data.values.sum()}"
 
         val now = LocalDate.now()
-        val upWeekNumberTextView = view.findViewById<TextView>(R.id.tests_number_at_week)
-        upWeekNumberTextView.text = " ${
+        viewBinding.testsNumberAtWeek.text = " ${
             resultsByDay.data.toList().fold(0) { acc, e ->
-                if (Period.between(
-                        e.first.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
-                        now
-                    ).months < 1
-                ) {
+                if (ChronoUnit.MONTHS.between(e.first, now) < 1) {
                     acc + e.second
                 } else {
                     acc
@@ -84,10 +78,17 @@ class LastDaysActivity : Fragment(R.layout.stat_lastdaysactivity) {
     }
 
     private fun setupChart(view: View, lastDaysStat: ResultsByDay) {
-        chart = view.findViewById(R.id.chart)
+        val chart = viewBinding.chart
 
         val entries =
             lastDaysStat.data.values.mapIndexed { i, it -> BarEntry(i.toFloat(), it.toFloat()) }
+                .toMutableList()
+
+        while (POINTS_AT_SCREEN - entries.size > 1) {
+            entries.add(0, BarEntry(entries[0].x - 1, 0F))
+            entries.add(BarEntry(entries.last().x + 1, 0F))
+        }
+
         val dataSet = BarDataSet(entries, "last_days_activity")
 
         val colors = listOf(
@@ -124,7 +125,14 @@ class LastDaysActivity : Fragment(R.layout.stat_lastdaysactivity) {
 
             valueFormatter = object : ValueFormatter() {
                 override fun getBarLabel(barEntry: BarEntry?): String {
-                    return barEntry?.y?.toInt().toString()
+                    if (barEntry != null) {
+                        return if (barEntry.y > 0) {
+                            barEntry.y.roundToInt().toString()
+                        } else {
+                            ""
+                        }
+                    }
+                    return ""
                 }
             }
 
@@ -139,14 +147,25 @@ class LastDaysActivity : Fragment(R.layout.stat_lastdaysactivity) {
             setLeftRadius(CHART_BAR_RADIUS)
         }
 
+        val days = lastDaysStat.data.keys.map { it.format(formatter) }
+
         chart.xAxis.apply {
-            valueFormatter =
-                IndexAxisValueFormatter(lastDaysStat.data.keys.map { dateFmt.format(it) })
+            valueFormatter = object : ValueFormatter() {
+                override fun getFormattedValue(value: Float): String {
+                    val id = value.roundToInt()
+                    return if (id in days.indices) {
+                        days[id]
+                    } else {
+                        ""
+                    }
+                }
+            }
             textColor =
                 ContextCompat.getColor(
                     requireContext(),
                     R.color.stat_tests_tapping_chart_lineColor_3
                 )
+
             granularity = XAXIS_GRANULARITY
             position = XAxis.XAxisPosition.BOTTOM
 

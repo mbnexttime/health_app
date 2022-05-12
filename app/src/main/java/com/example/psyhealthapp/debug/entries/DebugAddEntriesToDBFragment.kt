@@ -13,11 +13,14 @@ import com.example.psyhealthapp.db.DBProvider
 import com.example.psyhealthapp.user.testing.results.ReactionTestResult
 import com.example.psyhealthapp.user.testing.results.TappingTestResult
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.LocalDate
 import java.util.*
 import javax.inject.Inject
+import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.psyhealthapp.databinding.DebugAddEntriesToDbBinding
 
 private val tappingSampleResult = TappingTestResult(
-    Date(),
+    LocalDate.now(),
     listOf(
         0.055F,
         0.181F,
@@ -241,30 +244,48 @@ private val tappingSampleResult = TappingTestResult(
 
 @AndroidEntryPoint
 class DebugAddEntriesToDBFragment : Fragment(R.layout.debug_add_entries_to_db) {
-    companion object {
-        private val DB_TAG = "TappingResults"
-    }
-
     @Inject
     lateinit var model: TestResultsHolder
 
+    private val viewBinding by viewBinding(DebugAddEntriesToDbBinding::bind)
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val reactionResultTextView =
-            view.findViewById<TextView>(R.id.editTextTextReactionTestResult)
-        val reactionDateTextView = view.findViewById<TextView>(R.id.editTextTextReactionTestDate)
 
-        view.findViewById<Button>(R.id.add_entry_about_reaction_test).setOnClickListener {
-            val words = reactionDateTextView.text.split(' ')
+        viewBinding.addEntryAboutReactionTest.setOnClickListener {
+            val words = viewBinding.editTextTextReactionTestDate.text.split(' ')
+            val year = words[0].toIntOrNull() ?: 0
+            val month = words[1].toIntOrNull() ?: 0
+            val day = words[2].toIntOrNull() ?: 0
+
             model.putReactionTestResult(
                 ReactionTestResult(
-                    Date(words[0].toInt(), words[1].toInt(), words[2].toInt()),
-                    reactionResultTextView.text.toString().toFloatOrNull() ?: 350F
+                    LocalDate.of(year, month, day),
+                    viewBinding.editTextTextReactionTestResult.text.toString().toFloatOrNull()
+                        ?: 350F
                 )
             )
         }
-        view.findViewById<Button>(R.id.add_entry_about_tapping_test).setOnClickListener {
+
+        viewBinding.addEntryAboutComplexReactionTest.setOnClickListener {
+            val words = viewBinding.editTextComplexTextReactionTestDate.text.split(' ')
+            val year = words[0].toIntOrNull() ?: 0
+            val month = words[1].toIntOrNull() ?: 0
+            val day = words[2].toIntOrNull() ?: 0
+
+            model.putComplexReactionTestResult(
+                ReactionTestResult(
+                    LocalDate.of(year, month, day),
+                    viewBinding.editTextComplexTextReactionTestResult.text.toString()
+                        .toFloatOrNull()
+                        ?: 239F
+                )
+            )
+        }
+
+        viewBinding.addEntryAboutTappingTest.setOnClickListener {
             model.putTappingTestResult(tappingSampleResult)
         }
     }
+
 }

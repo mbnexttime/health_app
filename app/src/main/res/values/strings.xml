@@ -44,7 +44,7 @@
     <string name="statistic_header">Статистика</string>
     <string name="passed_tests"> ПРОЙДЕННЫЕ ТЕСТЫ </string>
     <string name="in_recent_days"> график за последние дни: </string>
-    <string name="reaction_test"> РЕАКЦИОННЫЙ ТЕСТ </string>
+    <string name="reaction_test"> РЕАКЦИЯ </string>
     <string name="summary"> СУММАРНО </string>
     <string name="over_all_attempts"> по всем прохождениям: </string>
     <string name="tapping_test"> ТЕППИНГ ТЕСТ </string>
@@ -62,6 +62,10 @@
     <string name="up_this_week"> на этой неделе: </string>
     <string name="asymmetry_ratio"> коэффициент асимметрии: </string>
     <string name="nervous_system_power"> сила нервной системы: </string>
+
+    <string name="reaction_placeholder_text"> Вы еще не попробовали это.\nМожет, сейчас самое время? </string>
+    <string name="lastdaycacitivy_placeholder_text"> Вы еще не проходили тестов.\nНаш оракул говорит, что уже пора! </string>
+    <string name="tapping_placeholder_text"> Попробуйте пройти этот тест,\nон работает! </string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>
