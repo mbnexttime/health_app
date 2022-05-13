@@ -10,10 +10,12 @@ sealed class TappingTestState {
     object Instruction : TappingTestState()
     object Challenge : TappingTestState()
     object Result : TappingTestState()
+    object End : TappingTestState()
 }
 
 @Singleton
 class TappingTestFlowInteractor @Inject constructor() {
+
     fun notifyResultScreenGoNext() {
         tappingTestFlowValue = TappingTestState.Instruction
     }
@@ -25,6 +27,24 @@ class TappingTestFlowInteractor @Inject constructor() {
     fun notifyChallengeScreenGoNext() {
         tappingTestFlowValue = TappingTestState.Result
     }
+
+    fun notifyClicked(timeMillis: Long) {
+        clickTimesInner.add(timeMillis)
+    }
+
+    fun notifyChallengeEnd() {
+        tappingTestFlowValue = TappingTestState.End
+    }
+
+    fun notifyRepeatClicked() {
+        tappingTestFlowValue = TappingTestState.Challenge
+    }
+
+
+    private val clickTimesInner = mutableListOf<Long>()
+
+    val clickTimes: List<Long>
+        get() = clickTimesInner.toList()
 
     val tappingTestFlow: Flow<TappingTestState>
         get() = tappingTestFlowInner.asStateFlow()

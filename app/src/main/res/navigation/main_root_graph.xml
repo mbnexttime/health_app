@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_root_graph"
     app:startDestination="@+id/tapping_test_graph">
-    
+
     <action
         android:id="@+id/navigation_to_history_add"
         app:destination="@id/history_add"
@@ -29,5 +29,10 @@
         android:id="@+id/history_show"
         android:name="com.example.psyhealthapp.history.HistoryShowFragment" />
 
+    <include app:graph="@navigation/tapping_test_graph" >
+        <action
+            android:id="@+id/action_main_root_to_tapping_test_graph"
+            app:destination="@id/tapping_test_graph" />
+    </fragment>
     <include app:graph="@navigation/tapping_test_graph" />
 </navigation>

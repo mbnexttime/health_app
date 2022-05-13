@@ -14,4 +14,16 @@ class TappingTestResultViewModel @Inject constructor(
         interactor.notifyResultScreenGoNext()
     }
 
+    fun getResultText(): String {
+        return interactor.clickTimes.joinToString("\n")
+    }
+
+    fun notifyRepeatButtonClicked() {
+        interactor.notifyRepeatClicked()
+    }
+
+    fun notifyChallengeEnd() {
+        interactor.notifyChallengeEnd()
+    }
+
 }
