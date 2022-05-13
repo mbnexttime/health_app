@@ -1,20 +1,20 @@
 package com.example.psyhealthapp.profile
 
+import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.Application
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.InputType
+import android.text.style.DynamicDrawableSpan
 import android.view.View
 import android.widget.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.text.set
+import androidx.core.text.toSpannable
 import androidx.fragment.app.Fragment
 import com.example.psyhealthapp.R
-import com.example.psyhealthapp.db.DB
-import com.example.psyhealthapp.db.DBProvider
-import com.example.psyhealthapp.db.DBProvider_Factory
-import javax.inject.Inject
 
 
 class ProfileFragment : Fragment(R.layout.profile_fragment) {
@@ -36,23 +36,24 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
     private lateinit var fieldSexEdit: RadioGroup
     private lateinit var sexMan: RadioButton
     private lateinit var sexWoman: RadioButton
+    private lateinit var sexOther: RadioButton
     private lateinit var btnSave: Button
 
     private lateinit var btnEdit: ImageButton
     private lateinit var btnStatistic: ImageButton
     private lateinit var btnSettings: ImageButton
 
-    @Inject
-    lateinit var dbProvider: DBProvider
-    private val tagName = "name"
-    private val tagAge = "age"
-    private val tagSex = "sex"
+//    @Inject
+//    lateinit var dbProvider: DBProvider
+//    private val tagName = "name"
+//    private val tagAge = "age"
+//    private val tagSex = "sex"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         imageProfile = view.findViewById(R.id.imageProfile)
         btnEditImageProfile = view.findViewById(R.id.btnEditImageProfile)
         btnEditImageProfile.setOnClickListener(clickListener)
-        pickProfileImage()
+        getProfileImage()
 
         llBackName = view.findViewById(R.id.llBackName)
         llBackAge = view.findViewById(R.id.llBackAge)
@@ -89,7 +90,7 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
                 btnEdit.isClickable = false
                 btnSave.visibility = View.VISIBLE
 
-                val currentName = fieldName.text.toString()//db.getString(tagName) ?: "!!!"
+                val currentName = fieldName.text.toString()  //db.getString(tagName) ?: "!!!"
                 llBackName.removeView(fieldName)
                 fieldNameEdit = EditText(activity)
                 fieldNameEdit.setText(currentName)
@@ -106,15 +107,20 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
                 llBackSex.removeView(fieldSex)
                 sexMan = RadioButton(activity)
                 sexWoman = RadioButton(activity)
-                sexMan.text = "м"
-                sexWoman.text = "ж"
+                sexOther = RadioButton(activity)
+                setRadioImageText(sexMan, R.drawable.sex_man, getString(R.string.profile_sex_man))
+                setRadioImageText(sexWoman, R.drawable.sex_woman, getString(R.string.profile_sex_woman))
+                setRadioImageText(sexOther, R.drawable.sex_other, getString(R.string.profile_sex_other))
+
                 fieldSexEdit = RadioGroup(activity)
-                fieldSexEdit.orientation = LinearLayout.HORIZONTAL
+                fieldSexEdit.orientation = LinearLayout.VERTICAL
                 fieldSexEdit.addView(sexMan)
                 fieldSexEdit.addView(sexWoman)
+                fieldSexEdit.addView(sexOther)
                 when (currentSex) {
-                    "мужской" -> sexMan.isChecked = true
-                    "женский" -> sexWoman.isChecked = true
+                    getString(R.string.profile_sex_man) -> sexMan.isChecked = true
+                    getString(R.string.profile_sex_woman) -> sexWoman.isChecked = true
+                    getString(R.string.profile_sex_other) -> sexOther.isChecked = true
                 }
                 llBackSex.addView(fieldSexEdit, lParams)
 
@@ -135,9 +141,10 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
                 llBackAge.addView(fieldAge, lParams)
 
                 val savingSex = when (fieldSexEdit.checkedRadioButtonId) {
-                    sexMan.id -> "мужской"
-                    sexWoman.id -> "женский"
-                    else -> "-"
+                    sexMan.id -> getString(R.string.profile_sex_man)
+                    sexWoman.id -> getString(R.string.profile_sex_woman)
+                    sexOther.id -> getString(R.string.profile_sex_other)
+                    else -> getString(R.string.profile_no_info)
                 }
                 llBackSex.removeView(fieldSexEdit)
                 fieldSex.text = savingSex
@@ -152,7 +159,32 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
         }
     }
 
-    private fun pickProfileImage() {
+    private val sizeFixForManIcon = 35
+    private val sizeFixForOtherIcons = 20
+
+    private fun setRadioImageText(radioButton: RadioButton, drawableId: Int, text: String){
+        val spannable = ("_  $text").toSpannable()
+        object : DynamicDrawableSpan(){
+            @SuppressLint("UseCompatLoadingForDrawables")
+            override fun getDrawable(): Drawable {
+                val drawable: Drawable = context!!.resources.getDrawable(drawableId, null)
+                val sizeFix = when (drawableId) {
+                    R.drawable.sex_man -> sizeFixForManIcon
+                    else -> sizeFixForOtherIcons
+                }
+                drawable.setBounds(
+                    0,
+                    0,
+                    drawable.intrinsicWidth / sizeFix,
+                    drawable.intrinsicHeight / sizeFix
+                )
+                return drawable
+            }
+        }.also { spannable[0..1] = it }
+        radioButton.text = spannable
+    }
+
+    private fun getProfileImage() {
         imagePickIntent = Intent(Intent.ACTION_PICK)
         imagePickIntent.type = "image/*"
         profileImageLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->

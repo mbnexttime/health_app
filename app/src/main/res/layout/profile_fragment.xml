@@ -3,7 +3,7 @@
     android:id="@+id/llBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/profile_background"
+    android:background="@color/profile_background_1"
     android:orientation="vertical">
 
     <LinearLayout
@@ -62,7 +62,7 @@
                 </TextView>
                 <TextView
                     android:id="@+id/fieldName"
-                    android:text="-"
+                    android:text="@string/profile_no_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                 </TextView>
@@ -81,7 +81,7 @@
                 </TextView>
                 <TextView
                     android:id="@+id/fieldAge"
-                    android:text="-"
+                    android:text="@string/profile_no_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                 </TextView>
@@ -100,7 +100,7 @@
                 </TextView>
                 <TextView
                     android:id="@+id/fieldSex"
-                    android:text="-"
+                    android:text="@string/profile_no_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                 </TextView>
