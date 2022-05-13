@@ -12,110 +12,17 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <LinearLayout
-            android:id="@+id/llBackImage"
-            android:layout_margin="15dp"
+        <ImageButton
+            android:id="@+id/btnImageProfile"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/imageProfile"
-                android:layout_marginTop="10dp"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:background="@drawable/profile_image"
-                android:layout_gravity="center">
-            </ImageView>
-
-            <Button
-                android:id="@+id/btnEditImageProfile"
-                style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textSize="10dp"
-                android:text="редактировать">
-            </Button>
-
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/llBackInfo"
-            android:layout_margin="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:id="@+id/llBackName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:text="Имя: "
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                </TextView>
-                <TextView
-                    android:id="@+id/fieldName"
-                    android:text="@string/profile_no_info"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                </TextView>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/llBackAge"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:text="Возраст: "
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                </TextView>
-                <TextView
-                    android:id="@+id/fieldAge"
-                    android:text="@string/profile_no_info"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                </TextView>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/llBackSex"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:text="Пол: "
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                </TextView>
-                <TextView
-                    android:id="@+id/fieldSex"
-                    android:text="@string/profile_no_info"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                </TextView>
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/btnSave"
-                android:layout_gravity="left"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Сохранить"
-                android:textSize="10dp">
-            </Button>
-        </LinearLayout>
+            android:layout_height="340dp"
+            android:background="@drawable/persic"
+            android:layout_gravity="center">
+        </ImageButton>
     </LinearLayout>
 
     <LinearLayout
@@ -159,6 +66,96 @@
         </ImageButton>
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/llBackInfo"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/llBackName"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/profile_string_info_height"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="Имя: "
+                android:textSize="@dimen/profile_text_size"
+                android:textColor="@color/profile_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TextView>
+            <TextView
+                android:id="@+id/fieldName"
+                android:textSize="@dimen/profile_text_size"
+                android:textColor="@color/profile_text"
+                android:text="@string/profile_no_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llBackAge"
+            android:layout_height="@dimen/profile_string_info_height"
+            android:layout_width="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="Возраст: "
+                android:textSize="@dimen/profile_text_size"
+                android:textColor="@color/profile_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TextView>
+            <TextView
+                android:id="@+id/fieldAge"
+                android:textSize="@dimen/profile_text_size"
+                android:textColor="@color/profile_text"
+                android:text="@string/profile_no_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llBackSex"
+            android:layout_height="@dimen/profile_string_info_height"
+            android:layout_width="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="Пол: "
+                android:textSize="@dimen/profile_text_size"
+                android:textColor="@color/profile_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TextView>
+            <TextView
+                android:id="@+id/fieldSex"
+                android:textSize="@dimen/profile_text_size"
+                android:textColor="@color/profile_text"
+                android:text="@string/profile_no_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TextView>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_gravity="left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Сохранить"
+            android:textColor="@color/profile_text"
+            android:backgroundTint="@color/white"
+            android:textSize="10dp">
+        </Button>
+    </LinearLayout>
 
 </LinearLayout>
 

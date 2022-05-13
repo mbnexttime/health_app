@@ -4,8 +4,9 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
-import android.text.InputType
+import android.text.InputType.TYPE_CLASS_NUMBER
 import android.text.style.DynamicDrawableSpan
 import android.view.View
 import android.widget.*
@@ -15,12 +16,16 @@ import androidx.core.text.set
 import androidx.core.text.toSpannable
 import androidx.fragment.app.Fragment
 import com.example.psyhealthapp.R
+import com.example.psyhealthapp.core.UserDataHolder
+import com.example.psyhealthapp.core.UserDataType
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
+@AndroidEntryPoint
 class ProfileFragment : Fragment(R.layout.profile_fragment) {
 
-    private lateinit var imageProfile: ImageView
-    private lateinit var btnEditImageProfile: Button
+    private lateinit var btnImageProfile: ImageButton
     private lateinit var profileImageLauncher: ActivityResultLauncher<Intent>
     private lateinit var imagePickIntent: Intent
 
@@ -43,17 +48,13 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
     private lateinit var btnStatistic: ImageButton
     private lateinit var btnSettings: ImageButton
 
-//    @Inject
-//    lateinit var dbProvider: DBProvider
-//    private val tagName = "name"
-//    private val tagAge = "age"
-//    private val tagSex = "sex"
+    @Inject
+    lateinit var userDataHolder : UserDataHolder
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        imageProfile = view.findViewById(R.id.imageProfile)
-        btnEditImageProfile = view.findViewById(R.id.btnEditImageProfile)
-        btnEditImageProfile.setOnClickListener(clickListener)
-        getProfileImage()
+        btnImageProfile = view.findViewById(R.id.btnImageProfile)
+        btnImageProfile.setOnClickListener(clickListener)
+        startWorkWithProfileImage()
 
         llBackName = view.findViewById(R.id.llBackName)
         llBackAge = view.findViewById(R.id.llBackAge)
@@ -61,7 +62,8 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
         fieldName = view.findViewById(R.id.fieldName)
         fieldAge = view.findViewById(R.id.fieldAge)
         fieldSex = view.findViewById(R.id.fieldSex)
-        //initInfo()
+        initInfo()
+
         btnSave = view.findViewById(R.id.btnSave)
         btnSave.setOnClickListener(clickListener)
         btnSave.visibility = View.GONE
@@ -74,81 +76,43 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
         btnSettings.setOnClickListener(clickListener)
     }
 
-//    fun initInfo() {
-//        fieldName.text = dbProvider.ge.getString(tagName) ?: "!!!"
-//    }
+    private fun initInfo() {
+        fieldName.text = userDataHolder.getUserDataString(UserDataType.NAME)
+            ?: getString(R.string.profile_no_info)
+        fieldAge.text = userDataHolder.getUserDataString(UserDataType.AGE)
+            ?: getString(R.string.profile_no_info)
+        fieldSex.text = userDataHolder.getUserDataString(UserDataType.SEX)
+            ?: getString(R.string.profile_no_info)
+//        val uriImage = userDataHolder.getUserDataString(UserDataType.URI)
+//        if (uriImage != null) {
+//            btnImageProfile.setImageURI(Uri.parse(uriImage))
+//        }
+    }
 
-    private val wrapContent = LinearLayout.LayoutParams.WRAP_CONTENT
-    private val lParams = LinearLayout.LayoutParams(wrapContent, wrapContent)
 
     private val clickListener = View.OnClickListener { p0 ->
         when (p0) {
-            btnEditImageProfile -> {
+            btnImageProfile -> {
                 profileImageLauncher.launch(imagePickIntent)
             }
             btnEdit -> {
                 btnEdit.isClickable = false
                 btnSave.visibility = View.VISIBLE
 
-                val currentName = fieldName.text.toString()  //db.getString(tagName) ?: "!!!"
-                llBackName.removeView(fieldName)
                 fieldNameEdit = EditText(activity)
-                fieldNameEdit.setText(currentName)
-                llBackName.addView(fieldNameEdit, lParams)
-
-                val currentAge = fieldAge.text.toString()
-                llBackAge.removeView(fieldAge)
+                createEditView(fieldName, fieldNameEdit, llBackName)
                 fieldAgeEdit = EditText(activity)
-                fieldAgeEdit.setText(currentAge)
-                fieldAgeEdit.inputType = InputType.TYPE_CLASS_NUMBER
-                llBackAge.addView(fieldAgeEdit, lParams)
-
-                val currentSex = fieldSex.text.toString()
-                llBackSex.removeView(fieldSex)
-                sexMan = RadioButton(activity)
-                sexWoman = RadioButton(activity)
-                sexOther = RadioButton(activity)
-                setRadioImageText(sexMan, R.drawable.sex_man, getString(R.string.profile_sex_man))
-                setRadioImageText(sexWoman, R.drawable.sex_woman, getString(R.string.profile_sex_woman))
-                setRadioImageText(sexOther, R.drawable.sex_other, getString(R.string.profile_sex_other))
-
-                fieldSexEdit = RadioGroup(activity)
-                fieldSexEdit.orientation = LinearLayout.VERTICAL
-                fieldSexEdit.addView(sexMan)
-                fieldSexEdit.addView(sexWoman)
-                fieldSexEdit.addView(sexOther)
-                when (currentSex) {
-                    getString(R.string.profile_sex_man) -> sexMan.isChecked = true
-                    getString(R.string.profile_sex_woman) -> sexWoman.isChecked = true
-                    getString(R.string.profile_sex_other) -> sexOther.isChecked = true
-                }
-                llBackSex.addView(fieldSexEdit, lParams)
-
+                fieldAgeEdit.inputType = TYPE_CLASS_NUMBER
+                createEditView(fieldAge, fieldAgeEdit, llBackAge)
+                createEditSex()
             }
             btnSave -> {
                 btnSave.visibility = View.GONE
                 btnEdit.isClickable = true
 
-                val savingName = fieldNameEdit.text.toString()
-                llBackName.removeView(fieldNameEdit)
-                //db.putString(tagName, savingName)
-                fieldName.text = savingName
-                llBackName.addView(fieldName, lParams)
-
-                val savingAge = fieldAgeEdit.text.toString()
-                llBackAge.removeView(fieldAgeEdit)
-                fieldAge.text = savingAge
-                llBackAge.addView(fieldAge, lParams)
-
-                val savingSex = when (fieldSexEdit.checkedRadioButtonId) {
-                    sexMan.id -> getString(R.string.profile_sex_man)
-                    sexWoman.id -> getString(R.string.profile_sex_woman)
-                    sexOther.id -> getString(R.string.profile_sex_other)
-                    else -> getString(R.string.profile_no_info)
-                }
-                llBackSex.removeView(fieldSexEdit)
-                fieldSex.text = savingSex
-                llBackSex.addView(fieldSex, lParams)
+                saveEditView(fieldName, fieldNameEdit, llBackName)
+                saveEditView(fieldAge, fieldAgeEdit, llBackAge)
+                saveEditSex()
             }
             btnStatistic -> {
 
@@ -159,11 +123,76 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
         }
     }
 
-    private val sizeFixForManIcon = 35
+    private val wrapContent = LinearLayout.LayoutParams.WRAP_CONTENT
+    private val lParams = LinearLayout.LayoutParams(wrapContent, wrapContent)
+    private val maxLines = 1
+    private val editTextSize = 22F
+
+    @SuppressLint("ResourceAsColor")
+    private fun createEditView(field: TextView, fieldEdit: EditText, llBack: LinearLayout) {
+        fieldEdit.maxLines = maxLines
+        fieldEdit.setPadding(0,0,0,0)
+        fieldEdit.textSize = editTextSize
+        val current = field.text.toString()
+        llBack.removeView(field)
+        fieldEdit.setText(current)
+        llBack.addView(fieldEdit, lParams)
+    }
+
+    private fun createEditSex() {
+        val currentSex = fieldSex.text.toString()
+        llBackSex.removeView(fieldSex)
+        sexMan = RadioButton(activity)
+        sexWoman = RadioButton(activity)
+        sexOther = RadioButton(activity)
+        setRadioImageText(sexMan, R.drawable.sex_man)
+        setRadioImageText(sexWoman, R.drawable.sex_woman)
+        setRadioImageText(sexOther, R.drawable.sex_other)
+
+        fieldSexEdit = RadioGroup(activity)
+        fieldSexEdit.orientation = LinearLayout.HORIZONTAL
+        fieldSexEdit.addView(sexMan)
+        fieldSexEdit.addView(sexWoman)
+        fieldSexEdit.addView(sexOther)
+        when (currentSex) {
+            getString(R.string.profile_sex_man) -> sexMan.isChecked = true
+            getString(R.string.profile_sex_woman) -> sexWoman.isChecked = true
+            getString(R.string.profile_sex_other) -> sexOther.isChecked = true
+        }
+        llBackSex.addView(fieldSexEdit, lParams)
+    }
+
+    private fun saveEditView(field: TextView, fieldEdit: EditText, llBack: LinearLayout) {
+        val saving = fieldEdit.text.toString()
+        when (field) {
+            fieldName -> userDataHolder.setUserData(UserDataType.NAME, saving)
+            fieldAge -> userDataHolder.setUserData(UserDataType.AGE, saving)
+            fieldSex -> userDataHolder.setUserData(UserDataType.SEX, saving)
+
+        }
+        llBack.removeView(fieldEdit)
+        field.text = saving
+        llBack.addView(field, lParams)
+    }
+
+    private fun saveEditSex() {
+        val savingSex = when (fieldSexEdit.checkedRadioButtonId) {
+            sexMan.id -> getString(R.string.profile_sex_man)
+            sexWoman.id -> getString(R.string.profile_sex_woman)
+            sexOther.id -> getString(R.string.profile_sex_other)
+            else -> getString(R.string.profile_no_info)
+        }
+        userDataHolder.setUserData(UserDataType.SEX, savingSex)
+        llBackSex.removeView(fieldSexEdit)
+        fieldSex.text = savingSex
+        llBackSex.addView(fieldSex, lParams)
+    }
+
+    private val sizeFixForManIcon = 30
     private val sizeFixForOtherIcons = 20
 
-    private fun setRadioImageText(radioButton: RadioButton, drawableId: Int, text: String){
-        val spannable = ("_  $text").toSpannable()
+    private fun setRadioImageText(radioButton: RadioButton, drawableId: Int){
+        val spannable = "_   ".toSpannable()
         object : DynamicDrawableSpan(){
             @SuppressLint("UseCompatLoadingForDrawables")
             override fun getDrawable(): Drawable {
@@ -184,15 +213,19 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
         radioButton.text = spannable
     }
 
-    private fun getProfileImage() {
+    private fun startWorkWithProfileImage() {
         imagePickIntent = Intent(Intent.ACTION_PICK)
         imagePickIntent.type = "image/*"
-        profileImageLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        profileImageLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+        { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val imData: Intent? = result.data
-                val selectedIm = imData?.data
-                imageProfile.setImageURI(null)
-                imageProfile.setImageURI(selectedIm)
+                val selectedImage = imData?.data
+                btnImageProfile.setImageURI(null)
+                btnImageProfile.setImageURI(selectedImage)
+                if (selectedImage != null) {
+                    userDataHolder.setUserData(UserDataType.URI, selectedImage.toString())
+                }
             }
         }
     }
