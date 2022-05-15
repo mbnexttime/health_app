@@ -28,14 +28,14 @@ class ComplexTestReactionFragment : Fragment(R.layout.complex_test_reaction_frag
         viewBinding.reactionButton.setOnClickListener {
             when (_buttonState) {
                 ButtonState.Start -> {
-                    viewBinding.reactionButton.text = "Wait for choice."
+                    viewBinding.reactionButton.text = "Ждите"
                     val time = (nextDouble(2.0, 4.0) * 1000).toLong()
                     //Toast.makeText(requireContext(), "$time", Toast.LENGTH_SHORT).show()
                     timer = timer(time, 1000).start()
                     _buttonState = ButtonState.Wait
                 }
                 ButtonState.Wait -> {
-                    viewBinding.reactionButton.text = "To soon! Try again."
+                    viewBinding.reactionButton.text = "Слишком рано! Попробуйте снова."
                     _buttonState = ButtonState.Start
                     timer.cancel()
                 }
@@ -46,6 +46,7 @@ class ComplexTestReactionFragment : Fragment(R.layout.complex_test_reaction_frag
             }
         }
         viewBinding.reactionButtonGreen.setOnClickListener {
+            viewBinding.colour.text = ""
             when (_buttonState) {
                 ButtonState.ClickGreen -> {
                     viewBinding.reactionButton.visibility = View.VISIBLE
@@ -53,14 +54,14 @@ class ComplexTestReactionFragment : Fragment(R.layout.complex_test_reaction_frag
                     viewBinding.reactionButtonRed.visibility = View.INVISIBLE
                     reactionTime = System.currentTimeMillis() - reactionTime
                     viewBinding.reactionButton.text =
-                        "Your result $reactionTime ms. Press to start again."
+                        "Ваш результат $reactionTime мс. Нажмите чтобы попробовтаь снова."
                     _buttonState = ButtonState.Start
                     counter++
                     meanReactionTime += reactionTime
                     if (counter == 10) {
                         meanReactionTime /= counter
                         viewBinding.reactionButton.text =
-                            "Your result $meanReactionTime ms."
+                            "Ваш итоговый результат $meanReactionTime мс."
                         _buttonState = ButtonState.End
                     }
                 }
@@ -69,7 +70,7 @@ class ComplexTestReactionFragment : Fragment(R.layout.complex_test_reaction_frag
                     viewBinding.reactionButton.visibility = View.VISIBLE
                     viewBinding.reactionButtonGreen.visibility = View.INVISIBLE
                     viewBinding.reactionButtonRed.visibility = View.INVISIBLE
-                    viewBinding.reactionButton.text = "Wrong Button! Try again."
+                    viewBinding.reactionButton.text = "Не та кнопка! Попробуйте снова."
                     _buttonState = ButtonState.Start
                 }
 
@@ -78,6 +79,7 @@ class ComplexTestReactionFragment : Fragment(R.layout.complex_test_reaction_frag
         }
 
         viewBinding.reactionButtonRed.setOnClickListener {
+            viewBinding.colour.text = ""
             when (_buttonState) {
                 ButtonState.ClickRed -> {
                     viewBinding.reactionButton.visibility = View.VISIBLE
@@ -85,14 +87,14 @@ class ComplexTestReactionFragment : Fragment(R.layout.complex_test_reaction_frag
                     viewBinding.reactionButtonRed.visibility = View.INVISIBLE
                     reactionTime = System.currentTimeMillis() - reactionTime
                     viewBinding.reactionButton.text =
-                        "Your result $reactionTime ms. Press to start again."
+                        "Ваш результат $reactionTime мс. Нажмите чтобы попробовтаь снова."
                     _buttonState = ButtonState.Start
                     counter++
                     meanReactionTime += reactionTime
-                    if (counter == 10) {
+                    if (counter == 5) {
                         meanReactionTime /= counter
                         viewBinding.reactionButton.text =
-                            "Your total result $meanReactionTime ms."
+                            "Ваш итоговый результат $meanReactionTime мс."
                         _buttonState = ButtonState.End
                     }
                 }
@@ -102,7 +104,7 @@ class ComplexTestReactionFragment : Fragment(R.layout.complex_test_reaction_frag
                     viewBinding.reactionButton.visibility = View.VISIBLE
                     viewBinding.reactionButtonGreen.visibility = View.INVISIBLE
                     viewBinding.reactionButtonRed.visibility = View.INVISIBLE
-                    viewBinding.reactionButton.text = "Wrong Button! Try again."
+                    viewBinding.reactionButton.text = "Не та кнопка! Попробуйте снова."
                     _buttonState = ButtonState.Start
                 }
 
@@ -115,7 +117,7 @@ class ComplexTestReactionFragment : Fragment(R.layout.complex_test_reaction_frag
         super.onPause()
         if(_buttonState == ButtonState.Wait) {
             viewBinding.reactionButton.setBackgroundColor(resources.getColor(R.color.purple_700))
-            viewBinding.reactionButton.text = "Something happens! Try again."
+            viewBinding.reactionButton.text = "Что-то пошло не так! Попробуйте снова."
             _buttonState = ButtonState.Start
             timer.cancel()
         }
@@ -146,13 +148,11 @@ class ComplexTestReactionFragment : Fragment(R.layout.complex_test_reaction_frag
                 color = nextDouble(0.0, 1.0)
                 if (color > 0.5) {
                     _buttonState = ButtonState.ClickRed
-                    viewBinding.reactionButtonRed.text = "Tap red!"
-                    viewBinding.reactionButtonGreen.text = ""
+                    viewBinding.colour.text = "Красную!"
                 }
                 else {
                     _buttonState = ButtonState.ClickGreen
-                    viewBinding.reactionButtonGreen.text = "Tap green!"
-                    viewBinding.reactionButtonRed.text = ""
+                    viewBinding.colour.text = "Зеленую!"
                 }
                 viewBinding.reactionButtonRed.visibility = View.VISIBLE
                 viewBinding.reactionButtonGreen.visibility = View.VISIBLE

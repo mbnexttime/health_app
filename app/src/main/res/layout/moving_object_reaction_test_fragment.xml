@@ -12,8 +12,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="30dp"
-    />
+        android:layout_marginTop="30dp" />
 
     <ImageView
         android:id="@+id/circle"
@@ -23,8 +22,17 @@
         app:layout_constraintTop_toTopOf="@id/trajectory"
         app:layout_constraintRight_toRightOf="@id/trajectory"
         app:layout_constraintLeft_toLeftOf="@id/trajectory"
-        android:layout_marginTop="-10dp"
-        />
+        android:layout_marginTop="-10dp" />
+
+    <ImageView
+        android:id="@+id/circleStatic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/circle"
+        app:layout_constraintTop_toTopOf="@id/trajectory"
+        app:layout_constraintRight_toRightOf="@id/trajectory"
+        app:layout_constraintLeft_toLeftOf="@id/trajectory"
+        android:layout_marginTop="-10dp" />
 
     <TextView
         android:id="@+id/rulesText"
@@ -43,7 +51,7 @@
         android:id="@+id/stopButton"
         android:layout_width="0dp"
         android:layout_height="256dp"
-        android:text="Press to stop."
+        android:text="Стоп."
         android:textSize="28sp"
         android:textAllCaps="false"
         android:backgroundTint="@color/red"

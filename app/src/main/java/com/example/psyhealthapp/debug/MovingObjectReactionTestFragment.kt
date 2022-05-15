@@ -10,7 +10,6 @@ import android.os.CountDownTimer
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
-import androidx.core.view.marginLeft
 import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -25,21 +24,28 @@ class MovingObjectReactionTestFragment : Fragment(R.layout.moving_object_reactio
 
     private lateinit var timer: CountDownTimer
     private var testState = TestState.Start
+    private lateinit var circleAnimatorSet : AnimatorSet
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        var counter = 0
+        val reactionTimesList = mutableListOf<Long>()
+        val spinTimes = mutableListOf<Long>()
+
+
         val path = Path()
-        val radiusTrajectory = resources.getDimension(R.dimen.moving_object_reaction_test_fragment_diameter_of_trajectory) / 2
-        val radiusCircle = resources.getDimension(R.dimen.moving_object_reaction_test_fragment_diameter_of_circle) / 2
-        val ringThickness = resources.getDimension(R.dimen.moving_object_reaction_test_fragment_thickness_of_ring)
+        val radiusTrajectory = resources.getDimensionPixelSize(R.dimen.moving_object_reaction_test_fragment_diameter_of_trajectory).toFloat() / 2
+        val radiusCircle = resources.getDimensionPixelSize(R.dimen.moving_object_reaction_test_fragment_diameter_of_circle).toFloat() / 2
+        val ringThickness = resources.getDimensionPixelSize(R.dimen.moving_object_reaction_test_fragment_thickness_of_ring).toFloat()
 
         path.addCircle(
-            radiusTrajectory,
-            viewBinding.trajectory.marginTop + radiusTrajectory,
-            radiusTrajectory,
+            (view.parent as View).width.toFloat() / 2 - radiusCircle,
+            viewBinding.trajectory.marginTop + radiusTrajectory - radiusCircle,
+            radiusTrajectory - ringThickness / 2,
             Path.Direction.CW
         )
+
         val mMatrix = Matrix()
         val bounds = RectF()
         path.computeBounds(bounds, true)
@@ -55,18 +61,16 @@ class MovingObjectReactionTestFragment : Fragment(R.layout.moving_object_reactio
         circleMoveAnimator.repeatCount = Animation.INFINITE
         circleMoveAnimator.interpolator = LinearInterpolator()
 
-        var reactionTime = System.currentTimeMillis()
-        var time = (Random.nextDouble(3.0, 6.0) * 1000).toLong()
-        viewBinding.stopButton.isEnabled = false
+        var reactionTime : Long = 0
+        var time : Long = 0
+        viewBinding.stopButton.isEnabled = true
+        viewBinding.stopButton.text = "Нажмите чтобы начать."
 
         val visibleTrajectoryPart = 0.75
-        timer = timer((time * visibleTrajectoryPart).toLong(), time).start()
-        testState = TestState.Proceed
+        testState = TestState.End
 
-        val circleAnimatorSet = AnimatorSet()
+        circleAnimatorSet = AnimatorSet()
         circleAnimatorSet.play(circleMoveAnimator)
-        circleAnimatorSet.duration = time
-        circleAnimatorSet.start()
 
         viewBinding.stopButton.setOnClickListener {
             when (testState) {
@@ -75,7 +79,16 @@ class MovingObjectReactionTestFragment : Fragment(R.layout.moving_object_reactio
                     viewBinding.circle.visibility = View.VISIBLE
                     circleAnimatorSet.pause()
                     reactionTime = abs(System.currentTimeMillis() - reactionTime - time)
+                    reactionTimesList.add(reactionTime)
                     testState = TestState.End
+                    counter++
+                    if (counter == 5) {
+                        viewBinding.stopButton.text = "Нажмите чтобы продолжить."
+                        testState = TestState.Complete
+                    }
+                    else {
+                        viewBinding.stopButton.text = "Нажмите чтобы попробовать снова."
+                    }
                 }
                 TestState.End -> {
                     circleAnimatorSet.cancel()
@@ -85,13 +98,22 @@ class MovingObjectReactionTestFragment : Fragment(R.layout.moving_object_reactio
                     timer = timer((time * visibleTrajectoryPart).toLong(), time).start()
                     testState = TestState.Proceed
                     circleAnimatorSet.duration = time
+                    spinTimes.add(time)
                     circleAnimatorSet.start()
-
+                    viewBinding.stopButton.text = "Стоп."
+                }
+                TestState.Complete -> {
+                    // TODO: реализовать переход, сохранение данных
                 }
             }
 
         }
 
+    }
+
+    override fun onPause() {
+        super.onPause()
+        circleAnimatorSet.cancel()
     }
 
     private fun timer(millisRunning : Long, countDownInterval : Long) : CountDownTimer {
@@ -110,6 +132,7 @@ class MovingObjectReactionTestFragment : Fragment(R.layout.moving_object_reactio
     enum class TestState {
         Start,
         Proceed,
-        End
+        End,
+        Complete
     }
 }
