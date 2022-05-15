@@ -6,4 +6,8 @@
     <dimen name="onboarding_data_view_left_margin">32dp</dimen>
     <dimen name="history_add_view_left_margin">32dp</dimen>
     <dimen name="history_show_vertical_space">8dp</dimen>
+
+    <dimen name="profile_text_size">25dp</dimen>
+    <dimen name="profile_edittext_size">10dp</dimen>
+    <dimen name="profile_string_info_height">40dp</dimen>
 </resources>

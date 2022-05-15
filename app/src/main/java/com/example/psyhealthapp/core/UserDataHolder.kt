@@ -10,7 +10,9 @@ import javax.inject.Singleton
 enum class UserDataType(val tag: String) {
     NAME("name"),
     AGE("age"),
+    SEX("sex"),
     EMAIL("email"),
+    URI("uri"),
 }
 
 @Singleton

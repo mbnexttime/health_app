@@ -10,6 +10,8 @@ import com.example.psyhealthapp.R
 import com.example.psyhealthapp.core.FragmentHolder
 import com.example.psyhealthapp.history.HistoryAddFragment
 import com.example.psyhealthapp.user.testing.tappingtest.ui.TappingTestMainFragment
+import com.example.psyhealthapp.profile.ProfileFragment
+import com.example.psyhealthapp.settings.SettingsFragment
 
 class DebugFragment : Fragment(R.layout.debug_fragment) {
     /**
@@ -20,10 +22,16 @@ class DebugFragment : Fragment(R.layout.debug_fragment) {
             return@FragmentHolder BaseDebugFragment()
         },
         FragmentHolder {
+            return@FragmentHolder ProfileFragment()
+        },
+        FragmentHolder {
             return@FragmentHolder TappingTestMainFragment()
         },
         FragmentHolder {
             return@FragmentHolder HistoryAddFragment()
+        },
+        FragmentHolder {
+            return@FragmentHolder SettingsFragment();
         },
     )
 
