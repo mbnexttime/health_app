@@ -6,12 +6,19 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.psyhealthapp.R
+import com.example.psyhealthapp.core.TestResultsHolder
 import com.example.psyhealthapp.databinding.TestReactionFragmentBinding
+import com.example.psyhealthapp.user.testing.results.ReactionTestResult
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.LocalDate
+import javax.inject.Inject
 import kotlin.random.Random.Default.nextDouble
 
 @AndroidEntryPoint
 class TestReactionFragment : Fragment(R.layout.test_reaction_fragment) {
+    @Inject
+    lateinit var resultsHolder: TestResultsHolder
+
     private val viewBinding by viewBinding(TestReactionFragmentBinding::bind)
 
     private var _buttonState = ButtonState.Start
@@ -53,13 +60,14 @@ class TestReactionFragment : Fragment(R.layout.test_reaction_fragment) {
                         meanReactionTime /= counter
                         viewBinding.reactionButton.setBackgroundColor(resources.getColor(R.color.purple_700))
                         viewBinding.reactionButton.text =
-                            "Ваш итоговый результат $meanReactionTime мс."
+                            "Ваш итоговый результат $meanReactionTime мс. Нажмите для продолжения"
                         _buttonState = ButtonState.End
                     }
                 }
                 ButtonState.End -> {
                     // TODO: реализовать переход, сохранение данных
-                    
+                    val result = ReactionTestResult(LocalDate.now(), meanReactionTime.toFloat() / 1000)
+                    resultsHolder.putReactionTestResult(result)
                 }
 
             }
