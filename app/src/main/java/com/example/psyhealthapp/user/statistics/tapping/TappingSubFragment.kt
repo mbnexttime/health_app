@@ -85,7 +85,7 @@ class TappingSubFragment : Fragment(R.layout.stat_tapping_subfragment) {
 
             limitLines[1].lineWidth = 0F
             limitLines[1].lineColor = dataSet.color
-            limitLines[1].label = " нажатий всего: ${result.size}"
+            limitLines[1].label = " ${getString(R.string.total_clicks)} ${result.size}"
             limitLines[1].labelPosition = LimitLine.LimitLabelPosition.RIGHT_BOTTOM
 
             axisMinimum = YAXIS_MINIMUM_COEF * minY

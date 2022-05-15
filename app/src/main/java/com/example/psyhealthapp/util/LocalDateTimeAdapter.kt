@@ -4,13 +4,14 @@ import com.google.gson.TypeAdapter
 import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonWriter
 import java.time.LocalDate
+import java.time.LocalDateTime
 
-class LocalDateAdapter : TypeAdapter<LocalDate>() {
-    override fun write(out: JsonWriter?, value: LocalDate?) {
+class LocalDateTimeAdapter : TypeAdapter<LocalDateTime>() {
+    override fun write(out: JsonWriter?, value: LocalDateTime?) {
         out?.value(value.toString())
     }
 
-    override fun read(`in`: JsonReader?): LocalDate? {
-        return LocalDate.parse(`in`?.nextString())
+    override fun read(`in`: JsonReader?): LocalDateTime {
+        return LocalDateTime.parse(`in`?.nextString())
     }
 }

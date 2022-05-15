@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import androidx.viewpager.widget.ViewPager
+import kotlin.math.max
 
 class DynamicHeightViewPager @JvmOverloads constructor(
     context: Context,
@@ -15,6 +16,7 @@ class DynamicHeightViewPager @JvmOverloads constructor(
     }
 
     var swipeable = true
+    var maxHeight = 0
 
     override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
         return if (swipeable) super.onInterceptTouchEvent(ev) else false
@@ -23,7 +25,7 @@ class DynamicHeightViewPager @JvmOverloads constructor(
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         var localHeightMeasureSpec = heightMeasureSpec
 
-        val height = (0 until childCount).map {
+        var height = (0 until childCount).map {
             val child = getChildAt(it)
             child.measure(
                 widthMeasureSpec,
@@ -31,6 +33,9 @@ class DynamicHeightViewPager @JvmOverloads constructor(
             )
             child.measuredHeight
         }.maxOrNull() ?: 0
+
+        height = max(height, maxHeight)
+        maxHeight = max(maxHeight, height)
 
         if (height != 0) {
             localHeightMeasureSpec =

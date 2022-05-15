@@ -10,6 +10,7 @@ import com.example.psyhealthapp.databinding.StatTappingBinding
 import com.example.psyhealthapp.util.DynamicHeightViewPager
 import com.example.psyhealthapp.user.testing.results.TappingTestResult
 import by.kirich1409.viewbindingdelegate.viewBinding
+import java.util.*
 
 class TappingMainFragment : Fragment(R.layout.stat_tapping) {
     private val viewBinding by viewBinding(StatTappingBinding::bind)
@@ -17,9 +18,9 @@ class TappingMainFragment : Fragment(R.layout.stat_tapping) {
 
     @SuppressLint("SetTextI18n")
     private fun setupTextViews(results: TappingTestResult.ClearlyResults) {
-        viewBinding.asymmetryRatio.text = String.format(fmt, results.asymmetry)
+        viewBinding.asymmetryRatio.text = String.format(Locale.US, fmt, results.asymmetry)
         viewBinding.nervousSystemPower.text =
-            "${String.format(fmt, results.nervousSystemPowerRatio)}%"
+            "${String.format(Locale.US, fmt, results.nervousSystemPowerRatio)}%"
         viewBinding.typeOfNervousSystem.text = results.nervousSystemType
     }
 

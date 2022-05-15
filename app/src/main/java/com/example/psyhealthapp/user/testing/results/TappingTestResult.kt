@@ -4,11 +4,12 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.example.psyhealthapp.user.testing.results.TappingTestResult.CREATOR.NERVOUS_SYSTEM_TYPES
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.util.*
 import kotlin.math.abs
 
 class TappingTestResult(
-    date: LocalDate,
+    date: LocalDateTime,
     val rightHandMoments: List<Float>,
     val leftHandMoments: List<Float>,
 ) : Parcelable, TestResult(date) {
@@ -46,7 +47,7 @@ class TappingTestResult(
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        date.writeToParcel(parcel)
+        parcel.writeSerializable(date)
         parcel.writeFloatArray(rightHandMoments.toFloatArray())
         parcel.writeFloatArray(leftHandMoments.toFloatArray())
     }
@@ -63,7 +64,7 @@ class TappingTestResult(
         private const val STRONG = 3
 
         override fun createFromParcel(parcel: Parcel): TappingTestResult {
-            val date = getLocalDateFromParcel(parcel)
+            val date = parcel.readSerializable() as LocalDateTime
             val rightHandMoments = parcel.createFloatArray()!!.toList()
             val leftHandMoments = parcel.createFloatArray()!!.toList()
             return TappingTestResult(date, rightHandMoments, leftHandMoments)

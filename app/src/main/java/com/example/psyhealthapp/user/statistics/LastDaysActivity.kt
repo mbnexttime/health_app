@@ -23,7 +23,10 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.psyhealthapp.core.UserDataHolder
 import com.example.psyhealthapp.databinding.StatLastdaysactivityBinding
+import java.time.LocalDateTime
+import javax.inject.Inject
 import kotlin.math.roundToInt
 
 class LastDaysActivity : Fragment(R.layout.stat_lastdaysactivity) {
@@ -53,7 +56,7 @@ class LastDaysActivity : Fragment(R.layout.stat_lastdaysactivity) {
     fun setTestsNumber(view: View, resultsByDay: ResultsByDay) {
         viewBinding.testsNumberTotal.text = " ${resultsByDay.data.values.sum()}"
 
-        val now = LocalDate.now()
+        val now = LocalDateTime.now()
         viewBinding.testsNumberAtWeek.text = " ${
             resultsByDay.data.toList().fold(0) { acc, e ->
                 if (ChronoUnit.MONTHS.between(e.first, now) < 1) {
@@ -103,24 +106,19 @@ class LastDaysActivity : Fragment(R.layout.stat_lastdaysactivity) {
             ContextCompat.getColor(
                 requireContext(),
                 R.color.stat_tests_lastDaysActivity_barColor_4
-            ),
-            ContextCompat.getColor(
-                requireContext(),
-                R.color.stat_tests_lastDaysActivity_barColor_3
             )
         )
 
-        fun colorByResult(result: Int): Int {
-            return when (result) {
-                in 0..2 -> colors[0]
-                in 3..4 -> colors[1]
-                in 5..6 -> colors[2]
-                else -> colors[3]
+        fun colorByResult(result: Float): Int {
+            return when {
+                result <= 2F -> colors[0]
+                result <= 4F -> colors[1]
+                else -> colors[2]
             }
         }
 
         dataSet.apply {
-            setColors(lastDaysStat.data.map { colorByResult(it.value) })
+            setColors(entries.map { colorByResult(it.y) })
             isHighlightEnabled = false
 
             valueFormatter = object : ValueFormatter() {

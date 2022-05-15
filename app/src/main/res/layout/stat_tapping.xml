@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginHorizontal="@dimen/stat_marginHorizontal"
-            android:layout_marginBottom="14dp">
+            android:layout_marginBottom="@dimen/stat_marginVertical">
 
             <TableRow>
 
@@ -44,7 +44,6 @@
                     android:id="@+id/type_of_nervous_system"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/medium"
                     android:textColor="@color/stat_tests_tapping_textColor_1" />
             </TableRow>
 
@@ -61,7 +60,6 @@
                     android:id="@+id/asymmetry_ratio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/medium"
                     android:textColor="@color/stat_tests_tapping_textColor_1" />
 
             </TableRow>
@@ -78,12 +76,20 @@
                     android:id="@+id/nervous_system_power"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/medium"
                     android:textColor="@color/stat_tests_tapping_textColor_1" />
             </TableRow>
 
         </TableLayout>
 
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/stat_marginHorizontal"
+            android:backgroundTint="@color/white"
+            android:text="рекомендации"
+            android:textColor="@color/black"
+            app:strokeColor="@color/black"
+            />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

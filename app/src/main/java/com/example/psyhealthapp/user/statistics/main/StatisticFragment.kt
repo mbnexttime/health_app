@@ -15,16 +15,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import javax.inject.Inject
 
-private val summaryTestValues = listOf(
-    Pair("мышление", 90F),
-    Pair("контроль", 81F),
-    Pair("реакция", 75F),
-    Pair("стабильность", 66F),
-    Pair("воля", 52F),
-    Pair("внимание", 37F),
-    Pair("регуляция", 67F)
-)
-
 @AndroidEntryPoint
 class StatPageTestFragment : Fragment(R.layout.statistic_fragment) {
     @Inject
@@ -37,7 +27,13 @@ class StatPageTestFragment : Fragment(R.layout.statistic_fragment) {
         val resultsByDay = resultsHolder.getResultsCountByDays()
 
         childFragmentManager.beginTransaction().apply {
-            replace(R.id.summary_content, Summary.newInstance(summaryTestValues))
+            replace(
+                R.id.summary_content,
+                EmptyContentFragment.newInstance(
+                    R.string.summary_placeholder_text,
+                    R.drawable.ic_question
+                )
+            )
 
             if (tappingTestLastResult != null) {
                 replace(
@@ -49,7 +45,7 @@ class StatPageTestFragment : Fragment(R.layout.statistic_fragment) {
                     R.id.tapping_content,
                     EmptyContentFragment.newInstance(
                         R.string.tapping_placeholder_text,
-                        R.drawable.ic_question
+                        R.drawable.ic_hand
                     )
                 )
             }
@@ -73,7 +69,8 @@ class StatPageTestFragment : Fragment(R.layout.statistic_fragment) {
                 R.id.reaction_content,
                 Reaction.newInstance(
                     resultsHolder.getReactionTestResults(),
-                    resultsHolder.getComplexReactionTestResults()
+                    resultsHolder.getComplexReactionTestResults(),
+                    resultsHolder.getMovingReactionTestResults()
                 )
             )
         }.commit()

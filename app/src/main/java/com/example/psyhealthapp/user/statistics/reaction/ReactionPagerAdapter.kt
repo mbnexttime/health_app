@@ -5,12 +5,14 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.example.psyhealthapp.R
 import com.example.psyhealthapp.core.EmptyContentFragment
+import com.example.psyhealthapp.user.testing.results.MovingReactionTestResultList
 import com.example.psyhealthapp.user.testing.results.ReactionTestResultList
 
 class ReactionPagerAdapter(
     private val fragmentManager: FragmentManager,
     private val reactionResultList: ReactionTestResultList,
-    private val complexReactionTestResultList: ReactionTestResultList
+    private val complexReactionTestResultList: ReactionTestResultList,
+    private val movingReactionTestResultList: MovingReactionTestResultList
 ) : FragmentStatePagerAdapter(fragmentManager) {
     private val pages = listOf("простая", "сложная", "движ")
 
@@ -32,9 +34,11 @@ class ReactionPagerAdapter(
             ) else ReactionSubFragment.newInstance(
                 complexReactionTestResultList
             )
-            else -> EmptyContentFragment.newInstance(
+            else -> if (movingReactionTestResultList.results.isEmpty()) EmptyContentFragment.newInstance(
                 R.string.reaction_placeholder_text,
-                R.drawable.ic_smile2
+                R.drawable.ic_smile3
+            ) else MovingReactionSubFragment.newInstance(
+                movingReactionTestResultList
             )
         }
     }

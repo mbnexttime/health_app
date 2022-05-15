@@ -4,14 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/editTextTappingTest"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Дата [массив нажатий]" />
-
     <Button
         android:id="@+id/add_entry_about_tapping_test"
         android:layout_width="match_parent"
@@ -61,5 +53,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Добавить запись про комплексный реакционный тест" />
+
+    <EditText
+        android:id="@+id/editTestMovingReactionTestDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="2022 05 16" />
+
+    <EditText
+        android:id="@+id/editTestMovingReactionTestResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="-5 7 2 4" />
+
+    <Button
+        android:id="@+id/add_entry_about_moving_reaction_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Добавить запись про движ тест" />
+
 
 </LinearLayout>

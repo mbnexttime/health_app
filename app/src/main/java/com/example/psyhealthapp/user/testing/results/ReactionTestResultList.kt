@@ -12,7 +12,6 @@ class ReactionTestResultList(val results: MutableList<ReactionTestResult>) : Par
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        println("ReactionTestResultList::writeToParcel()")
         parcel.writeTypedList(results)
     }
 
@@ -22,12 +21,10 @@ class ReactionTestResultList(val results: MutableList<ReactionTestResult>) : Par
 
     companion object CREATOR : Parcelable.Creator<ReactionTestResultList> {
         override fun createFromParcel(parcel: Parcel): ReactionTestResultList {
-            println("createFromParcel()")
             return ReactionTestResultList(parcel.createTypedArrayList(ReactionTestResult)!!)
         }
 
         override fun newArray(size: Int): Array<ReactionTestResultList?> {
-            println("newArray()")
             return arrayOfNulls(size)
         }
     }

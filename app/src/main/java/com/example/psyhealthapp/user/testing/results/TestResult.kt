@@ -1,6 +1,6 @@
 package com.example.psyhealthapp.user.testing.results
 
-import java.time.LocalDate
+import java.time.LocalDateTime
 
-open class TestResult(val date: LocalDate) {
+open class TestResult(val date: LocalDateTime) {
 }

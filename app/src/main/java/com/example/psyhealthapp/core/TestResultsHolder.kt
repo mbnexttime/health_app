@@ -8,10 +8,11 @@ import androidx.lifecycle.viewModelScope
 import com.example.psyhealthapp.db.DB
 import com.example.psyhealthapp.db.DBProvider
 import com.example.psyhealthapp.user.testing.results.*
-import com.example.psyhealthapp.util.LocalDateAdapter
+import com.example.psyhealthapp.util.LocalDateTimeAdapter
 import com.google.gson.*
 import kotlinx.coroutines.launch
 import java.time.LocalDate
+import java.time.LocalDateTime
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -121,15 +122,15 @@ class TestResultsHolder @Inject constructor(
         }
     )
 
-    private val movingReactionTestResultKeeper = Keeper<ReactionTestResult>(
+    private val movingReactionTestResultKeeper = Keeper<MovingReactionTestResult>(
         MOVING_TAG,
         MOVING_COUNTER_TAG,
         db,
         {
-            db.getParcelable(it, ReactionTestResultList::class.java, gson)?.results
+            db.getParcelable(it, MovingReactionTestResultList::class.java, gson)?.results
         },
         {
-            ReactionTestResultList(it)
+            MovingReactionTestResultList(it)
         }
     )
 
@@ -138,7 +139,7 @@ class TestResultsHolder @Inject constructor(
         TAPPING_COUNTER_TAG,
         db,
         {
-            db.getParcelable(it, TappingTestResultList::class.java)?.results
+            db.getParcelable(it, TappingTestResultList::class.java, gson)?.results
         },
         {
             TappingTestResultList(it)
@@ -152,12 +153,12 @@ class TestResultsHolder @Inject constructor(
         tappingTestResultsKeeper.initialize()
     }
 
-    fun putMovingReactionTestResult(result: ReactionTestResult) {
+    fun putMovingReactionTestResult(result: MovingReactionTestResult) {
         movingReactionTestResultKeeper.putTestResult(result)
     }
 
-    fun getMovingReactionTestResults(): ReactionTestResultList {
-        return ReactionTestResultList(movingReactionTestResultKeeper.getTestResults())
+    fun getMovingReactionTestResults(): MovingReactionTestResultList {
+        return MovingReactionTestResultList(movingReactionTestResultKeeper.getTestResults())
     }
 
     fun putReactionTestResult(result: ReactionTestResult) {
@@ -211,7 +212,7 @@ class TestResultsHolder @Inject constructor(
         private const val INVALID_COUNTER = 0
         private val handler = Handler(Looper.getMainLooper())
         private val gson = GsonBuilder().setPrettyPrinting()
-            .registerTypeAdapter(LocalDate::class.java, LocalDateAdapter())
+            .registerTypeAdapter(LocalDateTime::class.java, LocalDateTimeAdapter())
             .create()
     }
 }

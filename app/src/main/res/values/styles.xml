@@ -10,14 +10,12 @@
     </style>
 
     <style name="stat_cards_title">
+        <item name="android:layout_alignParentStart">true</item>
+        <item name="android:layout_centerVertical">true</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:layout_marginTop">5dp</item>
-        <!--        <item name="fontFamily">@font/oswald</item>-->
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/stat_cardName_textSize</item>
-        <item name="android:layout_gravity">center</item>
     </style>
 
 </resources>

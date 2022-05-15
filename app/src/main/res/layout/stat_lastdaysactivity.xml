@@ -16,8 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="15dp"
-            android:layout_marginVertical="@dimen/stat_marginVertical"
-            >
+            android:layout_marginVertical="@dimen/stat_marginVertical">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -61,12 +60,10 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/chart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/stat_marginHorizontal"
             android:layout_marginVertical="@dimen/stat_marginVertical"
             android:layout_marginBottom="10dp"
             android:minHeight="@dimen/stat_minChartHeight">

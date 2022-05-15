@@ -1,26 +1,22 @@
 package com.example.psyhealthapp.debug.entries
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.psyhealthapp.R
 import com.example.psyhealthapp.core.TestResultsHolder
-import com.example.psyhealthapp.db.DBProvider
 import com.example.psyhealthapp.user.testing.results.ReactionTestResult
 import com.example.psyhealthapp.user.testing.results.TappingTestResult
 import dagger.hilt.android.AndroidEntryPoint
-import java.time.LocalDate
 import java.util.*
 import javax.inject.Inject
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.psyhealthapp.databinding.DebugAddEntriesToDbBinding
+import com.example.psyhealthapp.user.testing.results.MovingReactionTestResult
+import java.time.LocalDateTime
 
 private val tappingSampleResult = TappingTestResult(
-    LocalDate.now(),
+    LocalDateTime.now(),
     listOf(
         0.055F,
         0.181F,
@@ -260,7 +256,7 @@ class DebugAddEntriesToDBFragment : Fragment(R.layout.debug_add_entries_to_db) {
 
             model.putReactionTestResult(
                 ReactionTestResult(
-                    LocalDate.of(year, month, day),
+                    LocalDateTime.of(year, month, day, 12, 28, 33),
                     viewBinding.editTextTextReactionTestResult.text.toString().toFloatOrNull()
                         ?: 350F
                 )
@@ -275,7 +271,7 @@ class DebugAddEntriesToDBFragment : Fragment(R.layout.debug_add_entries_to_db) {
 
             model.putComplexReactionTestResult(
                 ReactionTestResult(
-                    LocalDate.of(year, month, day),
+                    LocalDateTime.of(year, month, day, 12, 28, 33),
                     viewBinding.editTextComplexTextReactionTestResult.text.toString()
                         .toFloatOrNull()
                         ?: 239F
@@ -285,6 +281,29 @@ class DebugAddEntriesToDBFragment : Fragment(R.layout.debug_add_entries_to_db) {
 
         viewBinding.addEntryAboutTappingTest.setOnClickListener {
             model.putTappingTestResult(tappingSampleResult)
+        }
+
+        viewBinding.addEntryAboutMovingReactionTest.setOnClickListener {
+            val words = viewBinding.editTestMovingReactionTestDate.text.split(' ')
+            val year = words[0].toIntOrNull() ?: 0
+            val month = words[1].toIntOrNull() ?: 0
+            val day = words[2].toIntOrNull() ?: 0
+
+            val otherWords = viewBinding.editTestMovingReactionTestResult.text.split(' ')
+            val minDiff = otherWords[0].toIntOrNull() ?: 0
+            val maxDiff = otherWords[1].toIntOrNull() ?: minDiff
+            val expected = otherWords[2].toIntOrNull() ?: (minDiff + maxDiff) / 2
+            val derivate = otherWords[3].toIntOrNull() ?: 4F
+
+            model.putMovingReactionTestResult(
+                MovingReactionTestResult(
+                    LocalDateTime.of(year, month, day, 20, 0, 0, 33),
+                    minDiff.toFloat(),
+                    maxDiff.toFloat(),
+                    expected.toFloat(),
+                    derivate.toFloat()
+                )
+            )
         }
     }
 

@@ -17,19 +17,21 @@
     <dimen name="header_width"> 274dp </dimen>
     <dimen name="header_height"> 50dp </dimen>
 
-    <dimen name="stat_navButtons_textSize"> 10sp </dimen>
-    <dimen name="stat_navButtons_cornerRadius"> 28dp </dimen>
-    <dimen name="stat_navButtons_marginHorizontal"> 5dp </dimen>
+<!--    <dimen name="stat_card_title_margin_horizontal">20dp</dimen>-->
 
-    <dimen name="stat_animate_charts"> 250 </dimen>
-    <dimen name="stat_header_textSize"> 36sp </dimen>
-    <dimen name="stat_header_width"> 274dp </dimen>
-    <dimen name="stat_header_height"> 50dp </dimen>
-    <dimen name="stat_marginVertical"> 7dp </dimen>
-    <dimen name="stat_cardName_textSize"> 20sp </dimen>
-    <dimen name="stat_marginHorizontal"> 10dp </dimen>
-    <dimen name="stat_minChartHeight"> 280dp </dimen>
-    <dimen name="stat_cardCornerRadius"> 13dp </dimen>
-    <dimen name="stat_cardWidth"> 340dp </dimen>
-    <dimen name="stat_cardMarginVertical"> 10dp </dimen>
+    <dimen name="stat_animate_charts">250</dimen>
+    <dimen name="stat_header_textSize">36sp</dimen>
+    <dimen name="stat_header_width">274dp</dimen>
+    <dimen name="stat_header_height">50dp</dimen>
+    <dimen name="stat_marginVertical">7dp</dimen>
+    <dimen name="stat_cardName_textSize">20sp</dimen>
+    <dimen name="stat_marginHorizontal">20dp</dimen>
+    <dimen name="stat_minChartHeight">280dp</dimen>
+    <dimen name="stat_cardCornerRadius">13dp</dimen>
+    <dimen name="stat_cardWidth">340dp</dimen>
+    <dimen name="stat_cardMarginVertical">10dp</dimen>
+    <dimen name="bottom_navigation_view_height">56dp</dimen>
+    <dimen name="onboarding_data_view_left_margin">32dp</dimen>
+    <dimen name="history_add_view_left_margin">32dp</dimen>
+    <dimen name="history_show_vertical_space">8dp</dimen>
 </resources>
