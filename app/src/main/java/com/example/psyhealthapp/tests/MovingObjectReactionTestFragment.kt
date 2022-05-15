@@ -1,4 +1,4 @@
-package com.example.psyhealthapp.debug
+package com.example.psyhealthapp.tests
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -15,10 +15,11 @@ import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.psyhealthapp.R
 import com.example.psyhealthapp.databinding.MovingObjectReactionTestFragmentBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.abs
 import kotlin.random.Random
 
-
+@AndroidEntryPoint
 class MovingObjectReactionTestFragment : Fragment(R.layout.moving_object_reaction_test_fragment) {
     private val viewBinding by viewBinding(MovingObjectReactionTestFragmentBinding::bind)
 
@@ -64,7 +65,7 @@ class MovingObjectReactionTestFragment : Fragment(R.layout.moving_object_reactio
         var reactionTime : Long = 0
         var time : Long = 0
         viewBinding.stopButton.isEnabled = true
-        viewBinding.stopButton.text = "Нажмите чтобы начать."
+        viewBinding.stopButton.text = resources.getString(R.string.moving_object_reaction_test_start_test)
 
         val visibleTrajectoryPart = 0.75
         testState = TestState.End
@@ -83,11 +84,11 @@ class MovingObjectReactionTestFragment : Fragment(R.layout.moving_object_reactio
                     testState = TestState.End
                     counter++
                     if (counter == 5) {
-                        viewBinding.stopButton.text = "Нажмите чтобы продолжить."
+                        viewBinding.stopButton.text = resources.getString(R.string.moving_object_reaction_test_tap_to_proceed)
                         testState = TestState.Complete
                     }
                     else {
-                        viewBinding.stopButton.text = "Нажмите чтобы попробовать снова."
+                        viewBinding.stopButton.text = resources.getString(R.string.moving_object_reaction_test_move_on)
                     }
                 }
                 TestState.End -> {
@@ -100,7 +101,7 @@ class MovingObjectReactionTestFragment : Fragment(R.layout.moving_object_reactio
                     circleAnimatorSet.duration = time
                     spinTimes.add(time)
                     circleAnimatorSet.start()
-                    viewBinding.stopButton.text = "Стоп."
+                    viewBinding.stopButton.text = resources.getString(R.string.moving_object_reaction_test_stop_circle)
                 }
                 TestState.Complete -> {
                     // TODO: реализовать переход, сохранение данных

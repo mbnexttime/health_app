@@ -1,4 +1,4 @@
-package com.example.psyhealthapp.debug
+package com.example.psyhealthapp.tests
 
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -7,8 +7,10 @@ import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.psyhealthapp.R
 import com.example.psyhealthapp.databinding.TestReactionFragmentBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlin.random.Random.Default.nextDouble
 
+@AndroidEntryPoint
 class TestReactionFragment : Fragment(R.layout.test_reaction_fragment) {
     private val viewBinding by viewBinding(TestReactionFragmentBinding::bind)
 
@@ -16,6 +18,9 @@ class TestReactionFragment : Fragment(R.layout.test_reaction_fragment) {
 
     private lateinit var timer: CountDownTimer
     private var reactionTime: Long = 0
+    private val attemptsCount = 5
+    private val minTime = 2.0
+    private val maxTime = 4.0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -25,26 +30,26 @@ class TestReactionFragment : Fragment(R.layout.test_reaction_fragment) {
             when (_buttonState) {
                 ButtonState.Start -> {
                     viewBinding.reactionButton.setBackgroundColor(resources.getColor(R.color.red))
-                    viewBinding.reactionButton.text = "Ждите зеленой кнопки."
-                    val time = (nextDouble(2.0, 4.0) * 1000).toLong()
-                    //Toast.makeText(requireContext(), "$time", Toast.LENGTH_SHORT).show()
+                    viewBinding.reactionButton.text = resources.getString(R.string.test_reaction_wait_green_button)
+                    val time = (nextDouble(minTime, maxTime) * 1000).toLong()
                     timer = timer(time, 1000).start()
                     _buttonState = ButtonState.Wait
                 }
                 ButtonState.Wait -> {
                     viewBinding.reactionButton.setBackgroundColor(resources.getColor(R.color.purple_700))
-                    viewBinding.reactionButton.text = "Слишком рано! Попробуйте снова."
+                    viewBinding.reactionButton.text = resources.getString(R.string.test_reaction_soon_tap)
                     _buttonState = ButtonState.Start
                     timer.cancel()
                 }
                 ButtonState.Click -> {
                     viewBinding.reactionButton.setBackgroundColor(resources.getColor(R.color.purple_700))
                     reactionTime = System.currentTimeMillis() - reactionTime
+
                     viewBinding.reactionButton.text = "Ваш результат $reactionTime мс. Нажмите чтобы попробовтаь снова."
                     _buttonState = ButtonState.Start
                     counter++
                     meanReactionTime += reactionTime
-                    if (counter == 5) {
+                    if (counter == attemptsCount) {
                         meanReactionTime /= counter
                         viewBinding.reactionButton.setBackgroundColor(resources.getColor(R.color.purple_700))
                         viewBinding.reactionButton.text =
@@ -65,7 +70,7 @@ class TestReactionFragment : Fragment(R.layout.test_reaction_fragment) {
         super.onPause()
         if(_buttonState == ButtonState.Wait) {
             viewBinding.reactionButton.setBackgroundColor(resources.getColor(R.color.purple_700))
-            viewBinding.reactionButton.text = "Что-то пошло не так! Попробуйте снова."
+            viewBinding.reactionButton.text = resources.getString(R.string.test_reaction_smth_wrong)
             _buttonState = ButtonState.Start
             timer.cancel()
         }
@@ -92,7 +97,7 @@ class TestReactionFragment : Fragment(R.layout.test_reaction_fragment) {
 
             override fun onFinish() {
                 viewBinding.reactionButton.setBackgroundColor(resources.getColor(R.color.brand_green))
-                viewBinding.reactionButton.text = "Клик!"
+                viewBinding.reactionButton.text = resources.getString(R.string.test_reaction_tap_green_button)
                 _buttonState = ButtonState.Click
                 reactionTime = System.currentTimeMillis()
             }
