@@ -4,11 +4,12 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.psyhealthapp.R
-import com.example.psyhealthapp.core.TestResultsHolder
+//import com.example.psyhealthapp.core.TestResultsHolder
 import com.example.psyhealthapp.databinding.ComplexTestReactionFragmentBinding
-import com.example.psyhealthapp.user.testing.results.ReactionTestResult
+//import com.example.psyhealthapp.user.testing.results.ReactionTestResult
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDate
 import javax.inject.Inject
@@ -16,8 +17,8 @@ import kotlin.random.Random.Default.nextDouble
 
 @AndroidEntryPoint
 class ComplexTestReactionFragment : Fragment(R.layout.complex_test_reaction_fragment) {
-    @Inject
-    lateinit var resultsHolder: TestResultsHolder
+    //@Inject
+    //lateinit var resultsHolder: TestResultsHolder
 
     private val viewBinding by viewBinding(ComplexTestReactionFragmentBinding::bind)
 
@@ -50,8 +51,10 @@ class ComplexTestReactionFragment : Fragment(R.layout.complex_test_reaction_frag
                 }
                 ButtonState.End -> {
                     // TODO: реализовать переход, сохранение данных
-                    val result = ReactionTestResult(LocalDate.now(), meanReactionTime.toFloat() / 1000)
-                    resultsHolder.putReactionTestResult(result)
+                    //val result = ReactionTestResult(LocalDate.now(), meanReactionTime.toFloat() / 1000)
+                    //resultsHolder.putReactionTestResult(result)
+                    val controller = findNavController()
+                    controller.navigate(R.id.complexTestReactionInstruction)
                 }
                 else -> {}
             }

@@ -15,6 +15,7 @@ import com.example.psyhealthapp.settings.SettingsFragment
 import com.example.psyhealthapp.tests.ComplexTestReactionFragment
 import com.example.psyhealthapp.tests.MovingObjectReactionTestFragment
 import com.example.psyhealthapp.tests.TestReactionFragment
+import com.example.psyhealthapp.tests.*
 
 class DebugFragment : Fragment(R.layout.debug_fragment) {
     /**
@@ -25,10 +26,10 @@ class DebugFragment : Fragment(R.layout.debug_fragment) {
             return@FragmentHolder BaseDebugFragment()
         },
         FragmentHolder {
-            return@FragmentHolder TestReactionFragment()
+            return@FragmentHolder TestReactionInstructionFragment()
         },
         FragmentHolder {
-            return@FragmentHolder ComplexTestReactionFragment()
+            return@FragmentHolder ComplexTestReactionInstructionFragment()
         },
         FragmentHolder {
             return@FragmentHolder ProfileFragment()
@@ -43,7 +44,7 @@ class DebugFragment : Fragment(R.layout.debug_fragment) {
             return@FragmentHolder SettingsFragment();
         },
         FragmentHolder {
-            return@FragmentHolder MovingObjectReactionTestFragment()
+            return@FragmentHolder MovingObjectReactionTestInstructionFragment()
         },
     )
 

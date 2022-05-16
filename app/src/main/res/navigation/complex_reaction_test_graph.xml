@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/complex_test_reaction_graph"
+    app:startDestination="@id/complexTestReactionInstruction">
+
+    <fragment
+        android:id="@+id/complexTestReactionInstruction"
+        android:name="com.example.psyhealthapp.tests.ComplexTestReactionInstructionFragment"
+        android:label="InstructionFragment"
+        tools:layout="@layout/complex_test_reaction_instruction_fragment">
+        <action
+            android:id="@+id/action_tappingTestInstruction_to_tappingTestChallenge"
+            app:destination="@id/complexTestReaction" />
+    </fragment>
+    <fragment
+        android:id="@+id/complexTestReaction"
+        android:name="com.example.psyhealthapp.tests.ComplexTestReactionFragment"
+        android:label="ChallengeFragment"
+        tools:layout="@layout/complex_test_reaction_fragment">
+        <action
+            android:id="@+id/action_reactionTest_to_reactionTestInstruction"
+            app:destination="@id/complexTestReactionInstruction" />
+    </fragment>
+</navigation>

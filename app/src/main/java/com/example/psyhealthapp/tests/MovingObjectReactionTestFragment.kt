@@ -12,9 +12,10 @@ import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
 import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.psyhealthapp.R
-import com.example.psyhealthapp.core.TestResultsHolder
+//import com.example.psyhealthapp.core.TestResultsHolder
 import com.example.psyhealthapp.databinding.MovingObjectReactionTestFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -25,8 +26,8 @@ import kotlin.random.Random
 class MovingObjectReactionTestFragment : Fragment(R.layout.moving_object_reaction_test_fragment) {
     private val viewBinding by viewBinding(MovingObjectReactionTestFragmentBinding::bind)
 
-    @Inject
-    lateinit var resultsHolder: TestResultsHolder
+    //@Inject
+    //lateinit var resultsHolder: TestResultsHolder
 
     private lateinit var timer: CountDownTimer
     private var testState = TestState.Start
@@ -109,7 +110,9 @@ class MovingObjectReactionTestFragment : Fragment(R.layout.moving_object_reactio
                     viewBinding.stopButton.text = resources.getString(R.string.moving_object_reaction_test_stop_circle)
                 }
                 TestState.Complete -> {
-
+                    //TODO: реализовать переход
+                    val controller = findNavController()
+                    controller.navigate(R.id.movingObjectTestReactionInstruction)
                 }
             }
 
