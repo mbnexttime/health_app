@@ -29,7 +29,7 @@ class TappingTestResult(
         val rSum = rHandGraph.map { it.second }.sum()
         val lSum = lHandGraph.map { it.second }.sum()
 
-        val asymmetry = abs(rSum - lSum) / (rSum + lSum) * 100F
+        val asymmetry = (rSum - lSum) / (rSum + lSum) * 100F
         val nervousSystemPowerRatio = (getRatio(lHandGraph) + getRatio(rHandGraph)) / 2
         val nervousSystemType = ((getType(lHandGraph) + getType(rHandGraph)) / 2).toInt()
 

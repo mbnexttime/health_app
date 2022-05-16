@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.psyhealthapp.R
+import com.example.psyhealthapp.databinding.StatTappingSubfragmentBinding
 import com.example.psyhealthapp.user.testing.results.TappingTestResult
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.LimitLine
@@ -16,7 +18,7 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
 
 class TappingSubFragment : Fragment(R.layout.stat_tapping_subfragment) {
-    private lateinit var chart: LineChart
+    private val viewBinding by viewBinding(StatTappingSubfragmentBinding::bind)
 
     companion object {
         const val LINE_WIDTH = 2F
@@ -38,7 +40,6 @@ class TappingSubFragment : Fragment(R.layout.stat_tapping_subfragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        chart = view.findViewById(R.id.chart)
         arguments?.let {
             val result = it.getFloatArray("moments")?.toList()
             result?.let {
@@ -48,6 +49,7 @@ class TappingSubFragment : Fragment(R.layout.stat_tapping_subfragment) {
     }
 
     private fun setupChart(result: List<Float>) {
+        val chart = viewBinding.chart
         val chartData = LineData()
 
         val graphData = TappingTestResult.getGraph(result)

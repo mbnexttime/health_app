@@ -67,6 +67,31 @@
             android:layout_marginTop="@dimen/stat_marginVertical"
             android:minHeight="@dimen/stat_minChartHeight" />
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/stat_marginVertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/last_result_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/last_result"
+                app:layout_constraintBaseline_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/last_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                app:layout_constraintLeft_toRightOf="@+id/last_result_textview"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/empty_content"
             android:layout_width="match_parent"

@@ -48,7 +48,7 @@
     <string name="state"> СОСТОЯНИЕ </string>
     <string name="over_all_attempts"> по всем прохождениям: </string>
     <string name="tapping_test"> ТЕППИНГ ТЕСТ </string>
-    <string name="last_result"> последний результат: </string>
+    <string name="last_result"> последний результат:&#160; </string>
     <string name="type_of_nervous_system"> тип нервной системы: </string>
     <string name="medium"> &#160;средний </string>
     <string name="recent_attempts"> последние попытки: </string>

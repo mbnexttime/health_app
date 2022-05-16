@@ -28,6 +28,24 @@ class ReactionSubFragment : Fragment(R.layout.stat_reaction_subfragment) {
     companion object {
         val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd MMMM")
 
+        data class Rank(val result: kotlin.Float, val name: String, val img: Int)
+
+        private val ranks = listOf(
+            Rank(Int.MAX_VALUE.toFloat(), "Черепашка", R.drawable.ic_turtle),
+            Rank(350F, "Ленивец", R.drawable.ic_sloth),
+            Rank(270F, "Обычный человек", R.drawable.ic_man),
+            Rank(220F, "Спортсмен", R.drawable.ic_runner),
+            Rank(190F, "Мастер спорта", R.drawable.ic_trophy_champion),
+            Rank(170F, "Гонщик", R.drawable.ic_race_car),
+            Rank(150F, "Человек-паук", R.drawable.ic_spiderman)
+        )
+
+        private fun getRank(speed: kotlin.Float): Rank {
+            return ranks.last { it ->
+                it.result > speed
+            }
+        }
+
         private const val TEST_RESULT = "testResult"
         private const val VALUE_TEXT_SIZE = 14F
         private const val DASHED_LINE_LENGTH = 10F
@@ -65,6 +83,15 @@ class ReactionSubFragment : Fragment(R.layout.stat_reaction_subfragment) {
 
         val bestResult = testResultList.results.maxByOrNull { it.result }?.result?.roundToInt() ?: 0
         val averageResult = testResultList.results.map { it.result }.average().roundToInt()
+        val lastResult = testResultList.results.last().result
+        val rk = getRank(lastResult)
+
+        viewBinding.lastResult.apply {
+            text = " ${rk.name}"
+            setCompoundDrawablesWithIntrinsicBounds(
+                0, 0, rk.img, 0
+            )
+        }
 
         viewBinding.bestReactionResult.text = " $bestResult"
         viewBinding.averageReactionResult.text = " $averageResult"

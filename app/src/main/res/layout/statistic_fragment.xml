@@ -82,6 +82,7 @@
                             app:drawableEndCompat="@drawable/ic_icons_woodpecker" />
 
                         <com.google.android.material.button.MaterialButton
+                            android:id="@+id/about_tapping_test"
                             android:layout_width="wrap_content"
                             android:layout_height="45dp"
                             android:layout_alignParentEnd="true"
@@ -120,16 +121,6 @@
                             style="@style/stat_cards_title"
                             android:text="@string/reaction_test"
                             app:drawableEndCompat="@drawable/ic_baseline_electric_bolt_24" />
-
-                        <com.google.android.material.button.MaterialButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="45dp"
-                            android:layout_alignParentEnd="true"
-                            android:backgroundTint="@color/white"
-                            android:text="О чем?"
-                            android:textColor="@color/black"
-                            app:strokeColor="@color/black" />
-
                     </RelativeLayout>
 
                     <androidx.fragment.app.FragmentContainerView
@@ -162,14 +153,6 @@
                             android:text="@string/passed_tests"
                             app:drawableEndCompat="@drawable/ic_baseline_check_24" />
 
-                        <com.google.android.material.button.MaterialButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="45dp"
-                            android:layout_alignParentEnd="true"
-                            android:backgroundTint="@color/white"
-                            android:text="Зачем?"
-                            android:textColor="@color/black"
-                            app:strokeColor="@color/black" />
                     </RelativeLayout>
 
                     <androidx.fragment.app.FragmentContainerView

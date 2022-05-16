@@ -39,9 +39,10 @@ class LastDaysActivity : Fragment(R.layout.stat_lastdaysactivity) {
         private const val DATA_SET_VALUE_TEXT_SIZE = 10F
         private const val XAXIS_GRANULARITY = 1F
         private const val YAXIS_MAXIMUM = 10F
-        private const val YAXIS_MINIMUM = 0F
+        private const val YAXIS_MINIMUM = 0.25F
         private const val YAXIS_SCALE_COEF = 2F
         private const val YAXIS_GRANULARITY = 1F
+        private const val STROKE_WIDTH = 2F
 
         fun newInstance(lastDaysStat: ResultsByDay): LastDaysActivity {
             val arguments = Bundle()
@@ -83,9 +84,10 @@ class LastDaysActivity : Fragment(R.layout.stat_lastdaysactivity) {
     private fun setupChart(view: View, lastDaysStat: ResultsByDay) {
         val chart = viewBinding.chart
 
-        val entries =
-            lastDaysStat.data.values.mapIndexed { i, it -> BarEntry(i.toFloat(), it.toFloat()) }
-                .toMutableList()
+        val entries = lastDaysStat.data.values.mapIndexed { i, it
+            ->
+            BarEntry(i.toFloat(), it.toFloat())
+        }.toMutableList()
 
         while (POINTS_AT_SCREEN - entries.size > 1) {
             entries.add(0, BarEntry(entries[0].x - 1, 0F))
@@ -121,6 +123,9 @@ class LastDaysActivity : Fragment(R.layout.stat_lastdaysactivity) {
             setColors(entries.map { colorByResult(it.y) })
             isHighlightEnabled = false
 
+            barBorderColor = ContextCompat.getColor(requireContext(), R.color.black)
+            barBorderWidth = STROKE_WIDTH
+
             valueFormatter = object : ValueFormatter() {
                 override fun getBarLabel(barEntry: BarEntry?): String {
                     if (barEntry != null) {
@@ -137,8 +142,10 @@ class LastDaysActivity : Fragment(R.layout.stat_lastdaysactivity) {
             valueTextSize = DATA_SET_VALUE_TEXT_SIZE;
         }
 
-        val chartRenderer =
-            RoundedVerticalBarChartRenderer(chart, chart.animator, chart.viewPortHandler)
+        val chartRenderer = RoundedVerticalBarChartRenderer(
+            chart,
+            chart.animator, chart.viewPortHandler
+        )
 
         chartRenderer.apply {
             setRightRadius(CHART_BAR_RADIUS)
@@ -158,11 +165,10 @@ class LastDaysActivity : Fragment(R.layout.stat_lastdaysactivity) {
                     }
                 }
             }
-            textColor =
-                ContextCompat.getColor(
-                    requireContext(),
-                    R.color.stat_tests_tapping_chart_lineColor_3
-                )
+            textColor = ContextCompat.getColor(
+                requireContext(),
+                R.color.stat_tests_tapping_chart_lineColor_3
+            )
 
             granularity = XAXIS_GRANULARITY
             position = XAxis.XAxisPosition.BOTTOM

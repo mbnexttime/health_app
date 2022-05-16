@@ -1,6 +1,7 @@
 package com.example.psyhealthapp.util
 
 import android.graphics.Canvas
+import android.graphics.Paint
 import android.graphics.RectF
 import com.github.mikephil.charting.animation.ChartAnimator
 import com.github.mikephil.charting.interfaces.dataprovider.BarDataProvider
@@ -28,6 +29,13 @@ class RoundedVerticalBarChartRenderer(
     override fun drawDataSet(c: Canvas, dataSet: IBarDataSet, index: Int) {
         val trans = mChart.getTransformer(dataSet.axisDependency)
         mShadowPaint.color = dataSet.barShadowColor
+
+        val strokePaint = Paint().apply {
+            style = Paint.Style.STROKE
+            color = dataSet.barBorderColor
+            strokeWidth = dataSet.barBorderWidth
+        }
+
         val phaseX = mAnimator.phaseX
         val phaseY = mAnimator.phaseY
 
@@ -58,11 +66,23 @@ class RoundedVerticalBarChartRenderer(
                                 mViewPortHandler.contentBottom()
                             ), mRightRadius, mRightRadius, mShadowPaint
                         )
+                        c.drawRoundRect(
+                            RectF(
+                                buffer.buffer[j], mViewPortHandler.contentTop(),
+                                buffer.buffer[j + 2],
+                                mViewPortHandler.contentBottom()
+                            ), mRightRadius, mRightRadius, strokePaint
+                        )
                     } else {
                         c.drawRect(
                             buffer.buffer[j], mViewPortHandler.contentTop(),
                             buffer.buffer[j + 2],
                             mViewPortHandler.contentBottom(), mShadowPaint
+                        )
+                        c.drawRect(
+                            buffer.buffer[j], mViewPortHandler.contentTop(),
+                            buffer.buffer[j + 2],
+                            mViewPortHandler.contentBottom(), strokePaint
                         )
                     }
                 }
@@ -71,6 +91,8 @@ class RoundedVerticalBarChartRenderer(
                 // is
                 // out of bounds, reuse colors.
                 mRenderPaint.color = dataSet.getColor(j / 4)
+
+
                 if (mRightRadius > 0) {
                     c.drawRoundRect(
                         RectF(
@@ -78,10 +100,20 @@ class RoundedVerticalBarChartRenderer(
                             buffer.buffer[j + 3]
                         ), mRightRadius, mRightRadius, mRenderPaint
                     )
+                    c.drawRoundRect(
+                        RectF(
+                            buffer.buffer[j], buffer.buffer[j + 1], buffer.buffer[j + 2],
+                            buffer.buffer[j + 3]
+                        ), mRightRadius, mRightRadius, strokePaint
+                    )
                 } else {
                     c.drawRect(
                         buffer.buffer[j], buffer.buffer[j + 1], buffer.buffer[j + 2],
                         buffer.buffer[j + 3], mRenderPaint
+                    )
+                    c.drawRect(
+                        buffer.buffer[j], buffer.buffer[j + 1], buffer.buffer[j + 2],
+                        buffer.buffer[j + 3], strokePaint
                     )
                 }
                 j += 4
@@ -96,16 +128,31 @@ class RoundedVerticalBarChartRenderer(
                 }
                 if (!mViewPortHandler.isInBoundsRight(buffer.buffer[j])) break
                 if (mChart.isDrawBarShadowEnabled) {
-                    if (mRightRadius > 0) c.drawRoundRect(
-                        RectF(
-                            buffer.buffer[j], mViewPortHandler.contentTop(),
-                            buffer.buffer[j + 2],
-                            mViewPortHandler.contentBottom()
-                        ), mRightRadius, mRightRadius, mShadowPaint
-                    ) else c.drawRect(
-                        buffer.buffer[j], buffer.buffer[j + 1], buffer.buffer[j + 2],
-                        buffer.buffer[j + 3], mRenderPaint
-                    )
+                    if (mRightRadius > 0) {
+                        c.drawRoundRect(
+                            RectF(
+                                buffer.buffer[j], mViewPortHandler.contentTop(),
+                                buffer.buffer[j + 2],
+                                mViewPortHandler.contentBottom()
+                            ), mRightRadius, mRightRadius, mShadowPaint
+                        )
+                        c.drawRoundRect(
+                            RectF(
+                                buffer.buffer[j], mViewPortHandler.contentTop(),
+                                buffer.buffer[j + 2],
+                                mViewPortHandler.contentBottom()
+                            ), mRightRadius, mRightRadius, strokePaint
+                        )
+                    } else {
+                        c.drawRect(
+                            buffer.buffer[j], buffer.buffer[j + 1], buffer.buffer[j + 2],
+                            buffer.buffer[j + 3], mRenderPaint
+                        )
+                        c.drawRect(
+                            buffer.buffer[j], buffer.buffer[j + 1], buffer.buffer[j + 2],
+                            buffer.buffer[j + 3], strokePaint
+                        )
+                    }
                 }
                 if (mRightRadius > 0) {
                     c.drawRoundRect(
@@ -114,10 +161,20 @@ class RoundedVerticalBarChartRenderer(
                             buffer.buffer[j + 3]
                         ), mRightRadius, mRightRadius, mRenderPaint
                     )
+                    c.drawRoundRect(
+                        RectF(
+                            buffer.buffer[j], buffer.buffer[j + 1], buffer.buffer[j + 2],
+                            buffer.buffer[j + 3]
+                        ), mRightRadius, mRightRadius, strokePaint
+                    )
                 } else {
                     c.drawRect(
                         buffer.buffer[j], buffer.buffer[j + 1], buffer.buffer[j + 2],
                         buffer.buffer[j + 3], mRenderPaint
+                    )
+                    c.drawRect(
+                        buffer.buffer[j], buffer.buffer[j + 1], buffer.buffer[j + 2],
+                        buffer.buffer[j + 3], strokePaint
                     )
                 }
                 j += 4

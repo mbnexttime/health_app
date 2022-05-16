@@ -1,5 +1,6 @@
 package com.example.psyhealthapp.user.statistics.main
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -8,21 +9,29 @@ import com.example.psyhealthapp.core.EmptyContentFragment
 import com.example.psyhealthapp.core.TestResultsHolder
 import com.example.psyhealthapp.user.statistics.LastDaysActivity
 import com.example.psyhealthapp.user.statistics.reaction.Reaction
-import com.example.psyhealthapp.user.statistics.Summary
 import com.example.psyhealthapp.user.statistics.tapping.TappingMainFragment
-import com.example.psyhealthapp.user.testing.results.TappingTestResult
+import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.psyhealthapp.databinding.StatisticFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class StatPageTestFragment : Fragment(R.layout.statistic_fragment) {
+    private val viewBinding by viewBinding(StatisticFragmentBinding::bind)
+
     @Inject
     lateinit var resultsHolder: TestResultsHolder
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    private fun setupDescriptions() {
+        viewBinding.aboutTappingTest.setOnClickListener {
+            val dialog = Dialog(requireContext())
+            dialog.setContentView(R.layout.stat_tapping_description)
+            dialog.show()
 
+        }
+    }
+
+    private fun setupCards() {
         val tappingTestLastResult = resultsHolder.getLastTappingTestResult()
         val resultsByDay = resultsHolder.getResultsCountByDays()
 
@@ -74,5 +83,11 @@ class StatPageTestFragment : Fragment(R.layout.statistic_fragment) {
                 )
             )
         }.commit()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupDescriptions()
+        setupCards()
     }
 }

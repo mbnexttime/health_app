@@ -45,6 +45,19 @@ class MovingReactionSubFragment : Fragment(R.layout.stat_moving_reaction_subfrag
         Entry(it.toFloat(), i)
     }
 
+    private fun getLineDataSet(
+        entries: List<Entry>,
+        label: String,
+        chartColor: Int,
+    ): LineDataSet {
+        return LineDataSet(entries, label).apply {
+            color = chartColor
+            setCircleColor(chartColor)
+            lineWidth = 2F
+            setDrawValues(false)
+        }
+    }
+
     private fun setupChart(movingReactionTestResultList: MovingReactionTestResultList) {
         val chart = viewBinding.chart
 
@@ -54,58 +67,41 @@ class MovingReactionSubFragment : Fragment(R.layout.stat_moving_reaction_subfrag
         val deviations = movingReactionTestResultList.results.map { sqrt(it.dispersion) }
         val dates = movingReactionTestResultList.results.map { it.date }
 
-        val dataSetMinDiffs = LineDataSet(
+        val dataSetMinDiffs = getLineDataSet(
             minDifferences.mapIndexed(indexWithValueToEntry),
-            "мин"
+            "мин",
+            ContextCompat.getColor(requireContext(), R.color.stat_tests_lastDaysActivity_barColor_1)
         ).apply {
-            color = ContextCompat.getColor(
-                requireContext(),
-                R.color.stat_tests_lastDaysActivity_barColor_1
-            )
-            lineWidth = 2F
-            setCircleColor(R.color.stat_tests_lastDaysActivity_barColor_1)
-            setDrawValues(false)
             enableDashedLine(DASHED, DASHED / 2, DASHED)
         }
 
-        val dataSetMaxDiffs = LineDataSet(
+        val dataSetMaxDiffs = getLineDataSet(
             maxDifferences.mapIndexed(indexWithValueToEntry),
-            "макс"
-        ).apply {
-            color = ContextCompat.getColor(
-                requireContext(),
-                R.color.stat_tests_lastDaysActivity_barColor_1
+            "макс", ContextCompat.getColor(
+                requireContext(), R.color.stat_tests_lastDaysActivity_barColor_1
             )
-            lineWidth = 2F
-            setCircleColors(R.color.stat_tests_lastDaysActivity_barColor_1)
-            setDrawValues(false)
+        ).apply {
             enableDashedLine(DASHED, DASHED / 2, DASHED)
         }
 
-        val dataSetAverages = LineDataSet(
+        val dataSetAverages = getLineDataSet(
             averages.mapIndexed(indexWithValueToEntry),
-            "среднее"
-        ).apply {
-            color = ContextCompat.getColor(
+            "среднее", ContextCompat.getColor(
                 requireContext(),
                 R.color.black
             )
-            lineWidth = 2F
-            setCircleColor(R.color.black)
+        ).apply {
+            setDrawValues(true)
         }
 
-        val dataSetDeviations = LineDataSet(
+        val dataSetDeviations = getLineDataSet(
             deviations.mapIndexed(indexWithValueToEntry),
-            "разница со средним"
-        ).apply {
-            color = ContextCompat.getColor(
+            "разница со средним",
+            ContextCompat.getColor(
                 requireContext(),
-                R.color.stat_tests_tapping_chart_lineColor_1
+                R.color.stat_tests_lastDaysActivity_barColor_3
             )
-            lineWidth = 2F
-            setCircleColor(R.color.stat_tests_tapping_chart_lineColor_1)
-            setDrawValues(false)
-        }
+        )
 
         val chartData = LineData()
         chartData.addDataSet(dataSetMinDiffs)
@@ -127,8 +123,9 @@ class MovingReactionSubFragment : Fragment(R.layout.stat_moving_reaction_subfrag
             setDrawGridBackground(false)
             description.isEnabled = false
             axisRight.isEnabled = false
-
+            setTouchEnabled(false)
             data = chartData
+            animateY(250)
             invalidate()
         }
     }

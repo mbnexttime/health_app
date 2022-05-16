@@ -81,15 +81,16 @@
 
         </TableLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/stat_marginHorizontal"
-            android:backgroundTint="@color/white"
-            android:text="рекомендации"
-            android:textColor="@color/black"
-            app:strokeColor="@color/black"
-            />
+        <!--        <com.google.android.material.button.MaterialButton-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginHorizontal="@dimen/stat_marginHorizontal"-->
+        <!--            android:backgroundTint="@color/white"-->
+        <!--            android:text="рекомендации"-->
+        <!--            android:textColor="@color/black"-->
+        <!--            app:strokeColor="@color/black"-->
+        <!--            />-->
+        <!--        TODO -->
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
