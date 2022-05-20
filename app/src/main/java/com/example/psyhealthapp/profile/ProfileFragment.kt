@@ -83,7 +83,7 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
     private fun initInfo() {
         fieldName.text = userDataHolder.getUserDataString(UserDataType.NAME)
             ?: getString(R.string.profile_no_info)
-        fieldAge.text = userDataHolder.getUserDataString(UserDataType.AGE)?.toString()
+        fieldAge.text = userDataHolder.getUserDataString(UserDataType.AGE)
             ?: getString(R.string.profile_no_info)
         fieldSex.text = userDataHolder.getUserDataString(UserDataType.SEX)
             ?: getString(R.string.profile_no_info)
