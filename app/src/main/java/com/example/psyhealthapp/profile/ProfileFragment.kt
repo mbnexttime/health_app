@@ -3,6 +3,7 @@ package com.example.psyhealthapp.profile
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
@@ -25,10 +26,11 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ProfileFragment : Fragment(R.layout.profile_fragment) {
 
-    private lateinit var btnImageProfile: ImageButton
+    private lateinit var imageProfile: ImageView
     private lateinit var profileImageLauncher: ActivityResultLauncher<Intent>
     private lateinit var imagePickIntent: Intent
 
+    private lateinit var llBackground: LinearLayout
     private lateinit var llBackName: LinearLayout
     private lateinit var llBackAge: LinearLayout
     private lateinit var llBackSex: LinearLayout
@@ -52,10 +54,11 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
     lateinit var userDataHolder : UserDataHolder
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        btnImageProfile = view.findViewById(R.id.btnImageProfile)
-        btnImageProfile.setOnClickListener(clickListener)
+        imageProfile = view.findViewById(R.id.imageProfile)
+        imageProfile.setOnClickListener(clickListener)
         startWorkWithProfileImage()
 
+        llBackground = view.findViewById(R.id.llBackground)
         llBackName = view.findViewById(R.id.llBackName)
         llBackAge = view.findViewById(R.id.llBackAge)
         llBackSex = view.findViewById(R.id.llBackSex)
@@ -63,6 +66,7 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
         fieldAge = view.findViewById(R.id.fieldAge)
         fieldSex = view.findViewById(R.id.fieldSex)
         initInfo()
+        initBackground()
 
         btnSave = view.findViewById(R.id.btnSave)
         btnSave.setOnClickListener(clickListener)
@@ -79,21 +83,31 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
     private fun initInfo() {
         fieldName.text = userDataHolder.getUserDataString(UserDataType.NAME)
             ?: getString(R.string.profile_no_info)
-        fieldAge.text = userDataHolder.getUserDataInt(UserDataType.AGE)?.toString()
+        fieldAge.text = userDataHolder.getUserDataString(UserDataType.AGE)?.toString()
             ?: getString(R.string.profile_no_info)
         fieldSex.text = userDataHolder.getUserDataString(UserDataType.SEX)
             ?: getString(R.string.profile_no_info)
         val uriImage = userDataHolder.getUserDataString(UserDataType.URI)
         if (uriImage != null) {
-            btnImageProfile.setImageURI(Uri.parse(uriImage))
+            imageProfile.setImageURI(Uri.parse(uriImage))
+        }
+    }
+
+    private fun initBackground() {
+        val r = userDataHolder.getUserDataInt(UserDataType.BACK_R) ?: -1
+        val g = userDataHolder.getUserDataInt(UserDataType.BACK_G) ?: -1
+        val b = userDataHolder.getUserDataInt(UserDataType.BACK_B) ?: -1
+        if (r != -1 && b != -1 && g != -1) {
+            llBackground.setBackgroundColor(Color.argb(255, r, g, b))
         }
     }
 
 
     private val clickListener = View.OnClickListener { p0 ->
         when (p0) {
-            btnImageProfile -> {
+            imageProfile -> {
                 profileImageLauncher.launch(imagePickIntent)
+                imageProfile.scaleType = ImageView.ScaleType.CENTER_CROP
             }
             btnEdit -> {
                 btnEdit.isClickable = false
@@ -166,7 +180,7 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
         val saving = fieldEdit.text.toString()
         when (field) {
             fieldName -> userDataHolder.setUserData(UserDataType.NAME, saving)
-            fieldAge -> userDataHolder.setUserData(UserDataType.AGE, saving.toInt())
+            fieldAge -> userDataHolder.setUserData(UserDataType.AGE, saving)
             fieldSex -> userDataHolder.setUserData(UserDataType.SEX, saving)
 
         }
@@ -221,8 +235,8 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
             if (result.resultCode == Activity.RESULT_OK) {
                 val imData: Intent? = result.data
                 val selectedImage = imData?.data
-                btnImageProfile.setImageURI(null)
-                btnImageProfile.setImageURI(selectedImage)
+                imageProfile.setImageURI(null)
+                imageProfile.setImageURI(selectedImage)
                 if (selectedImage != null) {
                     userDataHolder.setUserData(UserDataType.URI, selectedImage.toString())
                 }

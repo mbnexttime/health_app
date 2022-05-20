@@ -12,8 +12,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/btnImageProfile"
+        <ImageView
+            android:id="@+id/imageProfile"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             android:layout_marginTop="10dp"
@@ -22,7 +22,7 @@
             android:layout_height="340dp"
             android:background="@drawable/persic"
             android:layout_gravity="center">
-        </ImageButton>
+        </ImageView>
     </LinearLayout>
 
     <LinearLayout
