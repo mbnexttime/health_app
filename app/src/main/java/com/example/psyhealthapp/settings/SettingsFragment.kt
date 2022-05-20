@@ -6,33 +6,51 @@ import android.widget.*
 import android.graphics.Color
 import androidx.fragment.app.Fragment
 import com.example.psyhealthapp.R
+import com.example.psyhealthapp.core.UserDataHolder
+import com.example.psyhealthapp.core.UserDataType
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
+@AndroidEntryPoint
 class SettingsFragment : Fragment(R.layout.settings_fragment) {
 
-    lateinit var llBackground: LinearLayout
+    private lateinit var llBackground: LinearLayout
     private lateinit var sbColor: SeekBar
 
+    @Inject
+    lateinit var userDataHolder : UserDataHolder
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         llBackground = view.findViewById(R.id.llBackground)
         sbColor = view.findViewById(R.id.sbColor)
         sbColor.setOnSeekBarChangeListener(seekBarChangeListener)
 
+        initBackground()
     }
+
+    private fun initBackground() {
+        val r = userDataHolder.getUserDataInt(UserDataType.BACK_R) ?: -1
+        val g = userDataHolder.getUserDataInt(UserDataType.BACK_G) ?: -1
+        val b = userDataHolder.getUserDataInt(UserDataType.BACK_B) ?: -1
+        if (r != -1 && b != -1 && g != -1) {
+            llBackground.setBackgroundColor(Color.argb(255, r, g, b))
+        }
+    }
+
+    private val minR = 180
+    private val minG = 180
+    private val minB = 180
+    private val maxR = 252
+    private val maxG = 252
+    private val maxB = 252
+
+    private var r: Int = minR
+    private var g: Int = minG
+    private var b: Int = minB
 
     private val seekBarChangeListener = object: SeekBar.OnSeekBarChangeListener {
         override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-            val minR = 180
-            val minG = 180
-            val minB = 180
-            val maxR = 252
-            val maxG = 252
-            val maxB = 252
-
-            var r = minR
-            var g = minG
-            var b = minB
             when {
                 progress < 25 -> {
                     r = minR + progress * 3
@@ -69,13 +87,14 @@ class SettingsFragment : Fragment(R.layout.settings_fragment) {
             }
 
             llBackground.setBackgroundColor(Color.argb(255, r, g, b))
-
         }
         override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-        override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        override fun onStopTrackingTouch(seekBar: SeekBar?) {
+            userDataHolder.setUserData(UserDataType.BACK_R, r)
+            userDataHolder.setUserData(UserDataType.BACK_G, g)
+            userDataHolder.setUserData(UserDataType.BACK_B, b)
+        }
     }
-
-
 
 }
 
