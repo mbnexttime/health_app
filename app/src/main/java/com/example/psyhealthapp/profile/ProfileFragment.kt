@@ -102,7 +102,6 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
         }
     }
 
-
     private val clickListener = View.OnClickListener { p0 ->
         when (p0) {
             imageProfile -> {
