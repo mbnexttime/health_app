@@ -45,6 +45,7 @@ class TappingTestChallengeFragment : Fragment(R.layout.tapping_test_challenge_fr
         viewModel.runChallenge()
     }
 
+
     private fun subscribeToEvents() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -71,7 +72,7 @@ class TappingTestChallengeFragment : Fragment(R.layout.tapping_test_challenge_fr
     private fun applyEndingState() {
         viewBinding.apply {
             challengeButton.isVisible = false
-            textView.text = "Тест пройден"
+            textView.isVisible = false
             toResultsButton.isVisible = true
         }
     }

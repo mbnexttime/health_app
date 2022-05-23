@@ -1,8 +1,8 @@
 package com.example.psyhealthapp.user.testing.tappingtest.interactor
 
-import kotlinx.coroutines.flow.Flow
+import com.example.psyhealthapp.user.testing.results.TappingTestResult
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import java.time.LocalDateTime
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -15,10 +15,6 @@ sealed class TappingTestState {
 
 @Singleton
 class TappingTestFlowInteractor @Inject constructor() {
-
-    fun notifyResultScreenGoNext() {
-        tappingTestFlowValue = TappingTestState.Instruction
-    }
 
     fun notifyInstructionScreenGoNext() {
         tappingTestFlowValue = TappingTestState.Challenge
@@ -33,6 +29,8 @@ class TappingTestFlowInteractor @Inject constructor() {
     }
 
     fun notifyChallengeEnd() {
+        resultForAllChallenges.add(clickTimesInner.toList())
+        clickTimesInner.clear()
         tappingTestFlowValue = TappingTestState.End
     }
 
@@ -40,14 +38,25 @@ class TappingTestFlowInteractor @Inject constructor() {
         tappingTestFlowValue = TappingTestState.Challenge
     }
 
+    fun getTappingTestResult(): TappingTestResult {
+        val resultsNormalized = resultForAllChallenges.map { lst ->
+            lst.map {
+                it.toFloat() / 1000
+            }
+        }
+        with(resultsNormalized) {
+            return TappingTestResult(LocalDateTime.now(), this[1], this[0])
+        }
+    }
+
+    fun needMoreChallenges(): Boolean {
+        return resultForAllChallenges.size < 2
+    }
+
 
     private val clickTimesInner = mutableListOf<Long>()
 
-    val clickTimes: List<Long>
-        get() = clickTimesInner.toList()
-
-    val tappingTestFlow: Flow<TappingTestState>
-        get() = tappingTestFlowInner.asStateFlow()
+    private val resultForAllChallenges: MutableList<List<Long>> = mutableListOf()
 
     private val tappingTestFlowInner =
         MutableStateFlow<TappingTestState>(TappingTestState.Instruction)
