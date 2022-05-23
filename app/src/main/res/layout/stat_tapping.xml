@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/stat_cardBackground"
+    app:cardCornerRadius="@dimen/stat_cardCornerRadius">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.example.psyhealthapp.util.DynamicHeightViewPager
+            android:id="@+id/tapping_pager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            >
+
+            <com.google.android.material.tabs.TabLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabIndicatorColor="@color/black"
+                app:tabSelectedTextColor="@color/black" />
+        </com.example.psyhealthapp.util.DynamicHeightViewPager>
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="@dimen/stat_marginHorizontal"
+            android:layout_marginBottom="@dimen/stat_marginVertical">
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/type_of_nervous_system"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/type_of_nervous_system"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/stat_tests_tapping_textColor_1" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:text="@string/asymmetry_ratio"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/asymmetry_ratio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/stat_tests_tapping_textColor_1" />
+
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/nervous_system_power"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/nervous_system_power"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/stat_tests_tapping_textColor_1" />
+            </TableRow>
+
+        </TableLayout>
+
+        <!--        <com.google.android.material.button.MaterialButton-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginHorizontal="@dimen/stat_marginHorizontal"-->
+        <!--            android:backgroundTint="@color/white"-->
+        <!--            android:text="рекомендации"-->
+        <!--            android:textColor="@color/black"-->
+        <!--            app:strokeColor="@color/black"-->
+        <!--            />-->
+        <!--        TODO -->
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
+

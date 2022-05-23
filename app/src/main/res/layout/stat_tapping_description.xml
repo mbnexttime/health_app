@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="Информация: Теппинг тест"
+        android:textColor="@color/black"
+        android:textSize="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="В общем:"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/stat_marginVertical"
+        android:text="Данный тест отслеживает временные изменения максимального темпа движения кистью. Он служит для определения основных свойств нервной системы, типа высшей нервной деятельности. На основании результатов можно сделать вывод о типе темперамента, возможности человека длительно выдерживать нагрузку.\nСильная нервная система является показателем работоспособности нервных клеток и нервной системы в целом" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Коэффициент асимметрии:"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/stat_marginVertical"
+        android:text="Знак коэффициента функциональной асимметрии интерпретируется следующим образом: если полученный коэффициент баланса имеет знак «+», это свидетельствует о смещении баланса в сторону возбуждения; если полученный коэффициент имеет знак «—», это свидетельствует о смещении баланса в сторону торможения." />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Сила нервной системы:"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/stat_marginVertical"
+        android:text="Чем выше коэффициент силы нервной системы, тем она сильнее. Сильная нервная система имеет коэффициент силы со  знаком '+'; слабая нервная система - со знаком '-'" />
+
+</LinearLayout>

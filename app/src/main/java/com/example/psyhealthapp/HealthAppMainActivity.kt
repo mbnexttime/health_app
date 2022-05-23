@@ -11,7 +11,8 @@ import javax.inject.Provider
 @AndroidEntryPoint
 class HealthAppMainActivity : AppCompatActivity() {
 
-    @Inject lateinit var launchModeHandler: LaunchModeHandler
+    @Inject
+    lateinit var launchModeHandler: LaunchModeHandler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

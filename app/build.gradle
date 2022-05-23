@@ -7,7 +7,6 @@ plugins {
 
 apply plugin: 'dagger.hilt.android.plugin'
 
-
 android {
     signingConfigs {
         release {
@@ -33,6 +32,7 @@ android {
         targetSdk 31
         versionCode 1
         versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -139,6 +139,8 @@ dependencies {
     def fragment_version = "1.4.1"
     // Kotlin
     implementation("androidx.fragment:fragment-ktx:$fragment_version")
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
 
     def gson_version = "2.8.9"
 

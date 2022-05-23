@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/add_entry_about_tapping_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Добавить запись про таппинг тест" />
+
+    <EditText
+        android:id="@+id/editTextTextReactionTestResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="450" />
+
+    <EditText
+        android:id="@+id/editTextTextReactionTestDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="2022 06 11" />
+
+    <Button
+        android:id="@+id/add_entry_about_reaction_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Добавить запись про реакционный тест" />
+
+    <EditText
+        android:id="@+id/editTextComplexTextReactionTestResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="450" />
+
+    <EditText
+        android:id="@+id/editTextComplexTextReactionTestDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="2022 06 11" />
+
+    <Button
+        android:id="@+id/add_entry_about_complex_reaction_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Добавить запись про комплексный реакционный тест" />
+
+    <EditText
+        android:id="@+id/editTestMovingReactionTestDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="2022 05 16" />
+
+    <EditText
+        android:id="@+id/editTestMovingReactionTestResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="-5 7 2 4" />
+
+    <Button
+        android:id="@+id/add_entry_about_moving_reaction_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Добавить запись про движ тест" />
+
+
+</LinearLayout>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/oswald"
+        app:fontStyle="normal"
+        app:fontWeight="400"
+        app:font="@font/oswald"
+        />
+
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/neuton"
+        app:fontStyle="normal"
+        app:fontWeight="400"
+        app:font="@font/neuton"
+        />
+
+</font-family>

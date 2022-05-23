@@ -9,4 +9,11 @@
         android:id="@+id/profile"
         android:icon="@drawable/profile_icon"
         android:title="@string/profile_bottom_menu_name" />
+
+    <item
+        android:id="@+id/history_add"
+        android:icon="@drawable/ic_baseline_history_edu_24"
+        android:title="Истории"
+        />
+
 </menu>

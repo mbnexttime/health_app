@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/stat_background"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/stat_header_height"
+        android:layout_gravity="center"
+        android:text="@string/statistic_header"
+        android:textColor="@color/black"
+        android:textSize="@dimen/stat_header_textSize" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/summary_card"
+                style="@style/stat_cards"
+                app:strokeColor="@color/black"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:id="@+id/stat_tests_summary_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/stat_marginHorizontal"
+                        android:layout_marginTop="@dimen/stat_marginVertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/summary_card_title"
+                            style="@style/stat_cards_title"
+                            android:text="@string/state"
+                            app:drawableRightCompat="@drawable/ic_baseline_balance_24" />
+
+                    </RelativeLayout>
+
+                    <androidx.fragment.app.FragmentContainerView
+                        android:id="@+id/summary_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/tapping_card"
+                style="@style/stat_cards"
+                app:strokeColor="@color/black"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:id="@+id/stat_tests_tapping_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/stat_marginHorizontal"
+                        android:layout_marginTop="@dimen/stat_marginVertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tapping_card_title"
+                            style="@style/stat_cards_title"
+                            android:text="@string/tapping_test"
+                            app:drawableEndCompat="@drawable/ic_icons_woodpecker" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/about_tapping_test"
+                            android:layout_width="wrap_content"
+                            android:layout_height="45dp"
+                            android:layout_alignParentEnd="true"
+                            android:backgroundTint="@color/white"
+                            android:text="О чем?"
+                            android:textColor="@color/black"
+                            app:strokeColor="@color/black" />
+
+                    </RelativeLayout>
+
+                    <androidx.fragment.app.FragmentContainerView
+                        android:id="@+id/tapping_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/reaction_card"
+                style="@style/stat_cards"
+                app:strokeColor="@color/black"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/stat_marginHorizontal"
+                        android:layout_marginTop="@dimen/stat_marginVertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            style="@style/stat_cards_title"
+                            android:text="@string/reaction_test"
+                            app:drawableEndCompat="@drawable/ic_baseline_electric_bolt_24" />
+                    </RelativeLayout>
+
+                    <androidx.fragment.app.FragmentContainerView
+                        android:id="@+id/reaction_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/last_days_activity_card"
+                style="@style/stat_cards"
+                app:strokeColor="@color/black"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/stat_marginHorizontal"
+                        android:layout_marginTop="@dimen/stat_marginVertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            style="@style/stat_cards_title"
+                            android:text="@string/passed_tests"
+                            app:drawableEndCompat="@drawable/ic_baseline_check_24" />
+
+                    </RelativeLayout>
+
+                    <androidx.fragment.app.FragmentContainerView
+                        android:id="@+id/last_days_activity_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
