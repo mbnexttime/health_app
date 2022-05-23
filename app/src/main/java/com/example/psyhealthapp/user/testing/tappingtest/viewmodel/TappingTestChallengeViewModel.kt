@@ -20,6 +20,11 @@ class TappingTestChallengeViewModel @Inject constructor(
         interactor.notifyChallengeScreenGoNext()
     }
 
+
+    fun notifyItemClicked() {
+        interactor.notifyClicked(System.currentTimeMillis() - challengeStartTime)
+    }
+
     fun runChallenge() {
         startWaitingState()
     }
@@ -44,7 +49,7 @@ class TappingTestChallengeViewModel @Inject constructor(
     private fun startChallengeState() {
         challengeStartTime = System.currentTimeMillis()
         object : CountDownTimer(
-            TimeUnit.SECONDS.toMillis(10),
+            TimeUnit.SECONDS.toMillis(30),
             TimeUnit.SECONDS.toMillis(1)
         ) {
             override fun onTick(p0: Long) {
@@ -52,18 +57,20 @@ class TappingTestChallengeViewModel @Inject constructor(
             }
 
             override fun onFinish() {
-                startEndingState()
+                endCurrentChallengeState()
             }
         }.start()
     }
 
-    private fun startEndingState() {
-        challengeState = ChallengeState.Ending
+    private fun endCurrentChallengeState() {
+        interactor.notifyChallengeEnd()
+        if (interactor.needMoreChallenges()) {
+            startWaitingState()
+        } else {
+            challengeState = ChallengeState.Ending
+        }
     }
 
-    fun notifyItemClicked() {
-        interactor.notifyClicked(System.currentTimeMillis() - challengeStartTime)
-    }
 
     val challengeStateFlow: Flow<ChallengeState>
         get() = challengeStateFlowInner.asStateFlow()
