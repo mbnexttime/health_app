@@ -33,9 +33,10 @@
             app:destination="@id/tapping_test_graph" />
     </fragment>
     
-    <fragment
-        android:id="@+id/profile"
-        android:name="com.example.psyhealthapp.profile.ProfileFragment" />
+<!--    <fragment-->
+<!--        android:id="@+id/profile"-->
+<!--        android:name="com.example.psyhealthapp.profile.ProfileFragment" />-->
 
+    <include app:graph="@navigation/profile_graph"/>
     <include app:graph="@navigation/tapping_test_graph" />
 </navigation>

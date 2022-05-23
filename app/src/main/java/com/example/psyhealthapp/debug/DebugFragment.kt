@@ -16,7 +16,7 @@ import com.example.psyhealthapp.tests.MovingObjectReactionTestFragment
 import com.example.psyhealthapp.tests.TestReactionFragment
 import com.example.psyhealthapp.tests.*
 import com.example.psyhealthapp.debug.entries.DebugAddEntriesToDBFragment
-import com.example.psyhealthapp.user.statistics.main.StatPageTestFragment
+import com.example.psyhealthapp.user.statistics.main.StatisticFragment
 
 class DebugFragment : Fragment(R.layout.debug_fragment) {
     /**
@@ -27,7 +27,7 @@ class DebugFragment : Fragment(R.layout.debug_fragment) {
             return@FragmentHolder BaseDebugFragment()
         },
         FragmentHolder {
-            return@FragmentHolder StatPageTestFragment()
+            return@FragmentHolder StatisticFragment()
         },
         FragmentHolder {
             return@FragmentHolder TestReactionInstructionFragment()
