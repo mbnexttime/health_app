@@ -15,9 +15,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.text.set
 import androidx.core.text.toSpannable
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.example.psyhealthapp.R
 import com.example.psyhealthapp.core.UserDataHolder
 import com.example.psyhealthapp.core.UserDataType
+import com.example.psyhealthapp.user.statistics.main.StatisticFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -49,7 +53,7 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
     private lateinit var btnSettings: ImageButton
 
     @Inject
-    lateinit var userDataHolder : UserDataHolder
+    lateinit var userDataHolder: UserDataHolder
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         btnImageProfile = view.findViewById(R.id.btnImageProfile)
@@ -115,7 +119,7 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
                 saveEditSex()
             }
             btnStatistic -> {
-
+                findNavController().navigate(R.id.action_profileFragment_to_statisticFragment)
             }
             btnSettings -> {
 
@@ -131,7 +135,7 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
     @SuppressLint("ResourceAsColor")
     private fun createEditView(field: TextView, fieldEdit: EditText, llBack: LinearLayout) {
         fieldEdit.maxLines = maxLines
-        fieldEdit.setPadding(0,0,0,0)
+        fieldEdit.setPadding(0, 0, 0, 0)
         fieldEdit.textSize = editTextSize
         val current = field.text.toString()
         llBack.removeView(field)
@@ -191,9 +195,9 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
     private val sizeFixForManIcon = 30
     private val sizeFixForOtherIcons = 20
 
-    private fun setRadioImageText(radioButton: RadioButton, drawableId: Int){
+    private fun setRadioImageText(radioButton: RadioButton, drawableId: Int) {
         val spannable = "_   ".toSpannable()
-        object : DynamicDrawableSpan(){
+        object : DynamicDrawableSpan() {
             @SuppressLint("UseCompatLoadingForDrawables")
             override fun getDrawable(): Drawable {
                 val drawable: Drawable = context!!.resources.getDrawable(drawableId, null)
@@ -216,18 +220,19 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
     private fun startWorkWithProfileImage() {
         imagePickIntent = Intent(Intent.ACTION_PICK)
         imagePickIntent.type = "image/*"
-        profileImageLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-        { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val imData: Intent? = result.data
-                val selectedImage = imData?.data
-                btnImageProfile.setImageURI(null)
-                btnImageProfile.setImageURI(selectedImage)
-                if (selectedImage != null) {
-                    userDataHolder.setUserData(UserDataType.URI, selectedImage.toString())
+        profileImageLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    val imData: Intent? = result.data
+                    val selectedImage = imData?.data
+                    btnImageProfile.setImageURI(null)
+                    btnImageProfile.setImageURI(selectedImage)
+                    if (selectedImage != null) {
+                        userDataHolder.setUserData(UserDataType.URI, selectedImage.toString())
+                    }
                 }
             }
-        }
     }
 
 }

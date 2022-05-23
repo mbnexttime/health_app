@@ -27,7 +27,7 @@ class TappingTestResultFragment : Fragment(R.layout.tapping_test_result_fragment
 
         viewBinding.endButton.setOnClickListener {
             viewModel.notifyChallengeEnd()
-            findNavController().navigate(R.id.profile)
+            findNavController().navigate(R.id.profile_graph)
         }
 
         viewBinding.repeatButton.setOnClickListener {
