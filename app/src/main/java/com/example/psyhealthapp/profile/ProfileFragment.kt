@@ -83,14 +83,14 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
     private fun initInfo() {
         fieldName.text = userDataHolder.getUserDataString(UserDataType.NAME)
             ?: getString(R.string.profile_no_info)
-        fieldAge.text = userDataHolder.getUserDataString(UserDataType.AGE)
+        fieldAge.text = userDataHolder.getUserDataInt(UserDataType.AGE).toString()
             ?: getString(R.string.profile_no_info)
         fieldSex.text = userDataHolder.getUserDataString(UserDataType.SEX)
             ?: getString(R.string.profile_no_info)
-        val uriImage = userDataHolder.getUserDataString(UserDataType.URI)
-        if (uriImage != null) {
-            imageProfile.setImageURI(Uri.parse(uriImage))
-        }
+//        val uriImage = userDataHolder.getUserDataString(UserDataType.URI)
+//        if (uriImage != null) {
+//            imageProfile.setImageURI(Uri.parse(uriImage))
+//        }
     }
 
     private fun initBackground() {
@@ -179,9 +179,10 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
         val saving = fieldEdit.text.toString()
         when (field) {
             fieldName -> userDataHolder.setUserData(UserDataType.NAME, saving)
-            fieldAge -> userDataHolder.setUserData(UserDataType.AGE, saving)
-            fieldSex -> userDataHolder.setUserData(UserDataType.SEX, saving)
-
+            fieldAge -> {
+                if (saving != getString(R.string.profile_no_info))
+                    userDataHolder.setUserData(UserDataType.AGE, saving.toInt())
+            }
         }
         llBack.removeView(fieldEdit)
         field.text = saving
