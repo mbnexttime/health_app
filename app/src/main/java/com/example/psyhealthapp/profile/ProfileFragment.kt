@@ -25,7 +25,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ProfileFragment : Fragment(R.layout.profile_fragment) {
 
-    private lateinit var btnImageProfile: ImageButton
+    private lateinit var imageProfile: ImageView
     private lateinit var profileImageLauncher: ActivityResultLauncher<Intent>
     private lateinit var imagePickIntent: Intent
 
@@ -52,8 +52,8 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
     lateinit var userDataHolder : UserDataHolder
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        btnImageProfile = view.findViewById(R.id.btnImageProfile)
-        btnImageProfile.setOnClickListener(clickListener)
+        imageProfile = view.findViewById(R.id.imageProfile)
+        imageProfile.setOnClickListener(clickListener)
         startWorkWithProfileImage()
 
         llBackName = view.findViewById(R.id.llBackName)
@@ -85,14 +85,14 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
             ?: getString(R.string.profile_no_info)
         val uriImage = userDataHolder.getUserDataString(UserDataType.URI)
         if (uriImage != null) {
-            btnImageProfile.setImageURI(Uri.parse(uriImage))
+            imageProfile.setImageURI(Uri.parse(uriImage))
         }
     }
 
 
     private val clickListener = View.OnClickListener { p0 ->
         when (p0) {
-            btnImageProfile -> {
+            imageProfile -> {
                 profileImageLauncher.launch(imagePickIntent)
             }
             btnEdit -> {
@@ -166,9 +166,10 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
         val saving = fieldEdit.text.toString()
         when (field) {
             fieldName -> userDataHolder.setUserData(UserDataType.NAME, saving)
-            fieldAge -> userDataHolder.setUserData(UserDataType.AGE, saving.toInt())
-            fieldSex -> userDataHolder.setUserData(UserDataType.SEX, saving)
-
+            fieldAge -> {
+                if (saving != getString(R.string.profile_no_info))
+                    userDataHolder.setUserData(UserDataType.AGE, saving.toInt())
+            }
         }
         llBack.removeView(fieldEdit)
         field.text = saving
@@ -221,8 +222,8 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
             if (result.resultCode == Activity.RESULT_OK) {
                 val imData: Intent? = result.data
                 val selectedImage = imData?.data
-                btnImageProfile.setImageURI(null)
-                btnImageProfile.setImageURI(selectedImage)
+                imageProfile.setImageURI(null)
+                imageProfile.setImageURI(selectedImage)
                 if (selectedImage != null) {
                     userDataHolder.setUserData(UserDataType.URI, selectedImage.toString())
                 }
