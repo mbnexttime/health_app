@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="ring"
+    android:thickness="@dimen/moving_object_reaction_test_fragment_thickness_of_ring"
+    android:innerRadius="@dimen/moving_object_reaction_test_fragment_inner_radius_of_ring"
+    android:useLevel="false">
+
+    <solid android:color="@color/red" />
+
+    <size
+        android:width="@dimen/moving_object_reaction_test_fragment_diameter_of_trajectory"
+        android:height="@dimen/moving_object_reaction_test_fragment_diameter_of_trajectory"/>
+
+</shape>

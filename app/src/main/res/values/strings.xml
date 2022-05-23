@@ -24,4 +24,19 @@
     <string name="profile_sex_woman">женский</string>
     <string name="profile_sex_other">другое</string>
     <string name="profile_no_info">не указано</string>
+    <string name="test_reaction_wait_green_button">Ждите зеленой кнопки.</string>
+    <string name="test_reaction_soon_tap">Слишком рано! Попробуйте снова.</string>
+    <string name="test_reaction_smth_wrong">Что-то пошло не так! Попробуйте снова.</string>
+    <string name="test_reaction_tap_green_button">Клик!</string>
+    <string name="complex_test_reaction_wait_for_choice">Ждите.</string>
+    <string name="complex_test_reaction_soon_tap">Слишком рано! Попробуйте снова.</string>
+    <string name="complex_test_reaction_wrong_button_pressed">"Не та кнопка! Попробуйте снова."</string>
+    <string name="complex_test_reaction_smth_wrong">Что-то пошло не так! Попробуйте снова.</string>
+    <string name="complex_test_reaction_press_green_button">Зеленую!</string>
+    <string name="complex_test_reaction_press_red_button">Красную!</string>
+    <string name="moving_object_reaction_test_start_test">Нажмите чтобы начать.</string>
+    <string name="moving_object_reaction_test_move_on">Нажмите чтобы продолжить.</string>
+    <string name="moving_object_reaction_test_tap_to_proceed">"Нажмите чтобы попробовать снова."</string>
+    <string name="moving_object_reaction_test_stop_circle">Стоп.</string>
+
 </resources>

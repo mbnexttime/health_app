@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/trajectory"
+        android:layout_width="@dimen/moving_object_reaction_test_fragment_diameter_of_trajectory"
+        android:layout_height="@dimen/moving_object_reaction_test_fragment_diameter_of_trajectory"
+        android:src="@drawable/ring"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="30dp" />
+
+    <ImageView
+        android:id="@+id/circle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/circle"
+        app:layout_constraintTop_toTopOf="@id/trajectory"
+        app:layout_constraintRight_toRightOf="@id/trajectory"
+        app:layout_constraintLeft_toLeftOf="@id/trajectory"
+        android:layout_marginTop="-10dp" />
+
+    <ImageView
+        android:id="@+id/circleStatic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/circle"
+        app:layout_constraintTop_toTopOf="@id/trajectory"
+        app:layout_constraintRight_toRightOf="@id/trajectory"
+        app:layout_constraintLeft_toLeftOf="@id/trajectory"
+        android:layout_marginTop="-10dp" />
+
+    <TextView
+        android:id="@+id/rulesText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/trajectory"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:layout_marginTop="12dp"
+        android:text="Как только точка по вашему мнению достигнет верха круга, нажмите кнопку стоп"/>
+
+    <Button
+        android:id="@+id/stopButton"
+        android:layout_width="0dp"
+        android:layout_height="256dp"
+        android:text="Стоп."
+        android:textSize="28sp"
+        android:textAllCaps="false"
+        android:backgroundTint="@color/red"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rulesText" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

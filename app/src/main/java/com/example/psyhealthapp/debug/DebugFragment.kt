@@ -12,6 +12,10 @@ import com.example.psyhealthapp.history.HistoryAddFragment
 import com.example.psyhealthapp.user.testing.tappingtest.ui.TappingTestMainFragment
 import com.example.psyhealthapp.profile.ProfileFragment
 import com.example.psyhealthapp.settings.SettingsFragment
+import com.example.psyhealthapp.tests.ComplexTestReactionFragment
+import com.example.psyhealthapp.tests.MovingObjectReactionTestFragment
+import com.example.psyhealthapp.tests.TestReactionFragment
+import com.example.psyhealthapp.tests.*
 
 class DebugFragment : Fragment(R.layout.debug_fragment) {
     /**
@@ -20,6 +24,12 @@ class DebugFragment : Fragment(R.layout.debug_fragment) {
     private val fragments: ArrayList<FragmentHolder> = arrayListOf(
         FragmentHolder {
             return@FragmentHolder BaseDebugFragment()
+        },
+        FragmentHolder {
+            return@FragmentHolder TestReactionInstructionFragment()
+        },
+        FragmentHolder {
+            return@FragmentHolder ComplexTestReactionInstructionFragment()
         },
         FragmentHolder {
             return@FragmentHolder ProfileFragment()
@@ -32,6 +42,9 @@ class DebugFragment : Fragment(R.layout.debug_fragment) {
         },
         FragmentHolder {
             return@FragmentHolder SettingsFragment();
+        },
+        FragmentHolder {
+            return@FragmentHolder MovingObjectReactionTestInstructionFragment()
         },
     )
 
