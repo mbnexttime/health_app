@@ -18,6 +18,7 @@
     <string name="history_show_add_button_text">Добавить</string>
     <string name="tapping_test_bottom_menu_name">Таппинг тест</string>
     <string name="profile_bottom_menu_name">Профиль</string>
+    <string name="histories_bottom_menu">Истории</string>
 
     <string name="profile_hint_how_edit_image">Чтобы поменять аватарку, нажми на неё.</string>
     <string name="profile_sex_man">мужской</string>

@@ -11,9 +11,9 @@
         android:title="@string/profile_bottom_menu_name" />
 
     <item
-        android:id="@+id/history_add"
+        android:id="@+id/history_show"
         android:icon="@drawable/ic_baseline_history_edu_24"
-        android:title="Истории"
+        android:title="@string/histories_bottom_menu"
         />
 
 </menu>

@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import com.example.psyhealthapp.R
 import com.example.psyhealthapp.core.FragmentHolder
 import com.example.psyhealthapp.history.HistoryAddFragment
-import com.example.psyhealthapp.user.testing.tappingtest.ui.TappingTestMainFragment
 import com.example.psyhealthapp.profile.ProfileFragment
 import com.example.psyhealthapp.settings.SettingsFragment
 import com.example.psyhealthapp.tests.ComplexTestReactionFragment
@@ -17,8 +16,6 @@ import com.example.psyhealthapp.tests.MovingObjectReactionTestFragment
 import com.example.psyhealthapp.tests.TestReactionFragment
 import com.example.psyhealthapp.tests.*
 import com.example.psyhealthapp.debug.entries.DebugAddEntriesToDBFragment
-import com.example.psyhealthapp.user.testing.tappingtest.ui.TappingTestMainFragment
-import com.example.psyhealthapp.history.HistoryAddFragment
 import com.example.psyhealthapp.user.statistics.main.StatPageTestFragment
 
 class DebugFragment : Fragment(R.layout.debug_fragment) {
@@ -42,14 +39,11 @@ class DebugFragment : Fragment(R.layout.debug_fragment) {
             return@FragmentHolder ProfileFragment()
         },
         FragmentHolder {
-            return@FragmentHolder TappingTestMainFragment()
-        },
-        FragmentHolder {
             return@FragmentHolder HistoryAddFragment()
         },
         FragmentHolder {
             return@FragmentHolder DebugAddEntriesToDBFragment()
-        }
+        },
         FragmentHolder {
             return@FragmentHolder SettingsFragment();
         },

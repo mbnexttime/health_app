@@ -15,10 +15,6 @@
 
     <color name="stat_inactivePageButton"> #F6F1F1 </color>
     <color name="stat_activePageButton"> #EFBEBE </color>
-    <color name="dark_blue">#00008b</color>
-    <color name="light_grey">#eeeeee</color>
-    <color name="dark_grey">#c0c0c0</color>
-    <color name="red">#ff0000</color>
 
     <color name="profile_background_1">#FFC4D0</color>
     <color name="profile_text">#FF000000</color>

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.psyhealthapp.R
 import com.example.psyhealthapp.databinding.TappingTestResultFragmentBinding
@@ -26,10 +27,12 @@ class TappingTestResultFragment : Fragment(R.layout.tapping_test_result_fragment
 
         viewBinding.endButton.setOnClickListener {
             viewModel.notifyChallengeEnd()
+            findNavController().navigate(R.id.profile)
         }
 
         viewBinding.repeatButton.setOnClickListener {
             viewModel.notifyRepeatButtonClicked()
+            findNavController().navigate(R.id.tappingTestChallenge)
         }
     }
 }

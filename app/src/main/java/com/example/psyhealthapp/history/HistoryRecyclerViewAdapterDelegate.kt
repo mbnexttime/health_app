@@ -19,7 +19,7 @@ class HistoryRecyclerViewAdapterDelegate :
 
     override fun onBindViewHolder(item: HistoryRecyclerViewItem, vh: HistoryViewHolder) {
         vh.text.text = item.history.text
-        val myDate = Date()
+        val myDate = Date(item.history.date)
         val calendar: Calendar = Calendar.getInstance()
         calendar.timeZone = TimeZone.getTimeZone("UTC")
         calendar.time = myDate

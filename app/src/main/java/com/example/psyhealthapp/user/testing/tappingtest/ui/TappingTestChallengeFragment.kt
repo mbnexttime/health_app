@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.psyhealthapp.R
 import com.example.psyhealthapp.databinding.TappingTestChallengeFragmentBinding
@@ -37,6 +38,7 @@ class TappingTestChallengeFragment : Fragment(R.layout.tapping_test_challenge_fr
 
         viewBinding.toResultsButton.setOnClickListener {
             viewModel.notifyNextClicked()
+            findNavController().navigate(R.id.tappingTestResult)
         }
 
         subscribeToEvents()
