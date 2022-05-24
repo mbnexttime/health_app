@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.text.InputType.TYPE_CLASS_NUMBER
 import android.text.style.DynamicDrawableSpan
@@ -15,6 +16,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.text.set
 import androidx.core.text.toSpannable
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import com.example.psyhealthapp.settings.SettingsFragment
+import androidx.navigation.fragment.findNavController
 import com.example.psyhealthapp.R
 import com.example.psyhealthapp.core.UserDataHolder
 import com.example.psyhealthapp.core.UserDataType
@@ -25,7 +30,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ProfileFragment : Fragment(R.layout.profile_fragment) {
 
-    private lateinit var btnImageProfile: ImageButton
+    private lateinit var imageProfile: ImageView
     private lateinit var profileImageLauncher: ActivityResultLauncher<Intent>
     private lateinit var imagePickIntent: Intent
 
@@ -52,8 +57,8 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
     lateinit var userDataHolder : UserDataHolder
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        btnImageProfile = view.findViewById(R.id.btnImageProfile)
-        btnImageProfile.setOnClickListener(clickListener)
+        imageProfile = view.findViewById(R.id.imageProfile)
+        imageProfile.setOnClickListener(clickListener)
         startWorkWithProfileImage()
 
         llBackName = view.findViewById(R.id.llBackName)
@@ -85,14 +90,14 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
             ?: getString(R.string.profile_no_info)
         val uriImage = userDataHolder.getUserDataString(UserDataType.URI)
         if (uriImage != null) {
-            btnImageProfile.setImageURI(Uri.parse(uriImage))
+            imageProfile.setImageURI(Uri.parse(uriImage))
         }
     }
 
 
     private val clickListener = View.OnClickListener { p0 ->
         when (p0) {
-            btnImageProfile -> {
+            imageProfile -> {
                 profileImageLauncher.launch(imagePickIntent)
             }
             btnEdit -> {
@@ -118,7 +123,7 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
 
             }
             btnSettings -> {
-
+                findNavController().navigate(R.id.action_profileFragment_to_settingsFragment)
             }
         }
     }
@@ -166,9 +171,10 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
         val saving = fieldEdit.text.toString()
         when (field) {
             fieldName -> userDataHolder.setUserData(UserDataType.NAME, saving)
-            fieldAge -> userDataHolder.setUserData(UserDataType.AGE, saving.toInt())
-            fieldSex -> userDataHolder.setUserData(UserDataType.SEX, saving)
-
+            fieldAge -> {
+                if (saving != getString(R.string.profile_no_info))
+                    userDataHolder.setUserData(UserDataType.AGE, saving.toInt())
+            }
         }
         llBack.removeView(fieldEdit)
         field.text = saving
@@ -214,15 +220,21 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
     }
 
     private fun startWorkWithProfileImage() {
-        imagePickIntent = Intent(Intent.ACTION_PICK)
+        imagePickIntent = Intent(Intent.ACTION_OPEN_DOCUMENT)
         imagePickIntent.type = "image/*"
         profileImageLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
         { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                val imData: Intent? = result.data
+                val imData = result.data
                 val selectedImage = imData?.data
-                btnImageProfile.setImageURI(null)
-                btnImageProfile.setImageURI(selectedImage)
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                    requireActivity().contentResolver.takePersistableUriPermission(
+                        selectedImage!!,
+                        Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                    )
+                }
+                imageProfile.setImageURI(null)
+                imageProfile.setImageURI(selectedImage)
                 if (selectedImage != null) {
                     userDataHolder.setUserData(UserDataType.URI, selectedImage.toString())
                 }

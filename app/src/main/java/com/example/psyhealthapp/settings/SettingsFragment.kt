@@ -18,21 +18,21 @@ class SettingsFragment : Fragment(R.layout.settings_fragment) {
         llBackground = view.findViewById(R.id.llBackground)
         sbColor = view.findViewById(R.id.sbColor)
         sbColor.setOnSeekBarChangeListener(seekBarChangeListener)
-
     }
+
+    private val minR = 180
+    private val minG = 180
+    private val minB = 180
+    private val maxR = 252
+    private val maxG = 252
+    private val maxB = 252
+
+    private var r: Int = minR
+    private var g: Int = minG
+    private var b: Int = minB
 
     private val seekBarChangeListener = object: SeekBar.OnSeekBarChangeListener {
         override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-            val minR = 180
-            val minG = 180
-            val minB = 180
-            val maxR = 252
-            val maxG = 252
-            val maxB = 252
-
-            var r = minR
-            var g = minG
-            var b = minB
             when {
                 progress < 25 -> {
                     r = minR + progress * 3

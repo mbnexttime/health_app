@@ -6,15 +6,46 @@
     android:background="@color/profile_background_1"
     android:orientation="vertical">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/settings_margin_changer"
+        android:text="@string/settings_color_changer"
+        android:layout_marginBottom="@dimen/settings_margin_changer"
+        android:gravity="center"
+        android:textSize="@dimen/profile_text_size"
+        android:textColor="@color/profile_text"
+        android:layout_height="wrap_content">
+
+    </TextView>
+
     <SeekBar
         android:id="@+id/sbColor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
         android:max="180"
         android:progress="0">
     </SeekBar>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/settings_margin_about"
+        android:layout_marginBottom="@dimen/settings_margin_changer"
+        android:text="@string/settings_about_title"
+        android:gravity="center"
+        android:textSize="@dimen/profile_text_size"
+        android:textColor="@color/profile_text"
+        android:layout_height="wrap_content">
+
+    </TextView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:text="@string/settings_about_text"
+        android:gravity="left"
+        android:textSize="@dimen/setting_about_text_size"
+        android:layout_height="wrap_content">
+    </TextView>
+
 
 </LinearLayout>
 
