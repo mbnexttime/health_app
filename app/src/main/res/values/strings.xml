@@ -41,7 +41,7 @@
     <string name="moving_object_reaction_test_tap_to_proceed">"Нажмите чтобы попробовать снова."</string>
     <string name="moving_object_reaction_test_stop_circle">Стоп.</string>
 
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="statistic_header">Статистика</string>
     <string name="passed_tests"> МОИ ТЕСТЫ </string>
@@ -82,15 +82,5 @@
     Gor1x</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-
-    <string name="settings_color_changer">Изменение цвета фона</string>
-    <string name="settings_about_title">О нас</string>
-    <string name="settings_about_text">
-    <b>Github: mbnexttime/health_app</b>\n\n
-    mbnexttime \n
-    AndreyYurko \n
-    MashaK5 \n
-    Arrias \n
-    Gor1x</string>
 
 </resources>

@@ -236,24 +236,25 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
     private fun startWorkWithProfileImage() {
         imagePickIntent = Intent(Intent.ACTION_OPEN_DOCUMENT)
         imagePickIntent.type = "image/*"
-        profileImageLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-        { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val imData = result.data
-                val selectedImage = imData?.data
-                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                    requireActivity().contentResolver.takePersistableUriPermission(
-                        selectedImage!!,
-                        Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-                    )
-                }
-                imageProfile.setImageURI(null)
-                imageProfile.setImageURI(selectedImage)
-                if (selectedImage != null) {
-                    userDataHolder.setUserData(UserDataType.URI, selectedImage.toString())
+        profileImageLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    val imData = result.data
+                    val selectedImage = imData?.data
+                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                        requireActivity().contentResolver.takePersistableUriPermission(
+                            selectedImage!!,
+                            Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                        )
+                    }
+                    imageProfile.setImageURI(null)
+                    imageProfile.setImageURI(selectedImage)
+                    if (selectedImage != null) {
+                        userDataHolder.setUserData(UserDataType.URI, selectedImage.toString())
+                    }
                 }
             }
     }
-
 }
 

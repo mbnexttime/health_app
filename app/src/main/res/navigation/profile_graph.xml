@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/statisticFragment"
-        android:name="com.example.psyhealthapp.user.statistics.main.StatPageTestFragment"
+        android:name="com.example.psyhealthapp.user.statistics.main.StatisticFragment"
         android:label="StatisticFragment" />
     <fragment
         android:id="@+id/settingsFragment"
