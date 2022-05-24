@@ -6,7 +6,7 @@
         android:title="@string/tapping_test_bottom_menu_name" />
 
     <item
-        android:id="@+id/profile"
+        android:id="@+id/profile_graph"
         android:icon="@drawable/profile_icon"
         android:title="@string/profile_bottom_menu_name" />
 
