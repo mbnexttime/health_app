@@ -70,5 +70,15 @@
     <string name="lastdaycacitivy_placeholder_text"> Вы еще не проходили тестов.\nНаш оракул говорит, что уже пора! </string>
     <string name="tapping_placeholder_text"> Попробуйте пройти этот тест,\nон работает! </string>
 
+    <string name="settings_color_changer">Изменение цвета фона</string>
+    <string name="settings_about_title">О нас</string>
+    <string name="settings_about_text">
+    <b>Github: mbnexttime/health_app</b>\n
+    mbnexttime \n
+    AndreyYurko \n
+    MashaK5 \n
+    Arrias \n
+    Gor1x</string>
+
     <!-- TODO: Remove or change this placeholder text -->
 </resources>
