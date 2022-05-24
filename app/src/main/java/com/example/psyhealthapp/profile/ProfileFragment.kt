@@ -16,6 +16,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.text.set
 import androidx.core.text.toSpannable
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation.findNavController
 import com.example.psyhealthapp.R
 import com.example.psyhealthapp.core.UserDataHolder
 import com.example.psyhealthapp.core.UserDataType
@@ -119,7 +120,7 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
 
             }
             btnSettings -> {
-
+                //findNavController().navigate(R.id.action_profileFragment_to_statisticFragment)
             }
         }
     }
