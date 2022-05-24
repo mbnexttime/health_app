@@ -13,6 +13,9 @@ enum class UserDataType(val tag: String) {
     SEX("sex"),
     EMAIL("email"),
     URI("uri"),
+    BACK_R("r"),
+    BACK_G("g"),
+    BACK_B("b"),
 }
 
 @Singleton

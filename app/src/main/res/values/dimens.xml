@@ -10,6 +10,7 @@
     <dimen name="profile_text_size">25dp</dimen>
     <dimen name="profile_edittext_size">10dp</dimen>
     <dimen name="profile_string_info_height">40dp</dimen>
+
     <dimen name="moving_object_reaction_test_fragment_diameter_of_trajectory">300dp</dimen>
     <dimen name="moving_object_reaction_test_fragment_diameter_of_circle">30dp</dimen>
     <dimen name="moving_object_reaction_test_fragment_thickness_of_ring">5dp</dimen>
@@ -30,4 +31,8 @@
     <dimen name="stat_cardCornerRadius">13dp</dimen>
     <dimen name="stat_cardWidth">340dp</dimen>
     <dimen name="stat_cardMarginVertical">10dp</dimen>
+
+    <dimen name="settings_margin_small">30dp</dimen>
+    <dimen name="settings_margin_about">200dp</dimen>
+    <dimen name="setting_about_text_size">20dp</dimen>
 </resources>
