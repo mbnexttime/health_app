@@ -25,17 +25,6 @@ class SettingsFragment : Fragment(R.layout.settings_fragment) {
         llBackground = view.findViewById(R.id.llBackground)
         sbColor = view.findViewById(R.id.sbColor)
         sbColor.setOnSeekBarChangeListener(seekBarChangeListener)
-
-        initBackground()
-    }
-
-    private fun initBackground() {
-        val r = userDataHolder.getUserDataInt(UserDataType.BACK_R) ?: -1
-        val g = userDataHolder.getUserDataInt(UserDataType.BACK_G) ?: -1
-        val b = userDataHolder.getUserDataInt(UserDataType.BACK_B) ?: -1
-        if (r != -1 && b != -1 && g != -1) {
-            llBackground.setBackgroundColor(Color.argb(255, r, g, b))
-        }
     }
 
     private val minR = 180

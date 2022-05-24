@@ -11,9 +11,16 @@
         <action
             android:id="@+id/action_profileFragment_to_statisticFragment"
             app:destination="@id/statisticFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/statisticFragment"
-        android:name="com.example.psyhealthapp.user.statistics.main.StatisticFragment"
+        android:name="com.example.psyhealthapp.user.statistics.main.StatPageTestFragment"
         android:label="StatisticFragment" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.psyhealthapp.settings.SettingsFragment"
+        android:label="SettingsFragment" />
 </navigation>

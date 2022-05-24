@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.text.InputType.TYPE_CLASS_NUMBER
 import android.text.style.DynamicDrawableSpan
@@ -18,6 +19,7 @@ import androidx.core.text.toSpannable
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import com.example.psyhealthapp.settings.SettingsFragment
 import androidx.navigation.fragment.findNavController
 import com.example.psyhealthapp.R
 import com.example.psyhealthapp.core.UserDataHolder
@@ -91,10 +93,10 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
             ?: getString(R.string.profile_no_info)
         fieldSex.text = userDataHolder.getUserDataString(UserDataType.SEX)
             ?: getString(R.string.profile_no_info)
-//        val uriImage = userDataHolder.getUserDataString(UserDataType.URI)
-//        if (uriImage != null) {
-//            imageProfile.setImageURI(Uri.parse(uriImage))
-//        }
+        val uriImage = userDataHolder.getUserDataString(UserDataType.URI)
+        if (uriImage != null) {
+            imageProfile.setImageURI(Uri.parse(uriImage))
+        }
     }
 
     private fun initBackground() {
@@ -135,7 +137,7 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
                 findNavController().navigate(R.id.action_profileFragment_to_statisticFragment)
             }
             btnSettings -> {
-
+                findNavController().navigate(R.id.action_profileFragment_to_settingsFragment)
             }
         }
     }
@@ -232,13 +234,19 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
     }
 
     private fun startWorkWithProfileImage() {
-        imagePickIntent = Intent(Intent.ACTION_PICK)
+        imagePickIntent = Intent(Intent.ACTION_OPEN_DOCUMENT)
         imagePickIntent.type = "image/*"
         profileImageLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
         { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                val imData: Intent? = result.data
+                val imData = result.data
                 val selectedImage = imData?.data
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                    requireActivity().contentResolver.takePersistableUriPermission(
+                        selectedImage!!,
+                        Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                    )
+                }
                 imageProfile.setImageURI(null)
                 imageProfile.setImageURI(selectedImage)
                 if (selectedImage != null) {

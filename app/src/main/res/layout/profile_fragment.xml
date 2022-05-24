@@ -14,14 +14,10 @@
 
         <ImageView
             android:id="@+id/imageProfile"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
             android:layout_width="match_parent"
-            android:layout_height="340dp"
+            android:layout_height="320dp"
             android:scaleType="centerCrop"
-            android:background="@drawable/persic"
+            android:background="@drawable/icon_profile_default"
             android:layout_gravity="center">
         </ImageView>
     </LinearLayout>

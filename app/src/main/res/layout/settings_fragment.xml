@@ -8,9 +8,9 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/settings_margin_small"
+        android:layout_marginTop="@dimen/settings_margin_changer"
         android:text="@string/settings_color_changer"
-        android:layout_marginBottom="@dimen/settings_margin_small"
+        android:layout_marginBottom="@dimen/settings_margin_changer"
         android:gravity="center"
         android:textSize="@dimen/profile_text_size"
         android:textColor="@color/profile_text"
@@ -29,7 +29,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_marginTop="@dimen/settings_margin_about"
-        android:layout_marginBottom="@dimen/settings_margin_small"
+        android:layout_marginBottom="@dimen/settings_margin_changer"
         android:text="@string/settings_about_title"
         android:gravity="center"
         android:textSize="@dimen/profile_text_size"
@@ -40,7 +40,6 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_marginLeft="@dimen/settings_margin_small"
         android:text="@string/settings_about_text"
         android:gravity="left"
         android:textSize="@dimen/setting_about_text_size"
