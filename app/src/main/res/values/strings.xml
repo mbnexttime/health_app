@@ -16,7 +16,7 @@
     <string name="history_add_cancel_text">Назад</string>
     <string name="history_add_error_text">Текст не может быть пустым</string>
     <string name="history_show_add_button_text">Добавить</string>
-    <string name="tapping_test_bottom_menu_name">Таппинг тест</string>
+    <string name="tapping_test_bottom_menu_name">Тесты</string>
     <string name="profile_bottom_menu_name">Профиль</string>
     <string name="histories_bottom_menu">Истории</string>
 

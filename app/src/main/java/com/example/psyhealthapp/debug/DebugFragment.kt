@@ -11,12 +11,11 @@ import com.example.psyhealthapp.core.FragmentHolder
 import com.example.psyhealthapp.history.HistoryAddFragment
 import com.example.psyhealthapp.profile.ProfileFragment
 import com.example.psyhealthapp.settings.SettingsFragment
-import com.example.psyhealthapp.tests.ComplexTestReactionFragment
-import com.example.psyhealthapp.tests.MovingObjectReactionTestFragment
-import com.example.psyhealthapp.tests.TestReactionFragment
-import com.example.psyhealthapp.tests.*
 import com.example.psyhealthapp.debug.entries.DebugAddEntriesToDBFragment
 import com.example.psyhealthapp.user.statistics.main.StatPageTestFragment
+import com.example.psyhealthapp.user.testing.complexReaction.ComplexTestReactionInstructionFragment
+import com.example.psyhealthapp.user.testing.movingObject.MovingObjectReactionTestInstructionFragment
+import com.example.psyhealthapp.user.testing.reaction.TestReactionInstructionFragment
 
 class DebugFragment : Fragment(R.layout.debug_fragment) {
     /**

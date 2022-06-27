@@ -15,6 +15,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.text.set
 import androidx.core.text.toSpannable
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.psyhealthapp.R
 import com.example.psyhealthapp.core.UserDataHolder
 import com.example.psyhealthapp.core.UserDataType
@@ -115,7 +116,8 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
                 saveEditSex()
             }
             btnStatistic -> {
-
+                val controller = findNavController()
+                controller.navigate(R.id.action_profile_to_stat_graph)
             }
             btnSettings -> {
 

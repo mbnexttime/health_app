@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/complexTestReactionInstruction"
-        android:name="com.example.psyhealthapp.tests.ComplexTestReactionInstructionFragment"
+        android:name="com.example.psyhealthapp.user.testing.complexReaction.ComplexTestReactionInstructionFragment"
         android:label="InstructionFragment"
         tools:layout="@layout/complex_test_reaction_instruction_fragment">
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/complexTestReaction"
-        android:name="com.example.psyhealthapp.tests.ComplexTestReactionFragment"
+        android:name="com.example.psyhealthapp.user.testing.complexReaction.ComplexTestReactionFragment"
         android:label="ChallengeFragment"
         tools:layout="@layout/complex_test_reaction_fragment">
         <action

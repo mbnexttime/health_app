@@ -7,16 +7,16 @@
 
     <fragment
         android:id="@+id/movingObjectTestReactionInstruction"
-        android:name="com.example.psyhealthapp.tests.MovingObjectReactionTestInstructionFragment"
+        android:name="com.example.psyhealthapp.user.testing.movingObject.MovingObjectReactionTestInstructionFragment"
         android:label="InstructionFragment"
-        tools:layout="@layout/moving_object_reaction_test_instruction">
+        tools:layout="@layout/moving_object_reaction_test_instruction_fragment">
         <action
             android:id="@+id/action_tappingTestInstruction_to_tappingTestChallenge"
             app:destination="@id/movingObjectTestReaction" />
     </fragment>
     <fragment
         android:id="@+id/movingObjectTestReaction"
-        android:name="com.example.psyhealthapp.tests.MovingObjectReactionTestFragment"
+        android:name="com.example.psyhealthapp.user.testing.movingObject.MovingObjectReactionTestFragment"
         android:label="ChallengeFragment"
         tools:layout="@layout/moving_object_reaction_test_fragment">
         <action

@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_root_graph"
-    app:startDestination="@+id/tapping_test_graph">
+    app:startDestination="@+id/tests_graph">
 
     <action
         android:id="@+id/navigation_to_history_add"
@@ -29,13 +29,18 @@
         android:id="@+id/history_show"
         android:name="com.example.psyhealthapp.history.HistoryShowFragment" >
         <action
-            android:id="@+id/action_main_root_to_tapping_test_graph"
-            app:destination="@id/tapping_test_graph" />
+            android:id="@+id/action_main_root_to_tests_graph"
+            app:destination="@id/tests_graph" />
     </fragment>
     
     <fragment
         android:id="@+id/profile"
-        android:name="com.example.psyhealthapp.profile.ProfileFragment" />
+        android:name="com.example.psyhealthapp.profile.ProfileFragment">
+        <action
+            android:id="@+id/action_profile_to_stat_graph"
+            app:destination="@id/stat_graph"/>
+    </fragment>
 
-    <include app:graph="@navigation/tapping_test_graph" />
+    <include app:graph="@navigation/tests_graph" />
+    <include app:graph="@navigation/stat_graph" />
 </navigation>

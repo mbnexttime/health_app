@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/tapping_test_graph"
+        android:id="@+id/tests_graph"
         android:icon="@drawable/tapping_test"
         android:title="@string/tapping_test_bottom_menu_name" />
 

@@ -1,4 +1,4 @@
-package com.example.psyhealthapp.tests
+package com.example.psyhealthapp.user.testing.reaction
 
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -11,8 +11,6 @@ import com.example.psyhealthapp.R
 import com.example.psyhealthapp.databinding.TestReactionFragmentBinding
 //import com.example.psyhealthapp.user.testing.results.ReactionTestResult
 import dagger.hilt.android.AndroidEntryPoint
-import java.time.LocalDate
-import javax.inject.Inject
 import kotlin.random.Random.Default.nextDouble
 
 @AndroidEntryPoint

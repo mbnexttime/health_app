@@ -1,4 +1,4 @@
-package com.example.psyhealthapp.tests
+package com.example.psyhealthapp.user.testing.movingObject
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -18,7 +18,6 @@ import com.example.psyhealthapp.R
 //import com.example.psyhealthapp.core.TestResultsHolder
 import com.example.psyhealthapp.databinding.MovingObjectReactionTestFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 import kotlin.math.abs
 import kotlin.random.Random
 

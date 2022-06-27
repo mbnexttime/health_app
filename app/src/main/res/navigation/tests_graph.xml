@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tests_graph"
+    app:startDestination="@id/tests_list">
+
+    <fragment
+        android:id="@+id/tests_list"
+        android:name="com.example.psyhealthapp.user.testing.TestsListFragment"
+        android:label="TestsListFragment"
+        tools:layout="@layout/tests_list_fragment">
+        <action
+            android:id="@+id/action_tests_graph_to_tapping_test_graph"
+            app:destination="@id/tapping_test_graph" />
+        <action
+            android:id="@+id/action_tests_graph_to_reaction_test_graph"
+            app:destination="@id/reaction_test_graph" />
+        <action
+            android:id="@+id/action_tests_list_to_complex_test_reaction_graph"
+            app:destination="@id/complex_test_reaction_graph" />
+        <action
+            android:id="@+id/action_tests_list_to_moving_object_reaction_test_graph"
+            app:destination="@id/moving_object_reaction_test_graph" />
+    </fragment>
+
+    <include app:graph="@navigation/tapping_test_graph" />
+    <include app:graph="@navigation/complex_reaction_test_graph" />
+    <include app:graph="@navigation/moving_object_reaction_test_graph" />
+    <include app:graph="@navigation/reaction_test_graph" />
+
+
+</navigation>

@@ -1,4 +1,4 @@
-package com.example.psyhealthapp.tests
+package com.example.psyhealthapp.user.testing.reaction
 
 import android.os.Bundle
 import android.view.View
@@ -6,17 +6,17 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.psyhealthapp.R
-import com.example.psyhealthapp.databinding.MovingObjectReactionTestInstructionBinding
+import com.example.psyhealthapp.databinding.TestReactionInstructionFragmentBinding
 
-class MovingObjectReactionTestInstructionFragment : Fragment(R.layout.moving_object_reaction_test_instruction) {
+class TestReactionInstructionFragment : Fragment(R.layout.test_reaction_instruction_fragment) {
 
-    private val viewBinding by viewBinding(MovingObjectReactionTestInstructionBinding::bind)
+    private val viewBinding by viewBinding(TestReactionInstructionFragmentBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewBinding.button.setOnClickListener {
             val controller = findNavController()
-            controller.navigate(R.id.movingObjectTestReaction)
+            controller.navigate(R.id.testReaction)
         }
     }
 }

@@ -15,10 +15,8 @@
 
     <fragment
         android:id="@+id/statistic"
-        android:name="com.example.psyhealthapp.user.statistics.main.StatisticFragment"
+        android:name="com.example.psyhealthapp.user.statistics.main.StatPageTestFragment"
         android:label="StatisticFragment"
         tools:layout="@layout/statistic_fragment">
     </fragment>
-
-    <include app:graph="@navigation/tapping_test_graph" />
 </navigation>

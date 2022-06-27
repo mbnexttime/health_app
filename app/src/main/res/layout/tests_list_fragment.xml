@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Button
+        android:id="@+id/tapping_test_button"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/reaction_test_button"
+        android:layout_marginHorizontal="28dp"
+        android:layout_marginTop="48dp"
+        android:text="Теппинг-тест"
+        />
+    <Button
+        android:id="@+id/reaction_test_button"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        app:layout_constraintTop_toBottomOf="@id/tapping_test_button"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/complex_reaction_test_button"
+        android:layout_marginHorizontal="28dp"
+        android:text="Простая сенсомоторная реакция"
+        />
+    <Button
+        android:id="@+id/complex_reaction_test_button"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        app:layout_constraintTop_toBottomOf="@id/reaction_test_button"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/moving_object_test_button"
+        android:layout_marginHorizontal="28dp"
+        android:text="Сложная сенсомоторная реакция"
+        />
+    <Button
+        android:id="@+id/moving_object_test_button"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        app:layout_constraintTop_toBottomOf="@id/complex_reaction_test_button"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginHorizontal="28dp"
+        android:text="Реакция на движущийся объект"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
