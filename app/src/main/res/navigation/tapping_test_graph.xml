@@ -29,7 +29,7 @@
         android:label="ResultFragment"
         tools:layout="@layout/tapping_test_result_fragment" >
         <action
-            android:id="@+id/action_tappingTestResult_to_tappingTestInstruction"
-            app:destination="@id/tappingTestInstruction" />
+            android:id="@+id/action_tappingTestResult_to_tests_list"
+            app:destination="@id/tests_list" />
     </fragment>
 </navigation>

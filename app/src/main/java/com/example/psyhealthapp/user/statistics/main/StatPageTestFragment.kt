@@ -16,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class StatPageTestFragment : Fragment(R.layout.statistic_fragment) {
+class  StatPageTestFragment : Fragment(R.layout.statistic_fragment) {
     private val viewBinding by viewBinding(StatisticFragmentBinding::bind)
 
     @Inject

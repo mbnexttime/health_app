@@ -2,11 +2,7 @@ package com.example.psyhealthapp.user.testing.results
 
 import android.os.Parcel
 import android.os.Parcelable
-import com.example.psyhealthapp.user.testing.results.TappingTestResult.CREATOR.NERVOUS_SYSTEM_TYPES
-import java.time.LocalDate
 import java.time.LocalDateTime
-import java.util.*
-import kotlin.math.abs
 
 class TappingTestResult(
     date: LocalDateTime,
@@ -54,7 +50,7 @@ class TappingTestResult(
 
     companion object CREATOR : Parcelable.Creator<TappingTestResult> {
         private const val RESULT_SIZE = 6
-        private const val TEST_DURATION = 10F
+        private const val TEST_DURATION = 30F
 
         private val NERVOUS_SYSTEM_TYPES = listOf("слабая", "средне-слабая", "средняя", "сильная")
 

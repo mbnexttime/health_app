@@ -15,9 +15,13 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.psyhealthapp.R
+import com.example.psyhealthapp.core.TestResultsHolder
 //import com.example.psyhealthapp.core.TestResultsHolder
 import com.example.psyhealthapp.databinding.MovingObjectReactionTestFragmentBinding
+import com.example.psyhealthapp.user.testing.results.MovingReactionTestResult
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.LocalDateTime
+import javax.inject.Inject
 import kotlin.math.abs
 import kotlin.random.Random
 
@@ -25,8 +29,8 @@ import kotlin.random.Random
 class MovingObjectReactionTestFragment : Fragment(R.layout.moving_object_reaction_test_fragment) {
     private val viewBinding by viewBinding(MovingObjectReactionTestFragmentBinding::bind)
 
-    //@Inject
-    //lateinit var resultsHolder: TestResultsHolder
+    @Inject
+    lateinit var resultsHolder: TestResultsHolder
 
     private lateinit var timer: CountDownTimer
     private var testState = TestState.Start
@@ -36,8 +40,7 @@ class MovingObjectReactionTestFragment : Fragment(R.layout.moving_object_reactio
         super.onViewCreated(view, savedInstanceState)
 
         var counter = 0
-        val reactionTimesList = mutableListOf<Long>()
-        val spinTimes = mutableListOf<Long>()
+        val reactionTimesList = mutableListOf<Float>()
 
 
         val path = Path()
@@ -85,7 +88,7 @@ class MovingObjectReactionTestFragment : Fragment(R.layout.moving_object_reactio
                     viewBinding.circle.visibility = View.VISIBLE
                     circleAnimatorSet.pause()
                     reactionTime = abs(System.currentTimeMillis() - reactionTime - time)
-                    reactionTimesList.add(reactionTime)
+                    reactionTimesList.add(reactionTime.toFloat() / time)
                     testState = TestState.End
                     counter++
                     if (counter == 5) {
@@ -104,14 +107,22 @@ class MovingObjectReactionTestFragment : Fragment(R.layout.moving_object_reactio
                     timer = timer((time * visibleTrajectoryPart).toLong(), time).start()
                     testState = TestState.Proceed
                     circleAnimatorSet.duration = time
-                    spinTimes.add(time)
                     circleAnimatorSet.start()
                     viewBinding.stopButton.text = resources.getString(R.string.moving_object_reaction_test_stop_circle)
                 }
                 TestState.Complete -> {
                     //TODO: реализовать переход
+                    val mindiff : Float = reactionTimesList.minOrNull()!!
+                    val maxdiff : Float = reactionTimesList.maxOrNull()!!
+                    val expected : Float = reactionTimesList.sum() / reactionTimesList.size
+                    var dispersion: Float = 0F
+                    for (result in reactionTimesList) {
+                        dispersion += (result - expected) * (result - expected)
+                    }
+                    val result = MovingReactionTestResult(LocalDateTime.now(), mindiff, maxdiff, expected, dispersion)
+                    resultsHolder.putMovingReactionTestResult(result)
                     val controller = findNavController()
-                    controller.navigate(R.id.movingObjectTestReactionInstruction)
+                    controller.navigate(R.id.action_movingObjectTestReaction_to_tests_list)
                 }
             }
 

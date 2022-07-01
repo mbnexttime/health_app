@@ -20,7 +20,7 @@
         android:label="ChallengeFragment"
         tools:layout="@layout/moving_object_reaction_test_fragment">
         <action
-            android:id="@+id/action_reactionTest_to_reactionTestInstruction"
-            app:destination="@id/movingObjectTestReactionInstruction" />
+            android:id="@+id/action_movingObjectTestReaction_to_tests_list"
+            app:destination="@id/tests_list" />
     </fragment>
 </navigation>

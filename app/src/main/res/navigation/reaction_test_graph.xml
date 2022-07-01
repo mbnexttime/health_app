@@ -11,16 +11,17 @@
         android:label="InstructionFragment"
         tools:layout="@layout/test_reaction_instruction_fragment">
         <action
-            android:id="@+id/action_tappingTestInstruction_to_tappingTestChallenge"
+            android:id="@+id/action_testReactionInstruction_to_testReaction"
             app:destination="@id/testReaction" />
     </fragment>
+
     <fragment
         android:id="@+id/testReaction"
         android:name="com.example.psyhealthapp.user.testing.reaction.TestReactionFragment"
         android:label="ChallengeFragment"
         tools:layout="@layout/test_reaction_fragment">
         <action
-            android:id="@+id/action_reactionTest_to_reactionTestInstruction"
-            app:destination="@id/testReactionInstruction" />
+            android:id="@+id/action_testReaction_to_tests_list"
+            app:destination="@id/tests_list" />
     </fragment>
 </navigation>

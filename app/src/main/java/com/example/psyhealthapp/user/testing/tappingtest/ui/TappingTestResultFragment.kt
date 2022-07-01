@@ -7,12 +7,18 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.psyhealthapp.R
+import com.example.psyhealthapp.core.TestResultsHolder
 import com.example.psyhealthapp.databinding.TappingTestResultFragmentBinding
+import com.example.psyhealthapp.user.statistics.tapping.TappingMainFragment
 import com.example.psyhealthapp.user.testing.tappingtest.viewmodel.TappingTestResultViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class TappingTestResultFragment : Fragment(R.layout.tapping_test_result_fragment) {
+
+    @Inject
+    lateinit var resultsHolder: TestResultsHolder
 
     companion object {
         fun newInstance() = TappingTestResultFragment()
@@ -23,11 +29,20 @@ class TappingTestResultFragment : Fragment(R.layout.tapping_test_result_fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewBinding.resultText.text = viewModel.getResultText()
+
+        childFragmentManager.beginTransaction().apply {
+            replace(
+                R.id.tappingTestResultFragmentView,
+                TappingMainFragment.newInstance(viewModel.getTappingTestResult())
+            )
+        }.commit()
+
+        val result = viewModel.getTappingTestResult()
+        resultsHolder.putTappingTestResult(result)
 
         viewBinding.endButton.setOnClickListener {
             viewModel.notifyChallengeEnd()
-            findNavController().navigate(R.id.profile)
+            findNavController().navigate(R.id.action_tappingTestResult_to_tests_list)
         }
 
         viewBinding.repeatButton.setOnClickListener {

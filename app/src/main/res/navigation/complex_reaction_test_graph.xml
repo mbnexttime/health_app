@@ -11,7 +11,7 @@
         android:label="InstructionFragment"
         tools:layout="@layout/complex_test_reaction_instruction_fragment">
         <action
-            android:id="@+id/action_tappingTestInstruction_to_tappingTestChallenge"
+            android:id="@+id/action_complexTestReactionInstruction_to_complexTestReaction"
             app:destination="@id/complexTestReaction" />
     </fragment>
     <fragment
@@ -20,7 +20,7 @@
         android:label="ChallengeFragment"
         tools:layout="@layout/complex_test_reaction_fragment">
         <action
-            android:id="@+id/action_reactionTest_to_reactionTestInstruction"
-            app:destination="@id/complexTestReactionInstruction" />
+            android:id="@+id/action_complexTestReaction_to_tests_list"
+            app:destination="@id/tests_list" />
     </fragment>
 </navigation>
