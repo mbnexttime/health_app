@@ -17,9 +17,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class TappingTestResultFragment : Fragment(R.layout.tapping_test_result_fragment) {
 
-    @Inject
-    lateinit var resultsHolder: TestResultsHolder
-
     companion object {
         fun newInstance() = TappingTestResultFragment()
     }
@@ -37,15 +34,13 @@ class TappingTestResultFragment : Fragment(R.layout.tapping_test_result_fragment
             )
         }.commit()
 
-        val result = viewModel.getTappingTestResult()
-        resultsHolder.putTappingTestResult(result)
-
         viewBinding.endButton.setOnClickListener {
             viewModel.notifyChallengeEnd()
             findNavController().navigate(R.id.action_tappingTestResult_to_tests_list)
         }
 
         viewBinding.repeatButton.setOnClickListener {
+            viewModel.notifyChallengeEnd()
             viewModel.notifyRepeatButtonClicked()
             findNavController().navigate(R.id.tappingTestChallenge)
         }

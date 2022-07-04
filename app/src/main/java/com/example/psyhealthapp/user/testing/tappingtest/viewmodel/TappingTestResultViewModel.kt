@@ -16,7 +16,7 @@ class TappingTestResultViewModel @Inject constructor(
     }
 
     fun notifyChallengeEnd() {
-        interactor.notifyChallengeEnd()
+        interactor.reset()
     }
 
     fun getTappingTestResult(): TappingTestResult {

@@ -20,7 +20,6 @@ class TappingTestChallengeViewModel @Inject constructor(
         interactor.notifyChallengeScreenGoNext()
     }
 
-
     fun notifyItemClicked() {
         interactor.notifyClicked(System.currentTimeMillis() - challengeStartTime)
     }
@@ -29,10 +28,21 @@ class TappingTestChallengeViewModel @Inject constructor(
         startWaitingState()
     }
 
+    fun isSuccess(): Boolean {
+        return challengeState == ChallengeState.Ending
+    }
+
+    fun reset() {
+        interactor.reset()
+        timer.cancel()
+    }
+
     private var challengeStartTime: Long = 0
 
+    private lateinit var timer: CountDownTimer
+
     private fun startWaitingState() {
-        object : CountDownTimer(
+        timer = object : CountDownTimer(
             TimeUnit.SECONDS.toMillis(3),
             TimeUnit.SECONDS.toMillis(1)
         ) {
@@ -48,7 +58,7 @@ class TappingTestChallengeViewModel @Inject constructor(
 
     private fun startChallengeState() {
         challengeStartTime = System.currentTimeMillis()
-        object : CountDownTimer(
+        timer = object : CountDownTimer(
             TimeUnit.SECONDS.toMillis(30),
             TimeUnit.SECONDS.toMillis(1)
         ) {

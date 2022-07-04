@@ -1,5 +1,6 @@
 package com.example.psyhealthapp.user.testing.tappingtest.interactor
 
+import com.example.psyhealthapp.core.TestResultsHolder
 import com.example.psyhealthapp.user.testing.results.TappingTestResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.time.LocalDateTime
@@ -16,12 +17,17 @@ sealed class TappingTestState {
 @Singleton
 class TappingTestFlowInteractor @Inject constructor() {
 
+    @Inject
+    lateinit var resultsHolder: TestResultsHolder
+
     fun notifyInstructionScreenGoNext() {
         tappingTestFlowValue = TappingTestState.Challenge
     }
 
     fun notifyChallengeScreenGoNext() {
         tappingTestFlowValue = TappingTestState.Result
+        val result = getTappingTestResult()
+        resultsHolder.putTappingTestResult(result)
     }
 
     fun notifyClicked(timeMillis: Long) {
@@ -51,6 +57,11 @@ class TappingTestFlowInteractor @Inject constructor() {
 
     fun needMoreChallenges(): Boolean {
         return resultForAllChallenges.size < 2
+    }
+
+    fun reset() {
+        clickTimesInner.clear()
+        resultForAllChallenges.clear()
     }
 
 

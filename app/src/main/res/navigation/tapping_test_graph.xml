@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_tappingTestChallenge_to_tappingTestResult"
             app:destination="@id/tappingTestResult" />
+        <action
+            android:id="@+id/action_tappingTestChallenge_to_tappingTestInstruction"
+            app:destination="@id/tappingTestInstruction" />
     </fragment>
     <fragment
         android:id="@+id/tappingTestResult"

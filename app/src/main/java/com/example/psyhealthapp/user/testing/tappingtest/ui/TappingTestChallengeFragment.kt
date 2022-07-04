@@ -45,6 +45,12 @@ class TappingTestChallengeFragment : Fragment(R.layout.tapping_test_challenge_fr
         viewModel.runChallenge()
     }
 
+    override fun onPause() {
+        if (!viewModel.isSuccess()) {
+            viewModel.reset()
+        }
+        super.onPause()
+    }
 
     private fun subscribeToEvents() {
         viewLifecycleOwner.lifecycleScope.launch {
