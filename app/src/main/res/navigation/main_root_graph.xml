@@ -39,6 +39,15 @@
         <action
             android:id="@+id/action_profile_to_stat_graph"
             app:destination="@id/stat_graph"/>
+        <action
+            android:id="@+id/action_profile_to_settings"
+            app:destination="@id/settings" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/settings"
+        android:name="com.example.psyhealthapp.settings.SettingsFragment">
+
     </fragment>
 
     <include app:graph="@navigation/tests_graph" />

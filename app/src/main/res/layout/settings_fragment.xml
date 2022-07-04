@@ -1,20 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/llBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/profile_background_1"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/primary_text"
+        android:layout_marginTop="14dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="28dp"
+        android:text="Настройте основной цвет:"
+        android:layout_gravity="center"/>
+
     <SeekBar
-        android:id="@+id/sbColor"
+        android:id="@+id/sbColorPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:max="180"
+        android:max="1536"
         android:progress="0">
     </SeekBar>
+
+    <com.example.psyhealthapp.settings.DoubleSeekBarView
+        android:id="@+id/doubleSeekBarPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+    <TextView
+        android:id="@+id/background_text"
+        android:layout_marginTop="14dp"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="28dp"
+        android:text="Настройте цвет фона:"
+        android:layout_gravity="center"/>
+
+    <SeekBar
+        android:id="@+id/sbColorBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:max="1536"
+        android:progress="0">
+    </SeekBar>
+
+    <com.example.psyhealthapp.settings.DoubleSeekBarView
+        android:id="@+id/doubleSeekBarBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/secondary_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="14dp"
+        android:gravity="center"
+        android:text="Настройте второстепенный цвет:"
+        android:textColorLink="#FF00BF"
+        android:textSize="24dp" />
+
+    <SeekBar
+        android:id="@+id/sbColorSecondary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:max="1536"
+        android:progress="0">
+    </SeekBar>
+
+    <com.example.psyhealthapp.settings.DoubleSeekBarView
+        android:id="@+id/doubleSeekBarSecondary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
 

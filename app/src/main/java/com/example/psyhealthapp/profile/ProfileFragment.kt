@@ -120,7 +120,8 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
                 controller.navigate(R.id.action_profile_to_stat_graph)
             }
             btnSettings -> {
-
+                val controller = findNavController()
+                controller.navigate(R.id.action_profile_to_settings)
             }
         }
     }
