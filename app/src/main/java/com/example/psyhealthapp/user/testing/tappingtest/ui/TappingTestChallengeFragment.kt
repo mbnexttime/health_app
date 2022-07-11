@@ -42,6 +42,10 @@ class TappingTestChallengeFragment : Fragment(R.layout.tapping_test_challenge_fr
         }
 
         subscribeToEvents()
+    }
+
+    override fun onResume() {
+        super.onResume()
         viewModel.runChallenge()
     }
 
