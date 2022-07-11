@@ -8,7 +8,6 @@ import com.example.psyhealthapp.core.TestResultsHolder
 import com.example.psyhealthapp.user.testing.results.ReactionTestResult
 import com.example.psyhealthapp.user.testing.results.TappingTestResult
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
 import javax.inject.Inject
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.psyhealthapp.databinding.DebugAddEntriesToDbBinding

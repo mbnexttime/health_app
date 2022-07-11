@@ -17,7 +17,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class TestResultsHolder @Inject constructor(
+class TestResultsHolderOld @Inject constructor(
     private val dbProvider: DBProvider
 ) : ViewModel() {
     private val db: DB by lazy(LazyThreadSafetyMode.NONE) {
@@ -28,7 +28,8 @@ class TestResultsHolder @Inject constructor(
         private val TEST_TAG: String,
         private val COUNTER_TAG: String,
         val db: DB,
-        val getResult: (String) -> T?
+        val getServer: (String) -> MutableList<T>?,
+        val Cons: (MutableList<T>) -> Parcelable
     ) : ViewModel() {
         private var counter = INVALID_COUNTER
         private var initialized = false
@@ -56,20 +57,13 @@ class TestResultsHolder @Inject constructor(
 
         private fun saveTestResultsToDB() {
             resultList?.let {
-                for ((localCounter, result) in it.withIndex()) {
-                    viewModelScope.launch {
-                        db.putStringsAsync(
-                            listOf(
-                                Pair(TEST_TAG + localCounter, gson.toJson(result))
-                            )
-                        )
-                    }
-                }
-                counter = it.size
+                counter++
+                val localCounter = counter
                 viewModelScope.launch {
                     db.putStringsAsync(
                         listOf(
-                            Pair(COUNTER_TAG, counter.toString())
+                            Pair(TEST_TAG + localCounter, gson.toJson(Cons(it))),
+                            Pair(COUNTER_TAG, localCounter.toString())
                         )
                     )
                 }
@@ -83,16 +77,10 @@ class TestResultsHolder @Inject constructor(
 
             viewModelScope.launch {
                 counter = db.getString(COUNTER_TAG)?.toInt() ?: INVALID_COUNTER
-                val server = mutableListOf<T>()
-                for (i in 0 until counter) {
-                    val result = getResult(TEST_TAG + i)
-                    result?.let {
-                        server.add(result)
-                    }
-                }
+                val server = getServer(TEST_TAG + counter)
 
                 handler.post {
-                    resultList = if (server.size != 0) {
+                    resultList = if (server != null) {
                         pendingList.forEach {
                             server.add(it)
                         }
@@ -100,10 +88,8 @@ class TestResultsHolder @Inject constructor(
                     } else {
                         pendingList
                     }
-                    if (server.size != 0) {
-                        server.forEach {
-                            resultsByDay.addResult(it.date)
-                        }
+                    server?.forEach {
+                        resultsByDay.addResult(it.date)
                     }
                     saveTestResultsToDB()
                     initialized = true
@@ -117,7 +103,10 @@ class TestResultsHolder @Inject constructor(
         REACTION_COUNTER_TAG,
         db,
         {
-            db.getParcelable(it, ReactionTestResult::class.java, gson)
+            db.getParcelable(it, ReactionTestResultList::class.java, gson)?.results
+        },
+        {
+            ReactionTestResultList(it)
         }
     )
 
@@ -126,7 +115,10 @@ class TestResultsHolder @Inject constructor(
         COMPLEX_REACTION_COUNTER_TAG,
         db,
         {
-            db.getParcelable(it, ReactionTestResult::class.java, gson)
+            db.getParcelable(it, ReactionTestResultList::class.java, gson)?.results
+        },
+        {
+            ReactionTestResultList(it)
         }
     )
 
@@ -135,7 +127,10 @@ class TestResultsHolder @Inject constructor(
         MOVING_COUNTER_TAG,
         db,
         {
-            db.getParcelable(it, MovingReactionTestResult::class.java, gson)
+            db.getParcelable(it, MovingReactionTestResultList::class.java, gson)?.results
+        },
+        {
+            MovingReactionTestResultList(it)
         }
     )
 
@@ -144,7 +139,10 @@ class TestResultsHolder @Inject constructor(
         TAPPING_COUNTER_TAG,
         db,
         {
-            db.getParcelable(it, TappingTestResult::class.java, gson)
+            db.getParcelable(it, TappingTestResultList::class.java, gson)?.results
+        },
+        {
+            TappingTestResultList(it)
         }
     )
 

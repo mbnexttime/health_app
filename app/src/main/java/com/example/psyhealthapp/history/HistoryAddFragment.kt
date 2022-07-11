@@ -8,12 +8,18 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import com.example.psyhealthapp.R
+import com.example.psyhealthapp.core.ColorHolder
 import com.example.psyhealthapp.databinding.HistoryAddViewBinding
+import com.example.psyhealthapp.settings.Colour
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class HistoryAddFragment : Fragment(R.layout.history_add_view) {
+
+    @Inject
+    lateinit var colorHolder: ColorHolder
+
     @Inject
     lateinit var model: HistoryModel
 
@@ -35,6 +41,8 @@ class HistoryAddFragment : Fragment(R.layout.history_add_view) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = HistoryAddViewBinding.bind(view)
+
+        setViewsColours()
 
         binding.historyAddContinueButton.setOnClickListener {
             val text = binding.historyAddEditText.editableText.toString()
@@ -61,5 +69,19 @@ class HistoryAddFragment : Fragment(R.layout.history_add_view) {
     override fun onDestroy() {
         super.onDestroy()
         model.removeListener(modelListener)
+    }
+
+    private fun setViewsColours() {
+        val colors = colorHolder.getColors()
+        binding.historyAddView.setBackgroundColor(colors.background)
+        binding.historyAddTitle.setTextColor(colors.primary)
+        binding.historyAddEditText.setTextColor(colors.primary)
+        binding.historyAddEditText.setBackgroundColor(colors.background)
+        binding.historyAddDisclaimer.setTextColor(colors.secondary)
+        binding.historyAddCancelButton.setTextColor(colors.primary)
+        binding.historyAddCancelButton.setBackgroundColor(colors.background)
+        binding.historyAddCancelDisclaimer.setTextColor(colors.secondary)
+        binding.historyAddContinueButton.setTextColor(colors.primary)
+        binding.historyAddContinueButton.setBackgroundColor(colors.secondary)
     }
 }

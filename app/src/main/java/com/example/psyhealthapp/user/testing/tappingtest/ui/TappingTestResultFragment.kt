@@ -7,12 +7,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.psyhealthapp.R
-import com.example.psyhealthapp.core.TestResultsHolder
 import com.example.psyhealthapp.databinding.TappingTestResultFragmentBinding
 import com.example.psyhealthapp.user.statistics.tapping.TappingMainFragment
 import com.example.psyhealthapp.user.testing.tappingtest.viewmodel.TappingTestResultViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class TappingTestResultFragment : Fragment(R.layout.tapping_test_result_fragment) {

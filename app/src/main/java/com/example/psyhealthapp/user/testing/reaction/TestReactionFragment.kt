@@ -3,7 +3,6 @@ package com.example.psyhealthapp.user.testing.reaction
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -14,7 +13,6 @@ import com.example.psyhealthapp.databinding.TestReactionFragmentBinding
 import com.example.psyhealthapp.user.testing.results.ReactionTestResult
 //import com.example.psyhealthapp.user.testing.results.ReactionTestResult
 import dagger.hilt.android.AndroidEntryPoint
-import java.time.LocalDate
 import java.time.LocalDateTime
 import javax.inject.Inject
 import kotlin.random.Random.Default.nextDouble
