@@ -1,6 +1,7 @@
 package com.example.psyhealthapp.core
 
 
+import android.graphics.Color
 import android.os.Handler
 import android.os.Looper
 import androidx.lifecycle.ViewModel
@@ -65,7 +66,6 @@ class ColorHolder @Inject constructor(
             handler.post {
                 saveColors()
                 initialized = true
-                println("Here")
             }
         }
     }
@@ -78,9 +78,9 @@ class ColorHolder @Inject constructor(
         private const val DB_PRIMARY_TAG = "primary_colour"
         private const val DB_SECONDARY_TAG = "secondary_colour"
 
-        private const val DEFAULT_PRIMARY_COLOR = R.color.black
-        private const val DEFAULT_SECONDARY_COLOR = R.color.dark_grey
-        private const val DEFAULT_BACKGROUND_COLOR = R.color.white
+        private val DEFAULT_PRIMARY_COLOR = Color.argb(255, 0, 0, 0)
+        private val DEFAULT_SECONDARY_COLOR = Color.argb(255, 50, 50, 50)
+        private val DEFAULT_BACKGROUND_COLOR = Color.argb(255, 255, 255, 255)
 
         private val handler = Handler(Looper.getMainLooper())
         private val gson = GsonBuilder().setPrettyPrinting()

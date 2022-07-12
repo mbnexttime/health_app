@@ -30,7 +30,6 @@ class SettingsFragment : Fragment(R.layout.settings_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setViewsColours()
 
         viewBinding.sbColorPrimary.setOnSeekBarChangeListener(seekBarPrimaryColourChangeListener)
         viewBinding.doubleSeekBarPrimary.viewBinding.sbLeft.setOnSeekBarChangeListener(seekBarPrimaryBlackChangeListener)
@@ -47,7 +46,11 @@ class SettingsFragment : Fragment(R.layout.settings_fragment) {
         viewBinding.saveButton.setOnClickListener {
             colorHolder.putColours(primaryColour, secondaryColour, backgroundColour)
         }
+    }
 
+    override fun onResume() {
+        super.onResume()
+        setViewsColours()
     }
 
     private val seekBarPrimaryColourChangeListener = object: SeekBar.OnSeekBarChangeListener {
